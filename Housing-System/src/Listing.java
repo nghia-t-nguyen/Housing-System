@@ -40,8 +40,8 @@ public class Listing {
 	
 	public ArrayList<String> getReviews() {
 		ArrayList<String> reviewsList = new ArrayList<>();
-		for(int i = 0; i < reviews.size(); i++ ) {
-			reviewsList.add(reviews[i].toString);
+		for(Review review : reviews ) {
+			reviewsList.add(review.toString());
 		}
 		return reviewsList;
 	}
