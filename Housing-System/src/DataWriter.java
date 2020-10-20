@@ -15,6 +15,7 @@ public class DataWriter {
 	}
 	
 	public static JSONObject getListingJSON(Listing listing) {
+		return null;
 		
 	}
 	public static JSONObject getAccountJSON(Account account) {
