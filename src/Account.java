@@ -21,14 +21,25 @@ public abstract class Account implements Comparable<Account>{
   }
   
   public boolean equals(Account other) {
-    return true;
+    if (username.equals(other.getUsername())) {
+      return true;
+    }
+    return false;
   }
   
   public int compareTo(Account other) {
-    return 0;
+    return username.compareToIgnoreCase(other.getUsername());
   }
   
-  public void receiveMessage(String text) { }
+  public void receiveMessage(String text) {
+    if (messagebox != null) {
+      messagebox.addMessage(text);
+    }
+  }
+  
+  public String getUsername() {
+    return username;
+  }
   
   public int getPassword() {
     return hashedPassword;
