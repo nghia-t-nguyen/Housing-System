@@ -9,8 +9,8 @@ public class MessageBox {
         this.myUser = myUser;
     }
 
-    public void addMessages(String text){
-        messages.add(text);
+    public void addMessage(String text){
+        messages.add(new Message(myUser,text));
     }
 
     public void showMessages(){}
