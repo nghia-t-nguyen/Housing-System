@@ -81,5 +81,9 @@ public class Listing {
 	public String toString() {
 		return "";
 	}
+	
+	public String getAddress() {
+	  return address;
+	}
 
 }

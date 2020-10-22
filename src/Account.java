@@ -44,4 +44,12 @@ public abstract class Account implements Comparable<Account>{
   public int getPassword() {
     return hashedPassword;
   }
+  
+  public String getFirstName() {
+    return firstName;
+  }
+  
+  public String getLastName() {
+    return lastName;
+  }
 }
