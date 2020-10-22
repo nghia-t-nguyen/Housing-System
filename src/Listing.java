@@ -17,6 +17,10 @@ public class Listing {
 		this.name = name;
 		this.address = address;
 	}
+	public Listing(String name, String address) {
+		this.name = name;
+		this.address = address;
+	}
 	
 	public void addDecription(String text) {
 		this.description = text;

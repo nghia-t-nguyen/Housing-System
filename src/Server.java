@@ -9,6 +9,9 @@ public class Server {
   private Server() {
     accounts = new TreeSet<Account>();
     listings = new ArrayList<Listing>();
+    
+    accounts = DataLoader.loadAccounts();
+    listings = DataLoader.loadListings();
   }
   
   public static Server getInstance() {
@@ -18,8 +21,8 @@ public class Server {
     return server;
   }
   
-  public ArrayList<Account> getAllAccounts() {
-    return null;
+  public TreeSet<Account> getAllAccounts() {
+    return accounts;
   }
   
   public Account getAccount(String username) {
@@ -27,16 +30,22 @@ public class Server {
   }
 
   public ArrayList<Listing >getAllListings() {
-    return null;
+    return listings;
   }
   
   public Listing getListing(String address) {
     return null;
   }
   
-  public void addAccount(Account account) {}
+  public void addAccount(Account account) {
+	  accounts.add(account);
+	  DataWriter.saveAccounts();
+  }
   
-  public void addListing(Listing listing) {}
+  public void addListing(Listing listing) {
+	  listings.add(listing);
+	  DataWriter.saveListings();
+  }
   
   public ArrayList<HostAccount> searchHosts(String name) {
     return null;
