@@ -12,6 +12,9 @@ public class Server {
   private Server() {
     accounts = new TreeSet<Account>();
     listings = new ArrayList<Listing>();
+    
+    accounts = DataLoader.loadAccounts();
+    listings = DataLoader.loadListings();
   }
 
   /**
@@ -60,6 +63,7 @@ public class Server {
     }
 
     return ret;
+
   }
 
   /**
@@ -79,6 +83,7 @@ public class Server {
     }
     return null;
   }
+
 
   /**
    * Gets all of the listings from the server
@@ -108,23 +113,26 @@ public class Server {
     return null;
   }
 
+
   /**
    * adds an account to the server
    * 
    * @param account - the account to be added to the server
    */
   public void addAccount(Account account) {
-    accounts.add(account);
+	  accounts.add(account);
+	  DataWriter.saveAccounts();
   }
-
+    
   /**
    * adds a listing to the server
    * 
    * @param listing - the listing to be added to the server
    */
-  public void addListing(Listing listing) {
-    listings.add(listing);
-  }
+    public void addListing(Listing listing) {
+	  listings.add(listing);
+	  DataWriter.saveListings();
+    }
 
   /**
    * Searches the host by name
