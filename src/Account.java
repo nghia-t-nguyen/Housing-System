@@ -35,6 +35,10 @@ public abstract class Account implements Comparable<Account>{
     messagebox.addMessage(text);
   }
   
+  public MessageBox getMessageBox() {
+    return messagebox;
+  }
+  
   public String getUsername() {
     return username;
   }
