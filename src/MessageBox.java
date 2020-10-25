@@ -10,7 +10,8 @@ public class MessageBox {
   }
 
   public void sendMessage(Account to, String text) {
-    to.receiveMessage("From: " + myUser.getUsername() + "\n\n" +text);
+    to.receiveMessage("From: " + myUser.getUsername() + "\n\n" + text);
+    myUser.receiveMessage("To: " + to.getUsername() + "\n\n" + text);
   }
   
   public void addMessage(String text){
@@ -23,8 +24,7 @@ public class MessageBox {
       return;
     }
     System.out.println("\nMessages:\n");
-    for (int i = messages.size()-1; i >= 0; i--) { //print most recent to oldest 
-      String message = (String) messages.get(i);
+    for (String message : messages) { //print most recent to oldest 
       System.out.println(message + "\n_______________________");
     }
   }
