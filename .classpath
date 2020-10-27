@@ -7,5 +7,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="accounts.json"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
