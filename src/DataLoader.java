@@ -93,7 +93,7 @@ public class DataLoader {
 					int rating = (int)review.get("rating");
 					student.addRenterReview(new Review(writer, rating, text));
 				}	
-				
+				/*
 				JSONArray bookmarksJSON = (JSONArray)studentaccountJSON.get("bookmarks");
 				for (int j= 0; j< bookmarksJSON.size();++j) {
 					student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
@@ -102,7 +102,7 @@ public class DataLoader {
 				JSONArray favoritesJSON = (JSONArray)studentaccountJSON.get("favoriteProperties");
 				for (int j= 0; j< favoritesJSON.size();++j) {
 					student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
-				}
+				}*/
 				
 				accounts.add(student);
 			}
@@ -130,12 +130,12 @@ public class DataLoader {
 					int rating = (int)review.get("rating");
 					host.addHostReview(new Review(writer, rating, text));
 				}
-				
+				/*
 				JSONArray propertyJSON = (JSONArray)hostaccountJSON.get("ownedProperty");
 				for (int j= 0; j<propertyJSON.size();++j) {
 					host.addProperty(server.getListing((String)propertyJSON.get(j)));
 				}
-				
+				*/
 				accounts.add(host);
 			}
 					

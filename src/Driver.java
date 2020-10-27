@@ -126,10 +126,10 @@ public class Driver {
   public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
     server = Server.getInstance();
-    /*server.addAccount(new StudentAccount("nghia-t-nguyen", "nghia", "Nghia", "Nguyen", "1234"));
+    server.addAccount(new StudentAccount("nghia-t-nguyen", "nghia", "Nghia", "Nguyen", "1234"));
     server.addAccount(new StudentAccount("riceconfetti", "rhylen", "Rhylen", "Nguyen", "12345"));
     server.addAccount(new StudentAccount("Austino1999", "austin", "Austin", "O'Malley", "1234"));
-    server.addAccount(new StudentAccount("deesort", "dylan", "Dylan", "Ortuno", "1234"));*/
+    server.addAccount(new StudentAccount("deesort", "dylan", "Dylan", "Ortuno", "1234"));
 
     // server.addAccount(new StudentAccount(""));
     /*
