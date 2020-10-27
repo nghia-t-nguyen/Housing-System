@@ -13,8 +13,8 @@ public class Server {
     accounts = new TreeSet<Account>();
     listings = new ArrayList<Listing>();
     
-    accounts = DataLoader.loadAccounts();
     listings = DataLoader.loadListings();
+    accounts = DataLoader.loadAccounts();
   }
 
   /**
@@ -54,7 +54,7 @@ public class Server {
    * 
    * @return - an arraylist with all of the accounts
    */
-  public ArrayList<Account> getAllAccounts() {
+  /*public ArrayList<Account> getAllAccounts() {
     ArrayList<Account> ret = new ArrayList<Account>();
 
     Iterator<Account> iterator = accounts.iterator();
@@ -64,7 +64,12 @@ public class Server {
 
     return ret;
 
-  }
+  }*/
+  
+  public TreeSet<Account> getAllAccounts() {
+	    return accounts;
+
+	  }
 
   /**
    * Gets an instance of an account with the corresponding username
@@ -121,7 +126,7 @@ public class Server {
    */
   public void addAccount(Account account) {
 	  accounts.add(account);
-	  DataWriter.saveAccounts();
+	  //DataWriter.saveAccounts();
   }
     
   /**
@@ -131,7 +136,7 @@ public class Server {
    */
     public void addListing(Listing listing) {
 	  listings.add(listing);
-	  DataWriter.saveListings();
+	  //DataWriter.saveListings();
     }
 
   /**

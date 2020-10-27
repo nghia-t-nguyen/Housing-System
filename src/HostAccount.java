@@ -6,7 +6,15 @@ public class HostAccount extends Account {
 
   public HostAccount(String username, String password, String firstName, String lastName) {
     super(username, password, firstName, lastName);
+    ownedProperties = new ArrayList<Listing>();
+    hostReviews = new ArrayList<Review>();
   }
+  
+  public HostAccount(String username, int hashedPassword, String firstName, String lastName) {
+	    super(username, hashedPassword, firstName, lastName);
+	    ownedProperties = new ArrayList<Listing>();
+	    hostReviews = new ArrayList<Review>();
+	  }
   
   public void addHostReview(Review review) {}
   

@@ -4,13 +4,8 @@
         "username":"ohareemily",
         "hashedPassword":1234,
         "firstName":"Emily",
-        "lastName": "O'Hare",
-        "messageBox":[
-          {
-            "from":"Amy Baker",
-            "text":"System Response: Amy Baker has seen your visit request."
-          }
-        ],
+        "lastName": "OHare",
+        "messageBox":["From:Ana Baker\n\nSystem Response: Amy Baker has see your request."],
         "studentID":00001,
         "renterReviews":[
           {
@@ -30,10 +25,6 @@
         "firstName": "Amy",
         "lastName": "Baker",
         "messageBox":[
-          {
-            "from": "Emily O'Hare",
-            "text": "System Message:  Emily O'Hare sent a visit request."
-          }
         ],
         "ownedProperties":["1270 Polo Rd, Columbia, SC 29223"],
         "hostReviews":[
@@ -57,10 +48,7 @@
         "firstName": "Garett",
         "lastName": "McDaniels",
         "messageBox":[
-          {
-            "from": "Emily O'Hare",
-            "text": "System Message:  Emily O'Hare sent a visit request."
-          }
+          "From: Emily OHare\n\nSystem Message:  Emily OHare sent a visit request."
         ],
         "ownedProperties":["1520 Main St UNIT 2G, Columbia, SC 29201"],
         "hostReviews":[]

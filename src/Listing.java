@@ -21,7 +21,10 @@ public class Listing {
 	}
 	
 	public Listing(String name, String address, double rent, boolean rented) {
-		
+		this.name = name;
+		this.address = address;
+		this.rent = rent;
+		this.rented = rented;
 	}
 		
 	public void addDecription(String text) {
