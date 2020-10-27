@@ -17,7 +17,7 @@ public abstract class Account implements Comparable<Account>{
     this.firstName = firstName;
     this.lastName = lastName;
     this.hashedPassword = password.hashCode();
-    messagebox = null;
+    messagebox = new MessageBox(this);
   }
   
   public boolean equals(Account other) {
@@ -32,9 +32,11 @@ public abstract class Account implements Comparable<Account>{
   }
   
   public void receiveMessage(String text) {
-    if (messagebox != null) {
-      messagebox.addMessage(text);
-    }
+    messagebox.addMessage(text);
+  }
+  
+  public MessageBox getMessageBox() {
+    return messagebox;
   }
   
   public String getUsername() {
