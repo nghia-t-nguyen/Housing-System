@@ -1,0 +1,70 @@
+[{
+    "studentAccount":[
+      {
+        "username":"ohareemily",
+        "hashedPassword":1234,
+        "firstName":"Emily",
+        "lastName": "O'Hare",
+        "messageBox":[
+          {
+            "from":"Amy Baker",
+            "text":"System Response: Amy Baker has seen your visit request."
+          }
+        ],
+        "studentID":00001,
+        "renterReviews":[
+          {
+            "text": "Great renter, clean, no problems!",
+            "writer": "Amy Baker",
+            "rating":5
+          }
+        ],
+        "bookmarks":["2170 N Lake Dr, Columbia, SC 29212", "1520 Main St UNIT 2G, Columbia, SC 29201"],
+        "favoriteProperties":[]
+      }
+    ],
+    "hostAccount":[
+      {
+        "username":"bakeramy",
+        "hashedPassword": 2938,
+        "firstName": "Amy",
+        "lastName": "Baker",
+        "messageBox":[
+          {
+            "from": "Emily O'Hare",
+            "text": "System Message:  Emily O'Hare sent a visit request."
+          }
+        ],
+        "ownedProperties":["1270 Polo Rd, Columbia, SC 29223"],
+        "hostReviews":[
+          {
+            "text": "So helpful, wonderful agent, would recommend",
+            "writer": "Emily O'Hare",
+            "rating": 5
+          }
+        ]
+      }, {
+        "username":"smithandrew",
+        "hashedPassword": 3484,
+        "firstName": "Andrew",
+        "lastName": "Smith",
+        "messageBox":[],
+        "ownedProperties":["2170 N Lake Dr, Columbia, SC 29212"],
+        "hostReviews":[]
+      }, {
+        "username":"mcdanielsgarett",
+        "hashedPassword": 3047,
+        "firstName": "Garett",
+        "lastName": "McDaniels",
+        "messageBox":[
+          {
+            "from": "Emily O'Hare",
+            "text": "System Message:  Emily O'Hare sent a visit request."
+          }
+        ],
+        "ownedProperties":["1520 Main St UNIT 2G, Columbia, SC 29201"],
+        "hostReviews":[]
+      },
+    ]
+  }
+]
