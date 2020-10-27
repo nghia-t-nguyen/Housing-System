@@ -13,9 +13,15 @@ public class Listing {
 	private boolean rented;
 	
 	public Listing(HostAccount host, String name, String address, double rent, boolean rented) {
-		this.host = host;
+		host.addProperty(this);
 		this.name = name;
 		this.address = address;
+		this.rent = rent;
+		this.rented = rented;
+	}
+	
+	public Listing(String name, String address, double rent, boolean rented) {
+		
 	}
 		
 	public void addDecription(String text) {

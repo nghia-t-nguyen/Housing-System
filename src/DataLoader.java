@@ -16,7 +16,32 @@ public class DataLoader {
 	
 	public static TreeSet<Account> loadAccounts() {
 		TreeSet<Account> accounts = new TreeSet<Account>();
-		return accounts;
+		
+		try {
+			FileReader reader = new FileReader("src/accounts.json");
+			JSONArray accountsJSON = (JSONArray)new JSONParser().parse(reader);
+			JSONArray studentaccountsJSON = (JSONArray)accountsJSON.get(0);
+			JSONArray hostaccountsJSON = (JSONArray)accountsJSON.get(1);
+			
+			for(int i=0; i < studentaccountsJSON.size(); i++) {
+				JSONObject studentaccountJSON = (JSONObject)studentaccountsJSON.get(i);
+				String username = (String)studentaccountJSON.get("username");
+				int hashedPassword = (int)studentaccountJSON.get("hashedPassword");
+				String firstName = (String)studentaccountJSON.get("firstName");
+				String lastName = (String)studentaccountJSON.get("lastName");
+				
+			}
+			
+			for(int i=0; i < hostaccountsJSON.size(); i++) {
+				JSONObject hostaccountJSON = (JSONObject)hostaccountsJSON.get(i);
+			}
+					
+			return accounts;
+		} catch (Exception e) {
+			
+		}
+		return null;
+		
 	}
 	
 	public static ArrayList<Listing> loadListings() {
@@ -24,7 +49,6 @@ public class DataLoader {
 		
 		try {
 			FileReader reader = new FileReader("src/listings.json");
-			JSONParser parser = new JSONParser();
 			JSONArray listingsJSON = (JSONArray)new JSONParser().parse(reader);
 			
 			for(int i=0; i < listingsJSON.size(); i++) {
@@ -33,15 +57,14 @@ public class DataLoader {
 				String address = (String)listingJSON.get("address");
 				String description = (String)listingJSON.get("description");
 				
-				String host = (String)listingJSON.get("host");
 				int rent = (int)listingJSON.get("rent");
-				int bedrooms= (int)listingJSON.get("bedrooms");
+				int bedrooms= ((Long)listingJSON.get("bedrooms")).intValue();
 				int bathrooms= (int)listingJSON.get("bathrooms");
 				boolean rented = (boolean)listingJSON.get("rented");				
 				JSONArray reviewsJSON = (JSONArray)listingJSON.get("reviews");
 		
 				
-				listings.add(new Listing((HostAccount) server.getAccount(host),name, address, rent, rented));
+				listings.add(new Listing(name, address, rent, rented));
 				listings.get(i).addDecription(description);
 				String f[] =(String[])listingJSON.get("filters");
 				for (String filter :f) {
@@ -52,7 +75,7 @@ public class DataLoader {
 					String text = (String)review.get("text");
 					String writer = (String)review.get("writer");
 					int rating = (int)review.get("rating");
-					listings.get(i).addReview(new Review(null, rating, text));
+					listings.get(i).addReview(new Review(server.getAccount(writer), rating, text));
 				}
 				listings.get(i).addBathrooms(bathrooms);
 				listings.get(i).addBedrooms(bedrooms);
