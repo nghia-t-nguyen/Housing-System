@@ -4,7 +4,7 @@ import java.util.TreeSet;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;;
+import org.json.simple.parser.JSONParser;
 
 /**
  * Loads the data from the JSON files
@@ -93,8 +93,8 @@ public class DataLoader {
 					int rating = (int)review.get("rating");
 					student.addRenterReview(new Review(writer, rating, text));
 				}	
-				/*
-				JSONArray bookmarksJSON = (JSONArray)studentaccountJSON.get("bookmarks");
+				
+				/*JSONArray bookmarksJSON = (JSONArray)studentaccountJSON.get("bookmarks");
 				for (int j= 0; j< bookmarksJSON.size();++j) {
 					student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
 				}
@@ -130,12 +130,12 @@ public class DataLoader {
 					int rating = (int)review.get("rating");
 					host.addHostReview(new Review(writer, rating, text));
 				}
-				/*
-				JSONArray propertyJSON = (JSONArray)hostaccountJSON.get("ownedProperty");
+				
+				/*JSONArray propertyJSON = (JSONArray)hostaccountJSON.get("ownedProperty");
 				for (int j= 0; j<propertyJSON.size();++j) {
 					host.addProperty(server.getListing((String)propertyJSON.get(j)));
-				}
-				*/
+				}*/
+				
 				accounts.add(host);
 			}
 					
