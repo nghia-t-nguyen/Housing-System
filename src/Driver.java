@@ -53,6 +53,12 @@ public class Driver {
 				System.out.println(account.getFirstName());
 			}
     	  }
+    	  
+    	  for (Listing listin : server.getAllListings()) {
+    		  System.out.println(listin.getAddress());
+    	  }
+    	  
+    	  //System.out.println("1234".hashCode());
       }
       return this;
 	}
