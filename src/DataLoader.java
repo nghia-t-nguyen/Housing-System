@@ -80,14 +80,13 @@ public class DataLoader {
 					String studentID = (String)accountJSON.get("studentID");
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
 
-					// Can we change these to just be account reviews?
-					JSONArray reviewsJSON = (JSONArray)accountJSON.get("renterReviews");
+					JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
 					for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
 						String text = (String)review.get("text");
 						String writer = (String)review.get("writer");
 						int rating = ((Long)review.get("rating")).intValue();
-						student.addRenterReview(new Review(writer, rating, text));
+						student.addAccountReview(new Review(writer, rating, text));
 					}
 					
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
@@ -110,36 +109,32 @@ public class DataLoader {
 					accounts.add(student);
 				} else {
 					HostAccount host = new HostAccount(username, hashedPassword, firstName, lastName);
+					
+					JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
+					for ( int j=0; j <reviewsJSON.size(); ++j) {
+						JSONObject review = (JSONObject)reviewsJSON.get(j);
+						String text = (String)review.get("text");
+						String writer = (String)review.get("writer");
+						int rating = ((Long)review.get("rating")).intValue();
+						host.addAccountReview(new Review(writer, rating, text));
+					}
+					
+					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+					
+					for (int j = 0; j< messageBoxJSON.size(); ++j) {
+						//host.receiveMessage((String)messageBoxJSON.get(j));
+					}
+					
+					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperty");
+					for (int j= 0; j<propertyJSON.size();++j) {
+						host.addProperty(server.getListing((String)propertyJSON.get(j)));
+					}
+
 					accounts.add(host);
 					
 				} 
 			}
-			/*
-
-			for(int i=0; i < hostaccountsJSON.size(); ++i) {
-				
-				/*MessageBox messageBox = new MessageBox(host);
-				JSONArray messageBoxJSON = (JSONArray)hostaccountJSON.get("messagebox");
-				for (int j = 0; j< messageBoxJSON.size(); ++j) {
-					messageBox.addMessage((String)messageBoxJSON.get(j));
-				}
-
-				JSONArray reviewsJSON = (JSONArray)hostaccountJSON.get("hostReviews");
-				for ( int j=0; j <reviewsJSON.size(); ++j) {
-					JSONObject review = (JSONObject)reviewsJSON.get(j);
-					String text = (String)review.get("text");
-					String writer = (String)review.get("writer");
-					int rating = ((Long)review.get("rating")).intValue();
-					host.addHostReview(new Review(writer, rating, text));
-				}*/
-
-				/*JSONArray propertyJSON = (JSONArray)hostaccountJSON.get("ownedProperty");
-				for (int j= 0; j<propertyJSON.size();++j) {
-					host.addProperty(server.getListing((String)propertyJSON.get(j)));
-				}
-
-				accounts.add(host);
-			}*/
+			
 			for (Account account : accounts) {
 				System.out.println(account.getFirstName());
 			}

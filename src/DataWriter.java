@@ -1,7 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -91,6 +90,10 @@ public class DataWriter {
 		accountDetails.put("messagebox", messageBoxJSON);*/
 		
 		JSONArray reviewJSON = new JSONArray();
+		for (Review review : account.getAccountReviews()) {
+			reviewJSON.add(getReviewJSON(review));
+		}
+		
 			
 		if (account instanceof StudentAccount) {
 			StudentAccount student = (StudentAccount) account;
@@ -98,9 +101,6 @@ public class DataWriter {
 			accountDetails.put("studentID", student.getStudentID());
 			
 			
-			for (Review review : student.getRenterReviews()) {
-				reviewJSON.add(getReviewJSON(review));
-			}
 			
 			JSONArray bookmarkJSON = new JSONArray();
 			for (Listing bookmark : student.getBookmarks()) {
@@ -118,10 +118,6 @@ public class DataWriter {
 		} else if (account instanceof HostAccount) {
 			HostAccount host = (HostAccount) account;
 			accountDetails.put("type", "host");
-		
-			for (Review review : host.getReviews()) {
-				reviewJSON.add(getReviewJSON(review));
-			}
 			
 			JSONArray ownedJSON = new JSONArray();
 			for (Listing listing : host.getOwnedProperties()) {
