@@ -1,16 +1,15 @@
-
 public class Review {
 	protected String text;
-	protected String writer;
+	protected Account writer;
 	protected int rating;
 	
-	public Review(String writer, int rating, String text) {
+	public Review(Account writer, int rating, String text) {
 		this.writer = writer;
 		this.rating = rating;
 		this.text = text;
 	}
 	
-	public String getWriter() {
+	public Account getWriter() {
 		return this.writer;
 	}
 	
@@ -23,7 +22,7 @@ public class Review {
 	}
 	
 	public String toString() {
-		return "";
+		return "Writer: " + getWriter().getUsername() + "\nRating: " + getRating() + "\nReview: " + text;
 	}
 
 }
