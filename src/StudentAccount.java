@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class StudentAccount extends Account{
   private String studentID;
-  private ArrayList<Review> renterReviews;
   private ArrayList<Listing> bookmarks;
   private ArrayList<Listing> favoriteProperties;
 
@@ -10,9 +9,6 @@ public class StudentAccount extends Account{
 	return studentID;
 }
 
-public ArrayList<Review> getRenterReviews() {
-	return renterReviews;
-}
 
 public ArrayList<Listing> getFavoriteProperties() {
 	return favoriteProperties;
@@ -22,7 +18,6 @@ StudentAccount(String username, String password, String firstName, String lastNa
       String studentID) {
     super(username, password, firstName, lastName);
     this.studentID = studentID;
-    renterReviews = new ArrayList<Review>();
     bookmarks = new ArrayList<Listing>();
     favoriteProperties = new ArrayList<Listing>();
   }
@@ -31,7 +26,6 @@ StudentAccount(String username, String password, String firstName, String lastNa
 	      String studentID) {
 	    super(username, hashedPassword, firstName, lastName);
 	    this.studentID = studentID;
-	    renterReviews = new ArrayList<Review>();
 	    bookmarks = new ArrayList<Listing>();
 	    favoriteProperties = new ArrayList<Listing>();
 	  }
@@ -40,15 +34,10 @@ StudentAccount(String username, String password, String firstName, String lastNa
   
   public void addFavorite(Listing listing) {}
   
-  public void addRenterReview(Review review) {}
-  
   public void writeListingReview(Listing listing, int rating, String text) {}
   
   public void writeHostReview(HostAccount host, int rating, String text) {}
   
-  public ArrayList<Review> getReviews() {
-    return renterReviews;
-  }
   
   public ArrayList<Listing> getBookmarks() {
     return bookmarks;

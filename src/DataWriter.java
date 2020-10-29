@@ -1,7 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -62,6 +61,7 @@ public class DataWriter {
 		for (Review review : listing.getClassReviews()) {
 			reviewJSON.add(getReviewJSON(review));
 		}
+		System.out.println(reviewJSON+"\n");
 		
 		JSONArray filterJSON = new JSONArray();
 		for (String filter : listing.getFilters()) {
@@ -91,17 +91,17 @@ public class DataWriter {
 		accountDetails.put("messagebox", messageBoxJSON);*/
 		
 		JSONArray reviewJSON = new JSONArray();
+		for (Review review : account.getAccountReviews()) {
+				reviewJSON.add(getReviewJSON(review));
+			}
+		System.out.println(reviewJSON+"\n");
+		accountDetails.put("accountReviews", reviewJSON);
 			
 		if (account instanceof StudentAccount) {
 			StudentAccount student = (StudentAccount) account;
 			accountDetails.put("type", "student");
 			accountDetails.put("studentID", student.getStudentID());
-			
-			
-			for (Review review : student.getRenterReviews()) {
-				reviewJSON.add(getReviewJSON(review));
-			}
-			
+					
 			JSONArray bookmarkJSON = new JSONArray();
 			for (Listing bookmark : student.getBookmarks()) {
 				bookmarkJSON.add(getListingJSON(bookmark));
@@ -112,26 +112,20 @@ public class DataWriter {
 				favoriteJSON.add(getListingJSON(favorite));
 			}
 			
-			accountDetails.put("renterReviews", reviewJSON);
 			accountDetails.put("bookmarks", bookmarkJSON);
 			accountDetails.put("favorites", favoriteJSON);			
 		} else if (account instanceof HostAccount) {
 			HostAccount host = (HostAccount) account;
 			accountDetails.put("type", "host");
-		
-			for (Review review : host.getReviews()) {
-				reviewJSON.add(getReviewJSON(review));
-			}
 			
 			JSONArray ownedJSON = new JSONArray();
 			for (Listing listing : host.getOwnedProperties()) {
 				ownedJSON.add(getListingJSON(listing));
 			}
-			
-			accountDetails.put("hostReviews", reviewJSON);
 			accountDetails.put("ownedProperties", ownedJSON);
 			
 		}
+		//System.out.println(accountDetails);
 		return accountDetails;	
 	}
 	
