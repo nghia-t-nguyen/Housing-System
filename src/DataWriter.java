@@ -39,6 +39,9 @@ public class DataWriter {
 		listingDetails.put("description", listing.getDescription());
 		listingDetails.put("rent", listing.getRent());
 		listingDetails.put("bedrooms", listing.getBedrooms());
+		for (String review : listing.getReviews()) {
+			
+		}
 		listingDetails.put("bathrooms", listing.getBathrooms());
 		listingDetails.put("reviews", listing.getReviews());
 		listingDetails.put("rented", listing.isRented());
