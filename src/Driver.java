@@ -10,11 +10,11 @@ public class Driver {
     server = Server.getInstance();
     scan = new Scanner(System.in);
   }
-
+  
   public void run() {
     Display display = new DefaultDisplay(null);
     int choice = 0;
-
+    
     while (true) {
       System.out.println("=================================");
       display.display();
@@ -22,13 +22,13 @@ public class Driver {
       if (choice == 0) {
         break;
       }
-
+      
       display = display.option(choice);
     }
     scan.close();
-
+    
   }
-
+  
   private int getUserCommand() {
     if (scan.hasNextInt()) {
       int ret = scan.nextInt();
@@ -63,7 +63,7 @@ public class Driver {
 
   private static class DefaultDisplay implements Display {
     private Account loggedIn;
-
+    
     public DefaultDisplay(Account account) {
       loggedIn = account;
     }
@@ -77,46 +77,26 @@ public class Driver {
       switch(choice) {
         case 1:
           return new LoginDisplay(loggedIn);
+        case 2:
+        	for (Account account : server.getAllAccounts())
+        		System.out.println(account.getFirstName());
+        	for (Listing listing : server.getAllListings())
+        		System.out.println(listing.getAddress());
+        	return this;
+        case 4: 
+        	server.addAccount(new StudentAccount("rhylen", "Rhylen", "Nguyen", "rhylen" , "rhylen"));
+        	server.addListing(new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
+        	return this;
         default:
           System.out.println("Invalid input");
           return this;
       }
-
-      if (choice == 2) {
-    	  if (server.getAllAccounts() == null) {
-    		  System.out.println("No Accounts");
-    	  } else {
-	    	  for (Account account : server.getAllAccounts()) {
-				System.out.println(account.getFirstName());
-				/*StudentAccount s = new StudentAccount("a", "a", "a", "a", "a");
-				if (account.getClass() == s.getClass()) {
-					ArrayList<Listing> b = ((StudentAccount)account).getBookmarks();
-					for (Listing listing: b) {
-						System.out.println("     "+ listing.getAddress());
-					}
-					for (Listing listing: s.getFavorites()) {
-						System.out.println("     "+ listing.getAddress());
-					}
-				}*/
-			}
-    	  }
-
-    	  for (Listing listin : server.getAllListings()) {
-    		  System.out.println(listin.getAddress());
-    		  for (String s :listin.getReviews()) {
-    			  System.out.println(s);
-    		  }
-    	  }
-
-    	  //System.out.println("1234".hashCode());
-      }
-      return this;
 	}
   }
 
   private static class LoginDisplay implements Display {
     private Account loggedIn;
-
+    
     public LoginDisplay(Account account) {
       loggedIn = account;
     }
@@ -168,7 +148,7 @@ public class Driver {
 
   private static class StudentAccountDisplay implements Display {
     private Account loggedIn;
-
+    
     public StudentAccountDisplay(Account account) {
       loggedIn = account;
     }
@@ -191,10 +171,10 @@ public class Driver {
       }
     }
   }
-
+  
   private static class HostAccountDisplay implements Display {
     private Account loggedIn;
-
+    
     public HostAccountDisplay(Account account) {
       loggedIn = account;
     }
@@ -220,7 +200,7 @@ public class Driver {
 
   private static class MessageDisplay implements Display {
     private Account loggedIn;
-
+    
     public MessageDisplay(Account account) {
       loggedIn = account;
     }

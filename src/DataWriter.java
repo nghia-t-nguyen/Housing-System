@@ -90,25 +90,26 @@ public class DataWriter {
 	
 		accountDetails.put("messagebox", messageBoxJSON);*/
 		
+		JSONArray reviewJSON = new JSONArray();
 			
 		if (account instanceof StudentAccount) {
 			StudentAccount student = (StudentAccount) account;
 			accountDetails.put("type", "student");
 			accountDetails.put("studentID", student.getStudentID());
 			
-			JSONArray reviewJSON = new JSONArray();
+			
 			for (Review review : student.getRenterReviews()) {
 				reviewJSON.add(getReviewJSON(review));
 			}
 			
 			JSONArray bookmarkJSON = new JSONArray();
 			for (Listing bookmark : student.getBookmarks()) {
-				bookmarkJSON.add(bookmark.getAddress());
+				bookmarkJSON.add(getListingJSON(bookmark));
 			}
 			
 			JSONArray favoriteJSON = new JSONArray();
 			for (Listing favorite : student.getFavorites()) {
-				favoriteJSON.add(favorite.getAddress());
+				favoriteJSON.add(getListingJSON(favorite));
 			}
 			
 			accountDetails.put("renterReviews", reviewJSON);
@@ -117,15 +118,14 @@ public class DataWriter {
 		} else if (account instanceof HostAccount) {
 			HostAccount host = (HostAccount) account;
 			accountDetails.put("type", "host");
-			
-			JSONArray reviewJSON = new JSONArray();
+		
 			for (Review review : host.getReviews()) {
 				reviewJSON.add(getReviewJSON(review));
 			}
 			
 			JSONArray ownedJSON = new JSONArray();
 			for (Listing listing : host.getOwnedProperties()) {
-				ownedJSON.add(listing.getAddress());
+				ownedJSON.add(getListingJSON(listing));
 			}
 			
 			accountDetails.put("hostReviews", reviewJSON);

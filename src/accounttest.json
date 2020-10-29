@@ -1,16 +1,5 @@
 [
   {
-    "studentID": "1234",
-    "bookmarks": [],
-    "favorites": [],
-    "firstName": "Austin",
-    "lastName": "O'Malley",
-    "hashedPassword": -1406346886,
-    "type": "student",
-    "renterReviews": [],
-    "username": "Austino1999"
-  },
-  {
     "firstName": "Amy",
     "lastName": "Baker",
     "hashedPassword": 1509442,
@@ -20,17 +9,6 @@
     "username": "bakeramy"
   },
   {
-    "studentID": "1234",
-    "bookmarks": [],
-    "favorites": [],
-    "firstName": "Dylan",
-    "lastName": "Ortuno",
-    "hashedPassword": 96063716,
-    "type": "student",
-    "renterReviews": [],
-    "username": "deesort"
-  },
-  {
     "firstName": "Garett",
     "lastName": "McDaniels",
     "hashedPassword": 1509442,
@@ -38,17 +16,6 @@
     "hostReviews": [],
     "ownedProperties": [],
     "username": "mcdanielsgarett"
-  },
-  {
-    "studentID": "1234",
-    "bookmarks": [],
-    "favorites": [],
-    "firstName": "Nghia",
-    "lastName": "Nguyen",
-    "hashedPassword": 104759079,
-    "type": "student",
-    "renterReviews": [],
-    "username": "nghia-t-nguyen"
   },
   {
     "studentID": "00001",
@@ -62,15 +29,15 @@
     "username": "ohareemily"
   },
   {
-    "studentID": "12345",
+    "studentID": "rhylen",
     "bookmarks": [],
     "favorites": [],
-    "firstName": "Rhylen",
-    "lastName": "Nguyen",
-    "hashedPassword": -931486158,
+    "firstName": "Nguyen",
+    "lastName": "rhylen",
+    "hashedPassword": -1847618990,
     "type": "student",
     "renterReviews": [],
-    "username": "riceconfetti"
+    "username": "rhylen"
   },
   {
     "firstName": "Andrew",
