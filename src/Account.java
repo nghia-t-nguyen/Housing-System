@@ -52,7 +52,11 @@ public abstract class Account implements Comparable<Account>{
   }
   
   public ArrayList<Review> getAccountReviews() {
-	  return accountReviews;
+		ArrayList<Review> reviewsList = new ArrayList<>();
+		for(Review review : accountReviews ) {
+			reviewsList.add(review);
+		}
+		return reviewsList;
   }
   
   public void addAccountReview(Review review) {

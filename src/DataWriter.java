@@ -57,6 +57,7 @@ public class DataWriter {
 		listingDetails.put("description", listing.getDescription());
 		listingDetails.put("rent", listing.getRent());
 		listingDetails.put("bedrooms", listing.getBedrooms());
+		
 		JSONArray reviewJSON = new JSONArray();
 		for (Review review : listing.getClassReviews()) {
 			reviewJSON.add(getReviewJSON(review));
