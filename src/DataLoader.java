@@ -59,7 +59,7 @@ public class DataLoader {
 		return null;
 	}
 
-	//public static Server server = Server.getInstance();
+	public static Server server = Server.getInstance();
 
 	public static TreeSet<Account> loadAccounts() {
 		TreeSet<Account> accounts = new TreeSet<Account>();
@@ -80,6 +80,7 @@ public class DataLoader {
 					String studentID = (String)accountJSON.get("studentID");
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
 
+					// Can we change these to just be account reviews?
 					JSONArray reviewsJSON = (JSONArray)accountJSON.get("renterReviews");
 					for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
@@ -94,6 +95,17 @@ public class DataLoader {
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
 						//student.receiveMessage((String)messageBoxJSON.get(j));
 					}
+					
+					//Dont know if these 2 are working properly
+					JSONArray bookmarksJSON = (JSONArray)accountJSON.get("bookmarks");
+					for (int j= 0; j< bookmarksJSON.size();++j) {
+						student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
+					}
+
+					JSONArray favoritesJSON = (JSONArray)accountJSON.get("favoriteProperties");
+					for (int j= 0; j< favoritesJSON.size();++j) {
+						student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
+					}
 
 					accounts.add(student);
 				} else {
@@ -102,31 +114,7 @@ public class DataLoader {
 					
 				} 
 			}
-			/*JSONArray studentaccountsJSON = (JSONArray)accountsJSON.get(0);
-			JSONArray hostaccountsJSON = (JSONArray)accountsJSON.get(1);
-
-			for(int i=0; i < studentaccountsJSON.size(); ++i) {
-				
-				/*MessageBox messageBox = new MessageBox(student);
-				JSONArray messageBoxJSON = (JSONArray)studentaccountJSON.get("messagebox");
-				for (int j = 0; j< messageBoxJSON.size(); ++j) {
-					messageBox.addMessage((String)messageBoxJSON.get(j));
-				}
-
-				*/
-
-				/*JSONArray bookmarksJSON = (JSONArray)studentaccountJSON.get("bookmarks");
-				for (int j= 0; j< bookmarksJSON.size();++j) {
-					student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
-				}
-
-				JSONArray favoritesJSON = (JSONArray)studentaccountJSON.get("favoriteProperties");
-				for (int j= 0; j< favoritesJSON.size();++j) {
-					student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
-				}
-
-				accounts.add(student);
-			}
+			/*
 
 			for(int i=0; i < hostaccountsJSON.size(); ++i) {
 				

@@ -51,6 +51,16 @@ public class Driver {
     	  } else {
 	    	  for (Account account : server.getAllAccounts()) {
 				System.out.println(account.getFirstName());
+				/*StudentAccount s = new StudentAccount("a", "a", "a", "a", "a");
+				if (account.getClass() == s.getClass()) {
+					ArrayList<Listing> b = ((StudentAccount)account).getBookmarks();
+					for (Listing listing: b) {
+						System.out.println("     "+ listing.getAddress());
+					}
+					for (Listing listing: s.getFavorites()) {
+						System.out.println("     "+ listing.getAddress());
+					}
+				}*/
 			}
     	  }
     	  
