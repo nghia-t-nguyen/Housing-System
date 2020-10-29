@@ -1,1 +1,25 @@
-[{"bedrooms":3,"address":"1270 Polo Rd, Columbia, SC 29223","rented":false,"reviews":[""],"name":"Polo Village","description":"Apartment Living at It's Best. Come Experience the Difference at Polo Village. A luxury community designed with your lifestyle in mind. Stroll around the lavishly landscaped lawns, spend an afternoon by the pool, exercise in our state-of-the-art 24 hour fitness center or get connected in our business center. Polo Village offer spacious 1, 2 and 3 Bedrooms apartment homes with attached and detached garages in a gated community. Enjoy nine-foot ceilings, Crown molding, private patio, balconies or sunrooms. Washer\/dryer rooms, garden style tubs, walk-in closets, ceiling fans and more. Your new home is conveniently located near I-20 and I-77 on the corner of Alpine and Polo Rd. We're next door to Polo Road Elementary School, 10 minutes away from downtown Columbia, USC, Ft Jackson and Village at Sandhills. Your new home is also just minutes away from Sesquicentennial State Park. You've experienced the rest, now experience the best! Contact our leasing office immediately for a Private tour!","rent":891.0,"bathrooms":2},{"bedrooms":3,"address":"2170 N Lake Dr, Columbia, SC 29212","rented":false,"reviews":[],"name":"The Grandview at Lake Murray","description":"The Grandview at Lake Murray offers a very rare living experience overlooking the magnificent Lake Murray. Located in Columbia, South Carolina The Grandview at Lake Murray features one, two and three bedroom apartment homes designed for you. Relax and lounge by sundrenched pool, hang out with friends around our grilling station or flex your muscles in our fitness and conditioning club. Our community beckons a sense of balance and relaxation, connection, and a return to the simple life with all the modern conveniences you can imagine.","rent":1481.0,"bathrooms":2},{"bedrooms":2,"address":"1520 Main St UNIT 2G, Columbia, SC 29201","rented":false,"reviews":[],"name":"1520 Main St UNIT 2G, Columbia, SC 29201","description":"This condo is a must see with beautiful hardwood flooring throughout, granite countertops, stainless steel appliances, high ceilings, and two full bathrooms. The condo is in the middle of downtown Columbia which makes it a highly sought after property. The condo comes with one garage parking space, gated entrance, a community sitting area and a great balcony porch.\n\nLease include HOA dues, water, and sewer.","rent":1500.0,"bathrooms":2},{"bedrooms":0,"address":"123 ABC Lane","rented":false,"reviews":[],"name":"Temp House","description":null,"rent":1234.0,"bathrooms":0}]
+[
+  {
+    "bedrooms":3,
+    "address":"1270 Polo Rd, Columbia, SC 29223",
+    "rented":false,
+    "reviews":[""],
+    "name":"Polo Village",
+    "description":"Apartment Living at It's Best. Come Experience the Difference at Polo Village. A luxury community designed with your lifestyle in mind. Stroll around the lavishly landscaped lawns, spend an afternoon by the pool, exercise in our state-of-the-art 24 hour fitness center or get connected in our business center. Polo Village offer spacious 1, 2 and 3 Bedrooms apartment homes with attached and detached garages in a gated community. Enjoy nine-foot ceilings, Crown molding, private patio, balconies or sunrooms. Washer\/dryer rooms, garden style tubs, walk-in closets, ceiling fans and more. Your new home is conveniently located near I-20 and I-77 on the corner of Alpine and Polo Rd. We're next door to Polo Road Elementary School, 10 minutes away from downtown Columbia, USC, Ft Jackson and Village at Sandhills. Your new home is also just minutes away from Sesquicentennial State Park. You've experienced the rest, now experience the best! Contact our leasing office immediately for a Private tour!",
+    "rent":891.0,
+    "bathrooms":2
+  },{
+    "bedrooms":3,
+    "address":"2170 N Lake Dr, Columbia, SC 29212",
+    "rented":false,
+    "reviews":[],
+    "name":"The Grandview at Lake Murray",
+    "description":"The Grandview at Lake Murray offers a very rare living experience overlooking the magnificent Lake Murray. Located in Columbia, South Carolina The Grandview at Lake Murray features one, two and three bedroom apartment homes designed for you. Relax and lounge by sundrenched pool, hang out with friends around our grilling station or flex your muscles in our fitness and conditioning club. Our community beckons a sense of balance and relaxation, connection, and a return to the simple life with all the modern conveniences you can imagine.",
+    "rent":1481.0,
+    "bathrooms":2
+    },
+    {
+      "bedrooms":2,
+      "address":"1520 Main St UNIT 2G, Columbia, SC 29201","rented":false,
+      "reviews":[],
+      "name":"1520 Main St UNIT 2G, Columbia, SC 29201","description":"This condo is a must see with beautiful hardwood flooring throughout, granite countertops, stainless steel appliances, high ceilings, and two full bathrooms. The condo is in the middle of downtown Columbia which makes it a highly sought after property. The condo comes with one garage parking space, gated entrance, a community sitting area and a great balcony porch.\n\nLease include HOA dues, water, and sewer.","rent":1500.0,"bathrooms":2},{"bedrooms":0,"address":"123 ABC Lane","rented":false,"reviews":[],"name":"Temp House","description":null,"rent":1234.0,"bathrooms":0}]
