@@ -99,7 +99,7 @@ public class DataLoader {
 						student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
 					}
 					
-					/*for ( int j=0; j <reviewsJSON.size(); ++j) {
+					for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
 						String text = (String)review.get("text");
 						String writer = (String)review.get("writer");
@@ -107,7 +107,7 @@ public class DataLoader {
 						student.addAccountReview(new Review(writer, rating, text));
 					}
 					
-					*/
+					
 
 					accounts.add(student);
 				} else {

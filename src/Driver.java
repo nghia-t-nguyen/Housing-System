@@ -78,11 +78,17 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-        	for (Account account : server.getAllAccounts())
-        		System.out.println(account.getFirstName());
-        	for (Listing listing : server.getAllListings())
-        		System.out.println(listing.getAddress());
-        	return this;
+          for (Account account : server.getAllAccounts())
+            System.out.println(account.getFirstName());
+          for (Listing listing : server.getAllListings())
+            System.out.println(listing.getAddress());
+          return this;
+        case 3:
+          //server.addAccount(new StudentAccount("rhylen", "Rhylen", "Nguyen", "rhylen", "rhylen"));
+          //server.addListing(
+              //new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
+          //return this;
+          return new CreateAccountDisplay(loggedIn);
         case 4: 
         	server.addAccount(new StudentAccount("rhylen", "Rhylen", "Nguyen", "rhylen" , "rhylen"));
         	server.addListing(new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
@@ -242,6 +248,6 @@ public class Driver {
 
   public static void main(String[] args) {
     Driver myDriver = new Driver();
-    myDriver.run();
+    //myDriver.run();
   }
 }

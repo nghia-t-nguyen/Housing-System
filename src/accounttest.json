@@ -23,7 +23,13 @@
     "favorites": [],
     "firstName": "Emily",
     "lastName": "OHare",
-    "accountReviews": [],
+    "accountReviews": [
+      {
+        "rating": 5,
+        "text": "Great renter, clean, no problems!",
+        "writer": "Amy Baker"
+      }
+    ],
     "hashedPassword": 1509442,
     "type": "student",
     "username": "ohareemily"

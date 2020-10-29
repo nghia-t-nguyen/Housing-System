@@ -62,7 +62,7 @@ public class DataWriter {
 		for (Review review : listing.getClassReviews()) {
 			reviewJSON.add(getReviewJSON(review));
 		}
-		System.out.println(reviewJSON+"\n");
+		//System.out.println(reviewJSON+"\n");
 		
 		JSONArray filterJSON = new JSONArray();
 		for (String filter : listing.getFilters()) {
@@ -92,10 +92,11 @@ public class DataWriter {
 		accountDetails.put("messagebox", messageBoxJSON);*/
 		
 		JSONArray reviewJSON = new JSONArray();
+		//System.out.println("SHDJIHSIDHI"+ account.getAccountReviews());
 		for (Review review : account.getAccountReviews()) {
 				reviewJSON.add(getReviewJSON(review));
 			}
-		System.out.println(reviewJSON+"\n");
+		//System.out.println(reviewJSON+"\n");
 		accountDetails.put("accountReviews", reviewJSON);
 			
 		if (account instanceof StudentAccount) {
