@@ -42,7 +42,7 @@ public class StudentAccount extends Account{
         }
         text = Lreview;
         LRating = rating;
-        renterReviews[listing];
+      
         //I need to figure out how to add to a new listing each time it's called upon, I'm not sure this'll work but we'll see
     }
 
@@ -66,7 +66,7 @@ public class StudentAccount extends Account{
         }
         text = Hreview;
         HRating = rating;
-        renterReviews[host];
+       
     }
 /**
     public void writeHostReview(HostAccount host, int rating, String text) {
