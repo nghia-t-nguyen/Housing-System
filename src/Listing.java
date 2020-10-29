@@ -21,7 +21,10 @@ public class Listing {
 	}
 	
 	public Listing(String name, String address, double rent, boolean rented) {
-		
+		this.name = name;
+		this.address = address;
+		this.rent = rent;
+		this.rented = rented;
 	}
 		
 	public void addDecription(String text) {
@@ -48,6 +51,13 @@ public class Listing {
 		ArrayList<String> reviewsList = new ArrayList<>();
 		for(Review review : reviews ) {
 			reviewsList.add(review.toString());
+		}
+		return reviewsList;
+	}
+	public ArrayList<Review> getClassReviews() {
+		ArrayList<Review> reviewsList = new ArrayList<>();
+		for(Review review : reviews ) {
+			reviewsList.add(review);
 		}
 		return reviewsList;
 	}
@@ -90,6 +100,18 @@ public class Listing {
 	
 	public String getAddress() {
 	  return address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public boolean isRented() {
+		return rented;
 	}
 
 }

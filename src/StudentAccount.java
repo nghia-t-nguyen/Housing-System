@@ -15,6 +15,15 @@ public class StudentAccount extends Account{
     favoriteProperties = new ArrayList<Listing>();
   }
   
+  StudentAccount(String username, int hashedPassword, String firstName, String lastName,
+	      String studentID) {
+	    super(username, hashedPassword, firstName, lastName);
+	    this.studentID = studentID;
+	    renterReviews = new ArrayList<Review>();
+	    bookmarks = new ArrayList<Listing>();
+	    favoriteProperties = new ArrayList<Listing>();
+	  }
+  
   public void addBookmark(Listing listing) {}
   
   public void addFavorite(Listing listing) {}

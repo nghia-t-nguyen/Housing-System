@@ -20,6 +20,14 @@ public abstract class Account implements Comparable<Account>{
     messagebox = new MessageBox(this);
   }
   
+  public Account(String username, int hashedPassword, String firstName, String lastName) {
+	    this.username = username;
+	    this.firstName = firstName;
+	    this.lastName = lastName;
+	    this.hashedPassword = hashedPassword;
+	    //messagebox = new MessageBox(this);
+	  }
+  
   public boolean equals(Account other) {
     if (username.equals(other.getUsername())) {
       return true;

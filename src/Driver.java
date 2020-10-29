@@ -6,7 +6,7 @@ public class Driver {
   public static Server server;
 
   public Driver(Server server) { // Used in case we want to add functionality when making a GUI
-    this.server = server;
+    Driver.server = server;
   }
 
   private Account tryLogin(String username, String password) {
@@ -44,8 +44,24 @@ public class Driver {
       if (choice == 1) {
         return new LoginDisplay();
       }
+      
+      if (choice == 2) {
+    	  if (server.getAllAccounts() == null) { 
+    		  System.out.println("No Accounts");
+    	  } else {
+	    	  for (Account account : server.getAllAccounts()) {
+				System.out.println(account.getFirstName());
+			}
+    	  }
+    	  
+    	  for (Listing listin : server.getAllListings()) {
+    		  System.out.println(listin.getAddress());
+    	  }
+    	  
+    	  //System.out.println("1234".hashCode());
+      }
       return this;
-    }
+	}
   }
 
   private static class LoginDisplay implements Display {
@@ -117,10 +133,11 @@ public class Driver {
     Scanner scan = new Scanner(System.in);
     server = Server.getInstance();
     server.addAccount(new StudentAccount("nghia-t-nguyen", "nghia", "Nghia", "Nguyen", "1234"));
-    server.addAccount(new StudentAccount("riceconfetti", "rhylen", "Rhylen", "Nguyen", "1234"));
+    server.addAccount(new StudentAccount("riceconfetti", "rhylen", "Rhylen", "Nguyen", "12345"));
     server.addAccount(new StudentAccount("Austino1999", "austin", "Austin", "O'Malley", "1234"));
     server.addAccount(new StudentAccount("deesort", "dylan", "Dylan", "Ortuno", "1234"));
-
+    
+    server.addListing(new Listing("Temp House", "123 ABC Lane", 1234.00, false));
     // server.addAccount(new StudentAccount(""));
     /*
      * ArrayList<Account> savedAccounts = DataLoader.loadAccounts(); for (Account account :
@@ -141,6 +158,7 @@ public class Driver {
         scan.nextLine();
       } catch (Exception e) {
         System.out.println("Sorry, didn't quite get that");
+        choice = 1;
       }
       if (choice == 0) {
         break;
@@ -178,8 +196,7 @@ public class Driver {
         loggedIn = null;
       }
     }
-
-
+    
     scan.close();
     System.out.println("Program terminated");
   }
