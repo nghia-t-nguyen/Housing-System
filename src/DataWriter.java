@@ -61,6 +61,7 @@ public class DataWriter {
 		for (Review review : listing.getClassReviews()) {
 			reviewJSON.add(getReviewJSON(review));
 		}
+		System.out.println(reviewJSON+"\n");
 		
 		JSONArray filterJSON = new JSONArray();
 		for (String filter : listing.getFilters()) {
@@ -91,17 +92,16 @@ public class DataWriter {
 		
 		JSONArray reviewJSON = new JSONArray();
 		for (Review review : account.getAccountReviews()) {
-			reviewJSON.add(getReviewJSON(review));
-		}
-		
+				reviewJSON.add(getReviewJSON(review));
+			}
+		System.out.println(reviewJSON+"\n");
+		accountDetails.put("accountReviews", reviewJSON);
 			
 		if (account instanceof StudentAccount) {
 			StudentAccount student = (StudentAccount) account;
 			accountDetails.put("type", "student");
 			accountDetails.put("studentID", student.getStudentID());
-			
-			
-			
+					
 			JSONArray bookmarkJSON = new JSONArray();
 			for (Listing bookmark : student.getBookmarks()) {
 				bookmarkJSON.add(getListingJSON(bookmark));
@@ -112,7 +112,6 @@ public class DataWriter {
 				favoriteJSON.add(getListingJSON(favorite));
 			}
 			
-			accountDetails.put("renterReviews", reviewJSON);
 			accountDetails.put("bookmarks", bookmarkJSON);
 			accountDetails.put("favorites", favoriteJSON);			
 		} else if (account instanceof HostAccount) {
@@ -123,11 +122,10 @@ public class DataWriter {
 			for (Listing listing : host.getOwnedProperties()) {
 				ownedJSON.add(getListingJSON(listing));
 			}
-			
-			accountDetails.put("hostReviews", reviewJSON);
 			accountDetails.put("ownedProperties", ownedJSON);
 			
 		}
+		//System.out.println(accountDetails);
 		return accountDetails;	
 	}
 	

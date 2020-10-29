@@ -76,18 +76,11 @@ public class DataLoader {
 				String firstName = (String)accountJSON.get("firstName");
 				String lastName = (String)accountJSON.get("lastName");
 				
+				JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
+				
 				if (type.equals("student")) {
 					String studentID = (String)accountJSON.get("studentID");
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
-
-					JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
-					for ( int j=0; j <reviewsJSON.size(); ++j) {
-						JSONObject review = (JSONObject)reviewsJSON.get(j);
-						String text = (String)review.get("text");
-						String writer = (String)review.get("writer");
-						int rating = ((Long)review.get("rating")).intValue();
-						student.addAccountReview(new Review(writer, rating, text));
-					}
 					
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
 					
@@ -100,18 +93,32 @@ public class DataLoader {
 					for (int j= 0; j< bookmarksJSON.size();++j) {
 						student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
 					}
-
+				
 					JSONArray favoritesJSON = (JSONArray)accountJSON.get("favoriteProperties");
 					for (int j= 0; j< favoritesJSON.size();++j) {
 						student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
 					}
+					
+					/*for ( int j=0; j <reviewsJSON.size(); ++j) {
+						JSONObject review = (JSONObject)reviewsJSON.get(j);
+						String text = (String)review.get("text");
+						String writer = (String)review.get("writer");
+						int rating = ((Long)review.get("rating")).intValue();
+						student.addAccountReview(new Review(writer, rating, text));
+					}
+					
+					*/
 
 					accounts.add(student);
 				} else {
 					HostAccount host = new HostAccount(username, hashedPassword, firstName, lastName);
 					
-					JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
-					for ( int j=0; j <reviewsJSON.size(); ++j) {
+					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+					
+					for (int j = 0; j< messageBoxJSON.size(); ++j) {
+						host.getMessageBox().addMessage((String)messageBoxJSON.get(j));
+					}
+					/*for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
 						String text = (String)review.get("text");
 						String writer = (String)review.get("writer");
@@ -119,24 +126,14 @@ public class DataLoader {
 						host.addAccountReview(new Review(writer, rating, text));
 					}
 					
-					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
-					
-					for (int j = 0; j< messageBoxJSON.size(); ++j) {
-						//host.receiveMessage((String)messageBoxJSON.get(j));
-					}
-					
 					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperty");
 					for (int j= 0; j<propertyJSON.size();++j) {
 						host.addProperty(server.getListing((String)propertyJSON.get(j)));
-					}
+					}*/
 
 					accounts.add(host);
 					
 				} 
-			}
-			
-			for (Account account : accounts) {
-				System.out.println(account.getFirstName());
 			}
 
 			return accounts;

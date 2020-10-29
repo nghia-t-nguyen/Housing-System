@@ -14,7 +14,7 @@ public class Review {
 	}
 	
 	public int getRating() {
-		return this.getRating();
+		return this.rating;
 	}
 	
 	public String getComment() {
