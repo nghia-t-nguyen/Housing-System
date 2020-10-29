@@ -54,6 +54,13 @@ public class Listing {
 		}
 		return reviewsList;
 	}
+	public ArrayList<Review> getClassReviews() {
+		ArrayList<Review> reviewsList = new ArrayList<>();
+		for(Review review : reviews ) {
+			reviewsList.add(review);
+		}
+		return reviewsList;
+	}
 	
 	public ArrayList<String> getFilters() {
 		return filters;

@@ -19,7 +19,7 @@ public class DataWriter {
 			jsonListings.add(getListingJSON(listings.get(i)));
 		}
 		
-		try (FileWriter file = new FileWriter("src/listings.json")) {
+		try (FileWriter file = new FileWriter("src/listingtest.json")) {
 			file.write(jsonListings.toJSONString());
 			file.flush();
 		} catch (IOException e) {
@@ -49,5 +49,13 @@ public class DataWriter {
 		return null;	
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static JSONObject getReview(Review review) {
+		JSONObject reviewJSON = new JSONObject();
+		reviewJSON.put("text", review.getComment());
+		reviewJSON.put("writer", review.getWriter());
+		reviewJSON.put("rating", review.getRating());
+		return reviewJSON;
+	}
 	
 }
