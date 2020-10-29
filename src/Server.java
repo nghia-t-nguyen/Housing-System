@@ -126,7 +126,7 @@ public class Server {
    */
   public void addAccount(Account account) {
 	  accounts.add(account);
-	  //DataWriter.saveAccounts();
+	  DataWriter.saveAccounts();
   }
     
   /**

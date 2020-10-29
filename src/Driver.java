@@ -3,13 +3,43 @@ import java.util.Scanner;
 import java.lang.Integer;
 
 public class Driver {
-  public static Server server;
+  private static Server server;
+  private static Scanner scan;
 
-  public Driver(Server server) { // Used in case we want to add functionality when making a GUI
-    Driver.server = server;
+  Driver() { // Used in case we want to add functionality when making a GUI
+    server = Server.getInstance();
+    scan = new Scanner(System.in);
   }
 
-  private Account tryLogin(String username, String password) {
+  public void run() {
+    Display display = new DefaultDisplay(null);
+    int choice = 0;
+
+    while (true) {
+      System.out.println("=================================");
+      display.display();
+      choice = getUserCommand();
+      if (choice == 0) {
+        break;
+      }
+
+      display = display.option(choice);
+    }
+    scan.close();
+
+  }
+
+  private int getUserCommand() {
+    if (scan.hasNextInt()) {
+      int ret = scan.nextInt();
+      scan.nextLine();
+      return ret;
+    } else {
+      return -1;
+    }
+  }
+
+  private static Account tryLogin(String username, String password) {
     int result = server.login(username, password);
 
     if (result < 0) {
@@ -21,7 +51,6 @@ public class Driver {
         return null;
       }
     }
-    System.out.println("Login Successful");
     return server.getAccount(username);
 
   }
@@ -33,7 +62,11 @@ public class Driver {
   }
 
   private static class DefaultDisplay implements Display {
-    public DefaultDisplay() {}
+    private Account loggedIn;
+
+    public DefaultDisplay(Account account) {
+      loggedIn = account;
+    }
 
     public void display() {
       System.out.println(
@@ -41,12 +74,16 @@ public class Driver {
     }
 
     public Display option(int choice) {
-      if (choice == 1) {
-        return new LoginDisplay();
+      switch(choice) {
+        case 1:
+          return new LoginDisplay(loggedIn);
+        default:
+          System.out.println("Invalid input");
+          return this;
       }
-      
+
       if (choice == 2) {
-    	  if (server.getAllAccounts() == null) { 
+    	  if (server.getAllAccounts() == null) {
     		  System.out.println("No Accounts");
     	  } else {
 	    	  for (Account account : server.getAllAccounts()) {
@@ -63,14 +100,14 @@ public class Driver {
 				}*/
 			}
     	  }
-    	  
+
     	  for (Listing listin : server.getAllListings()) {
     		  System.out.println(listin.getAddress());
     		  for (String s :listin.getReviews()) {
     			  System.out.println(s);
     		  }
     	  }
-    	  
+
     	  //System.out.println("1234".hashCode());
       }
       return this;
@@ -78,27 +115,63 @@ public class Driver {
   }
 
   private static class LoginDisplay implements Display {
-    public LoginDisplay() {}
+    private Account loggedIn;
+
+    public LoginDisplay(Account account) {
+      loggedIn = account;
+    }
 
     public void display() {
-      System.out.println(">Login:\n0: Exit program \n1: Return\n2: Continue to Login");
+      System.out.println(">Login:\n0: Exit program \n1: Return\n2: Login as a student\n3: Login as a host");
     }
 
     public Display option(int choice) {
-      if (choice < 0 || choice > 2) {
-        System.out.println("Incorrect input");
-        return this;
-      } else if (choice == 1) {
-        return new DefaultDisplay();
-      } else if (choice == 2) {
-        return this;
+      switch(choice) {
+        case 1:
+          return new DefaultDisplay(null);
+        case 2:
+          System.out.println("Username:");
+          String username = scan.nextLine();
+          System.out.println("Password");
+          String password = scan.nextLine();
+          loggedIn = tryLogin(username, password);
+          if (loggedIn == null) {
+            return this;
+          } else if (loggedIn.getClass() == HostAccount.class) {
+            System.out.println("Not a student account.");
+            return this;
+          } else {
+            System.out.println("Login successful.");
+            return new StudentAccountDisplay(loggedIn);
+          }
+        case 3:
+          System.out.println("Username:");
+          String username2 = scan.nextLine();
+          System.out.println("Password");
+          String password2 = scan.nextLine();
+          loggedIn = tryLogin(username2, password2);
+          if (loggedIn == null) {
+            return this;
+          } else if (loggedIn.getClass() == StudentAccount.class) {
+            System.out.println("Not a host account.");
+            return this;
+          } else {
+            System.out.println("Login succesful");
+            return new HostAccountDisplay(loggedIn);
+          }
+        default:
+          System.out.println("Invalid input");
+          return this;
       }
-      return this;
     }
   }
 
   private static class StudentAccountDisplay implements Display {
-    public StudentAccountDisplay() {}
+    private Account loggedIn;
+
+    public StudentAccountDisplay(Account account) {
+      loggedIn = account;
+    }
 
     public void display() {
       System.out.println(
@@ -106,23 +179,51 @@ public class Driver {
     }
 
     public Display option(int choice) {
-      if (choice < 0 || choice > 4) {
-        System.out.println("Incorrect input");
-        return this;
+      switch(choice) {
+        case 1:
+          System.out.println("Logging out");
+          return new DefaultDisplay(null);
+        case 3:
+          return new MessageDisplay(loggedIn);
+        default:
+          System.out.println("Invalid input");
+          return this;
       }
-      if (choice == 1) {
-        System.out.println("Logging out");
-        return new DefaultDisplay();
+    }
+  }
+
+  private static class HostAccountDisplay implements Display {
+    private Account loggedIn;
+
+    public HostAccountDisplay(Account account) {
+      loggedIn = account;
+    }
+
+    public void display() {
+      System.out.println(
+          "> What would you like to do\n0: Exit program\n1: Logout\n2: Search\n3: List\n4: Messages\n5: View Profile");
+    }
+
+    public Display option(int choice) {
+      switch(choice) {
+        case 1:
+          System.out.println("Logging out");
+          return new DefaultDisplay(null);
+        case 4:
+          return new MessageDisplay(loggedIn);
+        default:
+          System.out.println("Invalid input");
+          return this;
       }
-      if (choice == 3) {
-        return new MessageDisplay();
-      }
-      return this;
     }
   }
 
   private static class MessageDisplay implements Display {
-    public MessageDisplay() {}
+    private Account loggedIn;
+
+    public MessageDisplay(Account account) {
+      loggedIn = account;
+    }
 
     public void display() {
       System.out
@@ -130,57 +231,17 @@ public class Driver {
     }
 
     public Display option(int choice) {
-      if (choice < 0 || choice > 3) {
-        System.out.println("Incorrect input");
-        return this;
-      } else if (choice == 1) {
-        return new StudentAccountDisplay();
-      } else {
-        return this;
-      }
-    }
-  }
-
-
-  public static void main(String[] args) {
-    Scanner scan = new Scanner(System.in);
-    server = Server.getInstance();
-    server.addAccount(new StudentAccount("nghia-t-nguyen", "nghia", "Nghia", "Nguyen", "1234"));
-    server.addAccount(new StudentAccount("riceconfetti", "rhylen", "Rhylen", "Nguyen", "12345"));
-    server.addAccount(new StudentAccount("Austino1999", "austin", "Austin", "O'Malley", "1234"));
-    server.addAccount(new StudentAccount("deesort", "dylan", "Dylan", "Ortuno", "1234"));
-    
-    server.addListing(new Listing("Temp House", "123 ABC Lane", 1234.00, false));
-    // server.addAccount(new StudentAccount(""));
-    /*
-     * ArrayList<Account> savedAccounts = DataLoader.loadAccounts(); for (Account account :
-     * savedAccounts) { server.addAccount(account); }
-     */
-
-    Driver myDriver = new Driver(server);
-
-    Display display = new DefaultDisplay();
-    Account loggedIn = null;
-    int choice = -2;
-
-    while(true) {
-      System.out.println("================================");
-      display.display();
-      try {
-        choice = scan.nextInt();
-        scan.nextLine();
-      } catch (Exception e) {
-        System.out.println("Sorry, didn't quite get that");
-        choice = 1;
-      }
-      if (choice == 0) {
-        break;
-      }
-
-      if (display.getClass() == MessageDisplay.class) {
-        if (choice == 2) {
+      switch(choice) {
+        case 1:
+          if (loggedIn.getClass() == StudentAccount.class) {
+            return new StudentAccountDisplay(loggedIn);
+          } else if (loggedIn.getClass() == HostAccount.class) {
+            return new HostAccountDisplay(loggedIn);
+          }
+        case 2:
           loggedIn.getMessageBox().showMessages();
-        } else if (choice == 3) {
+          return this;
+        case 3:
           System.out.println("To:");
           Account recipient = server.getAccount(scan.nextLine());
           if (recipient == null) {
@@ -190,27 +251,17 @@ public class Driver {
             String message = scan.nextLine();
             loggedIn.getMessageBox().sendMessage(recipient, message);
           }
-        }
-      }
-      
-      display = display.option(choice);
-      if (display.getClass() == LoginDisplay.class && choice == 2) {
-        System.out.println("Username: ");
-        String username = scan.nextLine();
-        System.out.println("Password: ");
-        String password = scan.nextLine();
-        loggedIn = myDriver.tryLogin(username, password);
-        if (loggedIn != null) {
-          display = new StudentAccountDisplay();
-        }
-      }
-      
-      if (display.getClass() == StudentAccountDisplay.class && choice == 1) {
-        loggedIn = null;
+          return this;
+        default:
+          System.out.println("Invalid input");
+          return this;
       }
     }
-    
-    scan.close();
-    System.out.println("Program terminated");
+  }
+
+
+  public static void main(String[] args) {
+    Driver myDriver = new Driver();
+    myDriver.run();
   }
 }

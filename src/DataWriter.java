@@ -62,8 +62,15 @@ public class DataWriter {
 		for (Review review : listing.getClassReviews()) {
 			reviewJSON.add(getReviewJSON(review));
 		}
+		
+		JSONArray filterJSON = new JSONArray();
+		for (String filter : listing.getFilters()) {
+			filterJSON.add(filter);
+		}
+		
 		listingDetails.put("bathrooms", listing.getBathrooms());
 		listingDetails.put("reviews", reviewJSON);
+		listingDetails.put("filters", filterJSON);
 		listingDetails.put("rented", listing.isRented());
 		
 		return listingDetails;
@@ -76,12 +83,12 @@ public class DataWriter {
 		accountDetails.put("lastName", account.getLastName());
 		accountDetails.put("hashedPassword", account.getPassword());
 		
-		JSONArray messageBoxJSON = new JSONArray();
+		/*JSONArray messageBoxJSON = new JSONArray();
 		for (String message : account.getMessageBox().getMessages()) {
 			messageBoxJSON.add(message);
 		}
 	
-		accountDetails.put("messagebox", messageBoxJSON);
+		accountDetails.put("messagebox", messageBoxJSON);*/
 		
 			
 		if (account instanceof StudentAccount) {
@@ -89,12 +96,41 @@ public class DataWriter {
 			accountDetails.put("type", "student");
 			accountDetails.put("studentID", student.getStudentID());
 			
-			JSONArray reviewJSON = new JSONArray();s
+			JSONArray reviewJSON = new JSONArray();
 			for (Review review : student.getRenterReviews()) {
 				reviewJSON.add(getReviewJSON(review));
 			}
 			
+			JSONArray bookmarkJSON = new JSONArray();
+			for (Listing bookmark : student.getBookmarks()) {
+				bookmarkJSON.add(bookmark.getAddress());
+			}
+			
+			JSONArray favoriteJSON = new JSONArray();
+			for (Listing favorite : student.getFavorites()) {
+				favoriteJSON.add(favorite.getAddress());
+			}
+			
 			accountDetails.put("renterReviews", reviewJSON);
+			accountDetails.put("bookmarks", bookmarkJSON);
+			accountDetails.put("favorites", favoriteJSON);			
+		} else if (account instanceof HostAccount) {
+			HostAccount host = (HostAccount) account;
+			accountDetails.put("type", "host");
+			
+			JSONArray reviewJSON = new JSONArray();
+			for (Review review : host.getReviews()) {
+				reviewJSON.add(getReviewJSON(review));
+			}
+			
+			JSONArray ownedJSON = new JSONArray();
+			for (Listing listing : host.getOwnedProperties()) {
+				ownedJSON.add(listing.getAddress());
+			}
+			
+			accountDetails.put("hostReviews", reviewJSON);
+			accountDetails.put("ownedProperties", ownedJSON);
+			
 		}
 		return accountDetails;	
 	}

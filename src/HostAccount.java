@@ -16,7 +16,11 @@ public class HostAccount extends Account {
 	    hostReviews = new ArrayList<Review>();
 	  }
   
-  public void addHostReview(Review review) {}
+  public ArrayList<Listing> getOwnedProperties() {
+	return ownedProperties;
+}
+
+public void addHostReview(Review review) {}
   
   public void writeRenterReview(StudentAccount subject, int rating, String text) {}
 
