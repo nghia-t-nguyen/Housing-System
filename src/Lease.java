@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Lease {
@@ -91,7 +94,11 @@ public abstract class Lease {
         return Lease;
     }
 
-    public void printToFile(String fileName){
-
-    }
+    public void printToFile(String fileName)
+    		  throws IOException {
+    		    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+    		    writer.write(Lease);
+    		    
+    		    writer.close();
+    		}
 }
