@@ -92,7 +92,7 @@ public class DataLoader {
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
 					
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
-						//student.receiveMessage((String)messageBoxJSON.get(j));
+						student.getMessageBox().addMessage((String)messageBoxJSON.get(j));
 					}
 					
 					//Dont know if these 2 are working properly
