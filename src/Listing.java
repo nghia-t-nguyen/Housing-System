@@ -95,4 +95,16 @@ public class Listing {
 	  return address;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public boolean isRented() {
+		return rented;
+	}
+
 }

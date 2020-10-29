@@ -136,7 +136,8 @@ public class Driver {
     server.addAccount(new StudentAccount("riceconfetti", "rhylen", "Rhylen", "Nguyen", "12345"));
     server.addAccount(new StudentAccount("Austino1999", "austin", "Austin", "O'Malley", "1234"));
     server.addAccount(new StudentAccount("deesort", "dylan", "Dylan", "Ortuno", "1234"));
-
+    
+    server.addListing(new Listing("Temp House", "123 ABC Lane", 1234.00, false));
     // server.addAccount(new StudentAccount(""));
     /*
      * ArrayList<Account> savedAccounts = DataLoader.loadAccounts(); for (Account account :

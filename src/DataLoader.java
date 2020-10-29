@@ -26,7 +26,7 @@ public class DataLoader {
 				String address = (String)listingJSON.get("address");
 				String description = (String)listingJSON.get("description");
 
-				int rent = ((Long)listingJSON.get("rent")).intValue();
+				double rent = ((Long)listingJSON.get("rent")).doubleValue();
 				int bedrooms= ((Long)listingJSON.get("bedrooms")).intValue();
 				int bathrooms= ((Long)listingJSON.get("bathrooms")).intValue();
 				boolean rented = (boolean)listingJSON.get("rented");
@@ -70,20 +70,15 @@ public class DataLoader {
 
 			for (int i=0; i< accountsJSON.size(); ++i) {
 				JSONObject accountJSON = (JSONObject)accountsJSON.get(i);
-				int type = ((Long)accountJSON.get("type")).intValue();
-				System.out.println(type);
+				String type = (String)accountJSON.get("type");
 				String username = (String)accountJSON.get("username");
 				int hashedPassword = ((Long)accountJSON.get("hashedPassword")).intValue();
 				String firstName = (String)accountJSON.get("firstName");
-				println(firstName);
 				String lastName = (String)accountJSON.get("lastName");
-				println(lastName);
-
-				if (type == 0) {
+				
+				if (type.equals("student")) {
 					String studentID = (String)accountJSON.get("studentID");
-					println(studentID);
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
-					println(student.getFirstName());
 
 					/*JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messagebox");
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
@@ -91,29 +86,17 @@ public class DataLoader {
 					}*/
 
 					accounts.add(student);
-					println(accounts.last().getFirstName());
 				} else {
 					HostAccount host = new HostAccount(username, hashedPassword, firstName, lastName);
-					println(host.getFirstName());
 					accounts.add(host);
-					println(accounts.last().getFirstName());
-				}
-
-
+					
+				} 
 			}
 			/*JSONArray studentaccountsJSON = (JSONArray)accountsJSON.get(0);
 			JSONArray hostaccountsJSON = (JSONArray)accountsJSON.get(1);
 
 			for(int i=0; i < studentaccountsJSON.size(); ++i) {
-				JSONObject studentaccountJSON = (JSONObject)studentaccountsJSON.get(i);
-				String username = (String)studentaccountJSON.get("username");
-				int hashedPassword = ((Long)studentaccountJSON.get("hashedPassword")).intValue();
-				String firstName = (String)studentaccountJSON.get("firstName");
-				String lastName = (String)studentaccountJSON.get("lastName");
-				String studentID = (String)studentaccountJSON.get("studentID");
-
-				StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
-
+				
 				/*MessageBox messageBox = new MessageBox(student);
 				JSONArray messageBoxJSON = (JSONArray)studentaccountJSON.get("messagebox");
 				for (int j = 0; j< messageBoxJSON.size(); ++j) {
@@ -143,14 +126,7 @@ public class DataLoader {
 			}
 
 			for(int i=0; i < hostaccountsJSON.size(); ++i) {
-				JSONObject hostaccountJSON = (JSONObject)hostaccountsJSON.get(i);
-				String username = (String)hostaccountJSON.get("username");
-				int hashedPassword = ((Long)hostaccountJSON.get("hashedPassword")).intValue();
-				String firstName = (String)hostaccountJSON.get("firstName");
-				String lastName = (String)hostaccountJSON.get("lastName");
-
-
-
+				
 				/*MessageBox messageBox = new MessageBox(host);
 				JSONArray messageBoxJSON = (JSONArray)hostaccountJSON.get("messagebox");
 				for (int j = 0; j< messageBoxJSON.size(); ++j) {
