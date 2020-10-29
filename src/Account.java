@@ -25,7 +25,7 @@ public abstract class Account implements Comparable<Account>{
 	    this.firstName = firstName;
 	    this.lastName = lastName;
 	    this.hashedPassword = hashedPassword;
-	    //messagebox = new MessageBox(this);
+	    messagebox = new MessageBox(this);
 	  }
   
   public boolean equals(Account other) {
