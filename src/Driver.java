@@ -6,15 +6,15 @@ public class Driver {
   private static Server server;
   private static Scanner scan;
 
-  Driver() { // Used in case we want to add functionality when making a GUI
+  Driver() {
     server = Server.getInstance();
     scan = new Scanner(System.in);
   }
-  
+
   public void run() {
     Display display = new DefaultDisplay(null);
     int choice = 0;
-    
+
     while (true) {
       System.out.println("=================================");
       display.display();
@@ -22,13 +22,13 @@ public class Driver {
       if (choice == 0) {
         break;
       }
-      
+
       display = display.option(choice);
     }
     scan.close();
-    
+
   }
-  
+
   private int getUserCommand() {
     if (scan.hasNextInt()) {
       int ret = scan.nextInt();
@@ -63,18 +63,18 @@ public class Driver {
 
   private static class DefaultDisplay implements Display {
     private Account loggedIn;
-    
+
     public DefaultDisplay(Account account) {
       loggedIn = account;
     }
 
     public void display() {
       System.out.println(
-          "> What would you like to do\n0: Exit program\n1: Login\n2: Search\n3: List\n4: Create an account");
+          "> What would you like to do\n0: Exit program\n1: Login\n2: Search\n3: Create an account");
     }
 
     public Display option(int choice) {
-      switch(choice) {
+      switch (choice) {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
@@ -89,30 +89,27 @@ public class Driver {
               //new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
           //return this;
           return new CreateAccountDisplay(loggedIn);
-        case 4: 
-        	server.addAccount(new StudentAccount("rhylen", "Rhylen", "Nguyen", "rhylen" , "rhylen"));
-        	server.addListing(new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
-        	return this;
         default:
           System.out.println("Invalid input");
           return this;
       }
-	}
+    }
   }
 
   private static class LoginDisplay implements Display {
     private Account loggedIn;
-    
+
     public LoginDisplay(Account account) {
       loggedIn = account;
     }
 
     public void display() {
-      System.out.println(">Login:\n0: Exit program \n1: Return\n2: Login as a student\n3: Login as a host");
+      System.out.println(
+          ">Login:\n0: Exit program \n1: Return\n2: Login as a student\n3: Login as a host");
     }
 
     public Display option(int choice) {
-      switch(choice) {
+      switch (choice) {
         case 1:
           return new DefaultDisplay(null);
         case 2:
@@ -154,7 +151,7 @@ public class Driver {
 
   private static class StudentAccountDisplay implements Display {
     private Account loggedIn;
-    
+
     public StudentAccountDisplay(Account account) {
       loggedIn = account;
     }
@@ -165,7 +162,7 @@ public class Driver {
     }
 
     public Display option(int choice) {
-      switch(choice) {
+      switch (choice) {
         case 1:
           System.out.println("Logging out");
           return new DefaultDisplay(null);
@@ -177,10 +174,10 @@ public class Driver {
       }
     }
   }
-  
+
   private static class HostAccountDisplay implements Display {
     private Account loggedIn;
-    
+
     public HostAccountDisplay(Account account) {
       loggedIn = account;
     }
@@ -191,7 +188,7 @@ public class Driver {
     }
 
     public Display option(int choice) {
-      switch(choice) {
+      switch (choice) {
         case 1:
           System.out.println("Logging out");
           return new DefaultDisplay(null);
@@ -206,7 +203,7 @@ public class Driver {
 
   private static class MessageDisplay implements Display {
     private Account loggedIn;
-    
+
     public MessageDisplay(Account account) {
       loggedIn = account;
     }
@@ -217,7 +214,7 @@ public class Driver {
     }
 
     public Display option(int choice) {
-      switch(choice) {
+      switch (choice) {
         case 1:
           if (loggedIn.getClass() == StudentAccount.class) {
             return new StudentAccountDisplay(loggedIn);
@@ -245,6 +242,97 @@ public class Driver {
     }
   }
 
+  private static class CreateAccountDisplay implements Display {
+    private Account loggedIn;
+
+    public CreateAccountDisplay(Account account) {
+      loggedIn = account;
+    }
+
+    public void display() {
+      System.out.println(
+          "> What would you like to do\n0: Exit program\n1: Return\n2: Create a student account\n3: Create a host account");
+    }
+
+    public Display option(int choice) {
+      switch (choice) {
+        case 1:
+          return new DefaultDisplay(null);
+        case 2:
+          System.out.println("Enter student ID:");
+          String studentID = scan.nextLine();
+          System.out.println("Enter first name");
+          String firstName = scan.nextLine();
+          System.out.println("Enter last name");
+          String lastName = scan.nextLine();
+          //TODO verify studentID
+          System.out.println("Enter username:");
+          String username = scan.nextLine();
+          if (username.length() < 6) {
+            System.out.println("Username is too short. Must be 6-12 characters.");
+            return this;
+          } else if (username.length() > 12) {
+            System.out.println("Username is too long. Must be 6-12 characters.");
+            return this;
+          }
+          System.out.println("Enter password:");
+          String password1 = scan.nextLine();
+          if (password1.length() < 6) {
+            System.out.println("Password is too short. Must be 6-12 characters.");
+            return this;
+          } else if (password1.length() > 12) {
+            System.out.println("Password is too long. Must be 6-12 characters.");
+            return this;
+          }
+          System.out.println("Re-enter password to verify:");
+          String password2 = scan.nextLine();
+          if (!password1.equals(password2)) {
+            System.out.println("Passwords do not match");
+            return this;
+          }
+          System.out.println("Account succesfully created.");
+          Account student = new StudentAccount(username, password1, firstName, lastName, studentID);
+          server.addAccount(student);
+          return new StudentAccountDisplay(student);
+        case 3:
+          System.out.println("Enter first name:");
+          String firstNameH = scan.nextLine();
+          System.out.println("Enter last name:");
+          String lastNameH = scan.nextLine();
+          System.out.println("Enter username:");
+          String usernameH = scan.nextLine();
+          if (usernameH.length() < 6) {
+            System.out.println("Username is too short. Must be 6-12 characters.");
+            return this;
+          } else if (usernameH.length() > 12) {
+            System.out.println("Username is too long. Must be 6-12 characters.");
+            return this;
+          }
+          System.out.println("Enter password:");
+          String passwordH1 = scan.nextLine();
+          if (passwordH1.length() < 6) {
+            System.out.println("Password is too short. Must be 6-12 characters.");
+            return this;
+          } else if (passwordH1.length() > 12) {
+            System.out.println("Password is too long. Must be 6-12 characters.");
+            return this;
+          }
+          System.out.println("Re-enter password to verify:");
+          String passwordH2 = scan.nextLine();
+          if (!passwordH1.equals(passwordH2)) {
+            System.out.println("Passwords do not match");
+            return this;
+          }
+          System.out.println("Account succesfully created.");
+          Account host = new HostAccount(usernameH, passwordH1, firstNameH, lastNameH);
+          server.addAccount(host);
+          return new HostAccountDisplay(host);
+        default:
+          System.out.println("Invalid input");
+          return this;
+      }
+    }
+  }
 
   public static void main(String[] args) {
     Driver myDriver = new Driver();
