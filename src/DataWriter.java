@@ -29,6 +29,7 @@ public class DataWriter {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static void saveAccounts() {
 		Server server = Server.getInstance();
 		ArrayList<Account> accounts = new ArrayList<Account>();
@@ -67,8 +68,35 @@ public class DataWriter {
 		
 		return listingDetails;
 	}
+	@SuppressWarnings("unchecked")
 	public static JSONObject getAccountJSON(Account account) {
-		return null;	
+		JSONObject accountDetails = new JSONObject();
+		accountDetails.put("username", account.getUsername());
+		accountDetails.put("firstName", account.getFirstName());
+		accountDetails.put("lastName", account.getLastName());
+		accountDetails.put("hashedPassword", account.getPassword());
+		
+		JSONArray messageBoxJSON = new JSONArray();
+		for (String message : account.getMessageBox().getMessages()) {
+			messageBoxJSON.add(message);
+		}
+	
+		accountDetails.put("messagebox", messageBoxJSON);
+		
+			
+		if (account instanceof StudentAccount) {
+			StudentAccount student = (StudentAccount) account;
+			accountDetails.put("type", "student");
+			accountDetails.put("studentID", student.getStudentID());
+			
+			JSONArray reviewJSON = new JSONArray();s
+			for (Review review : student.getRenterReviews()) {
+				reviewJSON.add(getReviewJSON(review));
+			}
+			
+			accountDetails.put("renterReviews", reviewJSON);
+		}
+		return accountDetails;	
 	}
 	
 	@SuppressWarnings("unchecked")

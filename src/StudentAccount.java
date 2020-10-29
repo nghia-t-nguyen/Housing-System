@@ -6,7 +6,19 @@ public class StudentAccount extends Account{
   private ArrayList<Listing> bookmarks;
   private ArrayList<Listing> favoriteProperties;
 
-  StudentAccount(String username, String password, String firstName, String lastName,
+  public String getStudentID() {
+	return studentID;
+}
+
+public ArrayList<Review> getRenterReviews() {
+	return renterReviews;
+}
+
+public ArrayList<Listing> getFavoriteProperties() {
+	return favoriteProperties;
+}
+
+StudentAccount(String username, String password, String firstName, String lastName,
       String studentID) {
     super(username, password, firstName, lastName);
     this.studentID = studentID;
