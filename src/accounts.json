@@ -7,7 +7,7 @@
     "lastName": "OHare",
     "messageBox":["From:Ana Baker\n\nSystem Response: Amy Baker has see your request."],
     "studentID":"00001",
-    "renterReviews":[
+    "accountReviews":[
       {
         "text": "Great renter, clean, no problems!",
         "writer": "Amy Baker",
@@ -24,7 +24,7 @@
     "lastName": "Baker",
     "messageBox":[],
     "ownedProperties":["1270 Polo Rd, Columbia, SC 29223"],
-    "hostReviews":[
+    "accountReviews":[
       {
         "text": "So helpful, wonderful agent, would recommend",
         "writer": "Emily O'Hare",
@@ -39,7 +39,7 @@
     "lastName": "Smith",
     "messageBox":[],
     "ownedProperties":["2170 N Lake Dr, Columbia, SC 29212"],
-    "hostReviews":[]
+    "accountReviews":[]
   }, {
     "type":"host",
     "username":"mcdanielsgarett",
@@ -50,6 +50,6 @@
       "From: Emily OHare\n\nSystem Message:  Emily OHare sent a visit request."
     ],
     "ownedProperties":["1520 Main St UNIT 2G, Columbia, SC 29201"],
-    "hostReviews":[]
+    "accountReviews":[]
   }
 ]
