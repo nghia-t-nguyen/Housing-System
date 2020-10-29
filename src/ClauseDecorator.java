@@ -6,8 +6,5 @@ public abstract class ClauseDecorator extends Lease{
     }
     @Override
     public abstract String toString();
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> main

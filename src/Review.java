@@ -15,7 +15,7 @@ public class Review {
 	}
 	
 	public int getRating() {
-		return this.getRating();
+		return this.rating;
 	}
 	
 	public String getComment() {
@@ -23,7 +23,7 @@ public class Review {
 	}
 	
 	public String toString() {
-		return "";
+		return "     "+ writer + "     (" + rating + "/5)\n     " + text;
 	}
 
 }

@@ -56,6 +56,9 @@ public class Driver {
     	  
     	  for (Listing listin : server.getAllListings()) {
     		  System.out.println(listin.getAddress());
+    		  for (String s :listin.getReviews()) {
+    			  System.out.println(s);
+    		  }
     	  }
     	  
     	  //System.out.println("1234".hashCode());

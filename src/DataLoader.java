@@ -80,10 +80,20 @@ public class DataLoader {
 					String studentID = (String)accountJSON.get("studentID");
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
 
-					/*JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messagebox");
+					JSONArray reviewsJSON = (JSONArray)accountJSON.get("renterReviews");
+					for ( int j=0; j <reviewsJSON.size(); ++j) {
+						JSONObject review = (JSONObject)reviewsJSON.get(j);
+						String text = (String)review.get("text");
+						String writer = (String)review.get("writer");
+						int rating = ((Long)review.get("rating")).intValue();
+						student.addRenterReview(new Review(writer, rating, text));
+					}
+					
+					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+					
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
-						student.revieveMessage((String)messageBoxJSON.get(j));
-					}*/
+						//student.receiveMessage((String)messageBoxJSON.get(j));
+					}
 
 					accounts.add(student);
 				} else {
@@ -103,14 +113,7 @@ public class DataLoader {
 					messageBox.addMessage((String)messageBoxJSON.get(j));
 				}
 
-				JSONArray reviewsJSON = (JSONArray)studentaccountJSON.get("renterReviews");
-				for ( int j=0; j <reviewsJSON.size(); ++j) {
-					JSONObject review = (JSONObject)reviewsJSON.get(j);
-					String text = (String)review.get("text");
-					String writer = (String)review.get("writer");
-					int rating = ((Long)review.get("rating")).intValue();
-					student.addRenterReview(new Review(writer, rating, text));
-				}*/
+				*/
 
 				/*JSONArray bookmarksJSON = (JSONArray)studentaccountJSON.get("bookmarks");
 				for (int j= 0; j< bookmarksJSON.size();++j) {
@@ -159,10 +162,5 @@ public class DataLoader {
 		}
 		return accounts;		
 	}
-
-	private static void println(String s) {
-		System.out.println(s);
-	}
-
 
 }
