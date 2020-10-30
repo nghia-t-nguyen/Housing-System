@@ -15,7 +15,8 @@ public class HostAccount extends Account {
 	/**
 	 * The first constructor takes in Strings and calls super and uses these Strings
 	 * in the default Account constructor. It also declares the private ArrayList
-	 * variable. Created by Team QUEBEC
+	 * variable. 
+	 * Created by Team QUEBEC
 	 */
 	public HostAccount(String username, String password, String firstName, String lastName) {
 		super(username, password, firstName, lastName);
@@ -25,7 +26,8 @@ public class HostAccount extends Account {
 	/**
 	 * The second constructor takes in Strings and an int and calls super and uses
 	 * these variables in the default Account constructor. It also declares the
-	 * private ArrayList variable. Created by Team QUEBEC
+	 * private ArrayList variable. 
+	 * Created by Team QUEBEC
 	 */
 	public HostAccount(String username, int hashedPassword, String firstName, String lastName) {
 		super(username, hashedPassword, firstName, lastName);
