@@ -38,7 +38,9 @@ StudentAccount(String username, String password, String firstName, String lastNa
 	  listing.addReview(new Review((this.firstName+" "+this.lastName), rating, text));
   }
   
-  public void writeHostReview(HostAccount host, int rating, String text) {}
+  public void writeHostReview(HostAccount host, int rating, String text) {
+	  host.addAccountReview(new Review((this.firstName+" "+this.lastName), rating, text));
+  }
   
   
   public ArrayList<Listing> getBookmarks() {
