@@ -78,10 +78,16 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          for (Account account : server.getAllAccounts())
+          for (Account account : server.getAllAccounts()) {
             System.out.println(account.getFirstName());
-          for (Listing listing : server.getAllListings())
+            if (account instanceof StudentAccount) {
+            	for (Listing listing :((StudentAccount)account).getBookmarks())
+            		System.out.println("     "+listing.getAddress());
+            }
+          }
+          for (Listing listing : server.getAllListings()) {
             System.out.println(listing.getAddress());
+          }
           return this;
         case 3:
           server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
@@ -233,6 +239,7 @@ public class Driver {
             System.out.println("Enter message:");
             String message = scan.nextLine();
             loggedIn.getMessageBox().sendMessage(recipient, message);
+            DataWriter.saveAccounts();
           }
           return this;
         default:

@@ -20,7 +20,7 @@ public class DataWriter {
 			jsonListings.add(getListingJSON(listings.get(i)));
 		}
 		
-		try (FileWriter file = new FileWriter("src/listingtest.json")) {
+		try (FileWriter file = new FileWriter("src/listings.json")) {
 			file.write(jsonListings.toJSONString());
 			file.flush();
 		} catch (IOException e) {
@@ -41,7 +41,7 @@ public class DataWriter {
 			jsonAccounts.add(getAccountJSON(accounts.get(i)));
 		}
 		
-		try (FileWriter file = new FileWriter("src/accounttest.json")) {
+		try (FileWriter file = new FileWriter("src/accounts.json")) {
 			file.write(jsonAccounts.toJSONString());
 			file.flush();
 		} catch (IOException e) {
@@ -84,12 +84,12 @@ public class DataWriter {
 		accountDetails.put("lastName", account.getLastName());
 		accountDetails.put("hashedPassword", account.getPassword());
 		
-		/*JSONArray messageBoxJSON = new JSONArray();
+		JSONArray messageBoxJSON = new JSONArray();
 		for (String message : account.getMessageBox().getMessages()) {
 			messageBoxJSON.add(message);
 		}
 	
-		accountDetails.put("messagebox", messageBoxJSON);*/
+		accountDetails.put("messagebox", messageBoxJSON);
 		
 		JSONArray reviewJSON = new JSONArray();
 		//System.out.println("SHDJIHSIDHI"+ account.getAccountReviews());
@@ -106,23 +106,25 @@ public class DataWriter {
 					
 			JSONArray bookmarkJSON = new JSONArray();
 			for (Listing bookmark : student.getBookmarks()) {
-				bookmarkJSON.add(getListingJSON(bookmark));
+				bookmarkJSON.add(bookmark.getAddress());
 			}
 			
 			JSONArray favoriteJSON = new JSONArray();
 			for (Listing favorite : student.getFavorites()) {
-				favoriteJSON.add(getListingJSON(favorite));
+				favoriteJSON.add(favorite.getAddress());
 			}
 			
 			accountDetails.put("bookmarks", bookmarkJSON);
 			accountDetails.put("favorites", favoriteJSON);			
-		} else if (account instanceof HostAccount) {
+		} 
+		
+		if (account instanceof HostAccount) {
 			HostAccount host = (HostAccount) account;
 			accountDetails.put("type", "host");
 			
 			JSONArray ownedJSON = new JSONArray();
 			for (Listing listing : host.getOwnedProperties()) {
-				ownedJSON.add(getListingJSON(listing));
+				ownedJSON.add(listing.getAddress());
 			}
 			accountDetails.put("ownedProperties", ownedJSON);
 			

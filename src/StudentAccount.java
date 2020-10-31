@@ -30,9 +30,13 @@ StudentAccount(String username, String password, String firstName, String lastNa
 	    favoriteProperties = new ArrayList<Listing>();
 	  }
   
-  public void addBookmark(Listing listing) {}
+  public void addBookmark(Listing listing) {
+	  bookmarks.add(listing);
+  }
   
-  public void addFavorite(Listing listing) {}
+  public void addFavorite(Listing listing) {
+	  favoriteProperties.add(listing);
+  }
   
   public void writeListingReview(Listing listing, int rating, String text) {
 	  listing.addReview(new Review((this.firstName+" "+this.lastName), rating, text));

@@ -92,6 +92,7 @@ public class DataLoader {
 					JSONArray bookmarksJSON = (JSONArray)accountJSON.get("bookmarks");
 					for (int j= 0; j< bookmarksJSON.size();++j) {
 						student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
+						//System.out.println(student.getBookmarks().get(j).getAddress());
 					}
 				
 					JSONArray favoritesJSON = (JSONArray)accountJSON.get("favoriteProperties");
@@ -106,13 +107,10 @@ public class DataLoader {
 						int rating = ((Long)review.get("rating")).intValue();
 						student.addAccountReview(new Review(writer, rating, text));
 					}
-					
-					
-
 					accounts.add(student);
-				} else {
+				} 	else if (type.equals("host")){
 					HostAccount host = new HostAccount(username, hashedPassword, firstName, lastName);
-					
+					//System.out.println(host.getFirstName());
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
 					
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
@@ -126,10 +124,10 @@ public class DataLoader {
 						host.addAccountReview(new Review(writer, rating, text));
 					}
 					
-					/*JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperty");
+					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperties");
 					for (int j= 0; j<propertyJSON.size();++j) {
 						host.addProperty(server.getListing((String)propertyJSON.get(j)));
-					}*/
+					}
 
 					accounts.add(host);
 					
