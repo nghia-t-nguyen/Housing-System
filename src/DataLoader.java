@@ -124,9 +124,9 @@ public class DataLoader {
 						String writer = (String)review.get("writer");
 						int rating = ((Long)review.get("rating")).intValue();
 						host.addAccountReview(new Review(writer, rating, text));
-					}/*
+					}
 					
-					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperty");
+					/*JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperty");
 					for (int j= 0; j<propertyJSON.size();++j) {
 						host.addProperty(server.getListing((String)propertyJSON.get(j)));
 					}*/

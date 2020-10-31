@@ -84,11 +84,11 @@ public class Driver {
             System.out.println(listing.getAddress());
           return this;
         case 3:
-          //server.addAccount(new StudentAccount("rhylen", "Rhylen", "Nguyen", "rhylen", "rhylen"));
-          //server.addListing(
-              //new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
-          //return this;
-          return new CreateAccountDisplay(loggedIn);
+          server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
+          server.addListing(
+              new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
+          return this;
+          //return new CreateAccountDisplay(loggedIn);
         default:
           System.out.println("Invalid input");
           return this;
