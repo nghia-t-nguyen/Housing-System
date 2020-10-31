@@ -49,8 +49,7 @@ public class HostAccount extends Account {
 	 * Created by Team QUEBEC
 	 */
 	public void writeRenterReview(StudentAccount subject, int rating, String text) {
-		Review newReview = new Review(subject, rating, text);
-		addAccountReview(newReview);
+		subject.addAccountReview(new Review((this.firstName + " " +this.lastName), rating, text));
 	}
 
 	/**

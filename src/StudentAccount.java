@@ -34,7 +34,9 @@ StudentAccount(String username, String password, String firstName, String lastNa
   
   public void addFavorite(Listing listing) {}
   
-  public void writeListingReview(Listing listing, int rating, String text) {}
+  public void writeListingReview(Listing listing, int rating, String text) {
+	  listing.addReview(new Review((this.firstName+" "+this.lastName), rating, text));
+  }
   
   public void writeHostReview(HostAccount host, int rating, String text) {}
   
