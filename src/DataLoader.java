@@ -118,13 +118,13 @@ public class DataLoader {
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
 						host.getMessageBox().addMessage((String)messageBoxJSON.get(j));
 					}
-					/*for ( int j=0; j <reviewsJSON.size(); ++j) {
+					for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
 						String text = (String)review.get("text");
 						String writer = (String)review.get("writer");
 						int rating = ((Long)review.get("rating")).intValue();
 						host.addAccountReview(new Review(writer, rating, text));
-					}
+					}/*
 					
 					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperty");
 					for (int j= 0; j<propertyJSON.size();++j) {

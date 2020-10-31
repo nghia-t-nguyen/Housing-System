@@ -2,7 +2,13 @@
   {
     "firstName": "Amy",
     "lastName": "Baker",
-    "accountReviews": [],
+    "accountReviews": [
+      {
+        "rating": 5,
+        "text": "So helpful, wonderful agent, would recommend",
+        "writer": "Emily O'Hare"
+      }
+    ],
     "hashedPassword": 1509442,
     "type": "host",
     "ownedProperties": [],
@@ -35,15 +41,15 @@
     "username": "ohareemily"
   },
   {
-    "studentID": "rhylen",
+    "studentID": "12345",
     "bookmarks": [],
     "favorites": [],
-    "firstName": "Nguyen",
-    "lastName": "rhylen",
+    "firstName": "Rhylen",
+    "lastName": "Nguyen",
     "accountReviews": [],
-    "hashedPassword": -1847618990,
+    "hashedPassword": -1861353340,
     "type": "student",
-    "username": "rhylen"
+    "username": "rnguyen"
   },
   {
     "firstName": "Andrew",

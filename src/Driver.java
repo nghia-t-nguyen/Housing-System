@@ -336,6 +336,6 @@ public class Driver {
 
   public static void main(String[] args) {
     Driver myDriver = new Driver();
-    //myDriver.run();
+    myDriver.run();
   }
 }
