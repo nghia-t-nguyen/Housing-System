@@ -78,17 +78,23 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          for (Account account : server.getAllAccounts())
+          for (Account account : server.getAllAccounts()) {
             System.out.println(account.getFirstName());
-          for (Listing listing : server.getAllListings())
+            if (account instanceof StudentAccount) {
+            	for (Listing listing :((StudentAccount)account).getBookmarks())
+            		System.out.println("     "+listing.getAddress());
+            }
+          }
+          for (Listing listing : server.getAllListings()) {
             System.out.println(listing.getAddress());
+          }
           return this;
         case 3:
-          //server.addAccount(new StudentAccount("rhylen", "Rhylen", "Nguyen", "rhylen", "rhylen"));
-          //server.addListing(
-              //new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
-          //return this;
-          return new CreateAccountDisplay(loggedIn);
+          server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
+          server.addListing(
+              new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
+          return this;
+          //return new CreateAccountDisplay(loggedIn);
         default:
           System.out.println("Invalid input");
           return this;
@@ -233,6 +239,7 @@ public class Driver {
             System.out.println("Enter message:");
             String message = scan.nextLine();
             loggedIn.getMessageBox().sendMessage(recipient, message);
+            DataWriter.saveAccounts();
           }
           return this;
         default:
@@ -265,7 +272,7 @@ public class Driver {
           String firstName = scan.nextLine();
           System.out.println("Enter last name");
           String lastName = scan.nextLine();
-          //TODO verify studentID 
+          //TODO verify studentID
           System.out.println("Enter username:");
           String username = scan.nextLine();
           if (username.length() < 6) {
@@ -283,7 +290,7 @@ public class Driver {
           } else if (password1.length() > 12) {
             System.out.println("Password is too long. Must be 6-12 characters.");
             return this;
-          }          
+          }
           System.out.println("Re-enter password to verify:");
           String password2 = scan.nextLine();
           if (!password1.equals(password2)) {
@@ -298,7 +305,7 @@ public class Driver {
           System.out.println("Enter first name:");
           String firstNameH = scan.nextLine();
           System.out.println("Enter last name:");
-          String lastNameH = scan.nextLine(); 
+          String lastNameH = scan.nextLine();
           System.out.println("Enter username:");
           String usernameH = scan.nextLine();
           if (usernameH.length() < 6) {
@@ -316,7 +323,7 @@ public class Driver {
           } else if (passwordH1.length() > 12) {
             System.out.println("Password is too long. Must be 6-12 characters.");
             return this;
-          }          
+          }
           System.out.println("Re-enter password to verify:");
           String passwordH2 = scan.nextLine();
           if (!passwordH1.equals(passwordH2)) {

@@ -2,10 +2,21 @@
   {
     "firstName": "Amy",
     "lastName": "Baker",
-    "accountReviews": [],
+    "accountReviews": [
+      {
+        "rating": 5,
+        "text": "So helpful, wonderful agent, would recommend",
+        "writer": "Emily O'Hare"
+      }
+    ],
     "hashedPassword": 1509442,
     "type": "host",
-    "ownedProperties": [],
+    "ownedProperties": [
+      "1270 Polo Rd, Columbia, SC 29223"
+    ],
+    "messagebox": [
+      "From: ohareemily\n\nhi"
+    ],
     "username": "bakeramy"
   },
   {
@@ -14,29 +25,48 @@
     "accountReviews": [],
     "hashedPassword": 1509442,
     "type": "host",
-    "ownedProperties": [],
+    "ownedProperties": [
+      "1520 Main St UNIT 2G, Columbia, SC 29201"
+    ],
+    "messagebox": [
+      "From: Emily OHare\n\nSystem Message:  Emily OHare sent a visit request."
+    ],
     "username": "mcdanielsgarett"
   },
   {
     "studentID": "00001",
-    "bookmarks": [],
+    "bookmarks": [
+      "2170 N Lake Dr, Columbia, SC 29212",
+      "1520 Main St UNIT 2G, Columbia, SC 29201"
+    ],
     "favorites": [],
     "firstName": "Emily",
     "lastName": "OHare",
-    "accountReviews": [],
+    "accountReviews": [
+      {
+        "rating": 5,
+        "text": "Great renter, clean, no problems!",
+        "writer": "Amy Baker"
+      }
+    ],
     "hashedPassword": 1509442,
     "type": "student",
+    "messagebox": [
+      "From:Ana Baker\n\nSystem Response: Amy Baker has see your request.",
+      "To: bakeramy\n\nhi"
+    ],
     "username": "ohareemily"
   },
   {
     "studentID": "rhylen",
     "bookmarks": [],
     "favorites": [],
-    "firstName": "Nguyen",
-    "lastName": "rhylen",
+    "firstName": "Rhylen",
+    "lastName": "Nguyen",
     "accountReviews": [],
-    "hashedPassword": -1847618990,
+    "hashedPassword": 1509442,
     "type": "student",
+    "messagebox": [],
     "username": "rhylen"
   },
   {
@@ -45,7 +75,10 @@
     "accountReviews": [],
     "hashedPassword": 1509442,
     "type": "host",
-    "ownedProperties": [],
+    "ownedProperties": [
+      "2170 N Lake Dr, Columbia, SC 29212"
+    ],
+    "messagebox": [],
     "username": "smithandrew"
   }
 ]
