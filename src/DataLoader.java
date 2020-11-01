@@ -34,7 +34,7 @@ public class DataLoader {
 
 
 				listings.add(new Listing(name, address, rent, rented));
-				listings.get(i).addDecription(description);
+				listings.get(i).addDescription(description);
 				JSONArray filters =(JSONArray)listingJSON.get("filters");
 				for (int j = 0; j < filters.size(); ++j) {
 					listings.get(i).addFilter((String)filters.get(j));

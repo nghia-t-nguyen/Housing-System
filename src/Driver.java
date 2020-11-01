@@ -199,7 +199,7 @@ public class Driver {
           System.out.println("Logging out");
           return new DefaultDisplay(null);
         case 3:
-          return new ListingDisplay(loggedIn);
+          return new ListingDisplay((HostAccount)loggedIn);
         case 4:
           return new MessageDisplay(loggedIn);
         default:
@@ -360,35 +360,54 @@ public class Driver {
   }
 
   private static class ListingDisplay implements Display {
-	private Account loggedIn;
+	private HostAccount loggedIn;
+	private Listing listing;
 
-    public ListingDisplay(Account account) {
+    public ListingDisplay(HostAccount account) {
       loggedIn = account;
     }
-	@Override
-	public Display option(int choice) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
+    
 	public void display() {
-		// TODO Auto-generated method stub
 		System.out.println("Enter an address:");
 	    String address = scan.nextLine();
 	    System.out.println("Enter an name:");
 	    String name  = scan.nextLine();
-	    System.out.println("Enter a description:");
-	    String description = scan.nextLine();
-	    System.out.println("Enter a rent print:");
+	    System.out.println("Enter a rent price:");
 	    double rent = scan.nextDouble();
 	    
-	    System.out.println(
-	            "\n\n> What would you like to add\n0: Exit program\n1: Logout\n2: Search\n3: List\n4: Messages\n5: View Profile");
-	      }
+	    listing = new Listing(loggedIn, name, address, rent);
 	    
-	}
-      
-  }
+	    System.out.println("Enter number of bedrooms:");
+	    listing.addBedrooms(scan.nextInt());
+	    System.out.println("Enter number of bathrooms:");
+	    listing.addBathrooms(scan.nextInt());
+	    System.out.println("Enter a description:");
+	    listing.addDescription(scan.nextLine());
+	    
+	    System.out.println(
+	            "\n\n> What would you like to add\n0: Exit program\n1: Logout\n2: Add filters\n3: View Listing");
+	      }
+	
+	
+	public Display option(int choice) {
+		switch (choice) {
+        case 1:
+          System.out.println("Logging out");
+          return new DefaultDisplay(null);
+        case 2:
+	    	System.out.println("Enter filter:");
+		    listing.addFilter(scan.nextLine());
+		    return this;
+        case 3:
+          return new MessageDisplay(loggedIn);
+        default:
+          System.out.println("Invalid input");
+          return this;
+      }
+    }   
+		
+}
+
   
   public static void main(String[] args) {
     Driver myDriver = new Driver();
