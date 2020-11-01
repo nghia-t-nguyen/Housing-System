@@ -25,6 +25,7 @@ public class Driver {
 
       display = display.option(choice);
     }
+    System.out.println("Program terminated.");
     scan.close();
 
   }
@@ -78,22 +79,8 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          /*for (Account account : server.getAllAccounts()) {
-            System.out.println(account.getFirstName());
-            if (account instanceof StudentAccount) {
-            	for (Listing listing :((StudentAccount)account).getBookmarks())
-            		System.out.println("     "+listing.getAddress());
-            }
-          }
-          for (Listing listing : server.getAllListings()) {
-            System.out.println(listing.getAddress());
-          }*/
-          return this;
+          return new SearchDisplay(loggedIn);
         case 3:
-          //server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
-          //server.addListing(
-              //new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
-          //return this;
           return new CreateAccountDisplay(loggedIn);
         default:
           System.out.println("Invalid input");
@@ -172,6 +159,8 @@ public class Driver {
         case 1:
           System.out.println("Logging out");
           return new DefaultDisplay(null);
+        case 2:
+          return new SearchDisplay(loggedIn);
         case 3:
           return new MessageDisplay(loggedIn);
         default:
@@ -198,6 +187,8 @@ public class Driver {
         case 1:
           System.out.println("Logging out");
           return new DefaultDisplay(null);
+        case 2:
+          return new SearchDisplay(loggedIn);
         case 3:
           return new ListingDisplay((HostAccount)loggedIn);
         case 4:
@@ -344,17 +335,43 @@ public class Driver {
   }
 
   private static class SearchDisplay implements Display {
-
+    private Account loggedIn;
+    
+    public SearchDisplay(Account account) {
+      loggedIn = account;
+    }
+    
+    public void display() {
+      System.out.println(">Search: \n0: Exit program\n1: Return \n2: Search hosts\n3: Search Listings");
+    }
+    
 	@Override
 	public Display option(int choice) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void display() {
-		// TODO Auto-generated method stub
-
+		switch (choice) {
+		  case 1:
+		    if (loggedIn == null) {
+		      return new DefaultDisplay(null);
+		    } else if (loggedIn.getClass() == StudentAccount.class) {
+		      return new StudentAccountDisplay(loggedIn);
+		    } else if (loggedIn.getClass() == HostAccount.class) {
+		      return new HostAccountDisplay(loggedIn);
+		    }
+		  case 2:
+		    System.out.println("Enter host name:");
+		    String hostName = scan.nextLine();
+		    ArrayList<Account> hosts = server.searchHosts(hostName);
+		    if (hosts.size() == 0) {
+		      System.out.println("No results found.");
+		    } else {
+		      for (Account host : hosts)
+		        System.out.println(host.getUsername() + ": " + host.getFirstName() + " " + host.getLastName());
+		    }
+		    return this;
+		  default:
+		    System.out.println("Invalid input.");
+		    return this;
+		}
+	
 	}
 
   }
