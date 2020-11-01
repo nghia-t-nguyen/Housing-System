@@ -257,7 +257,7 @@ public class Driver {
     public Display option(int choice) {
       switch (choice) {
         case 1:
-          return new DefaultDisplay(null);
+          return new DefaultDisplay(loggedIn);
         case 2:
           System.out.println("Enter student ID:");
           String studentID = scan.nextLine();
@@ -333,7 +333,19 @@ public class Driver {
       }
     }
   }
-
+  
+  private static class SearchDisplay implements Display {
+    private Account loggedIn;
+    
+    public void display() {
+      System.out.println("");
+    }
+    
+    public Display option(int choice) {
+      return null;
+    }
+  }
+  
   public static void main(String[] args) {
     Driver myDriver = new Driver();
     myDriver.run();
