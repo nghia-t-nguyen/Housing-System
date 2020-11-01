@@ -67,7 +67,11 @@ public class Listing {
 	}
 	
 	public double getAverageRating() {
-		return 0.0;
+	  double sum = 0.0;
+	  for (Review review : reviews) {
+	    sum += review.getRating();
+	  }
+	  return sum/reviews.size();
 	}
 	
 	public double getRent() {
@@ -94,10 +98,6 @@ public class Listing {
 		return this.host;
 	}
 	
-	public String toString() {
-		return "";
-	}
-	
 	public String getAddress() {
 	  return address;
 	}
@@ -114,4 +114,26 @@ public class Listing {
 		return rented;
 	}
 
+	public String toString() {
+	  String ret = name;
+	  ret += "\nAddress: " + address;
+	  ret += "\nHost: " + host;
+	  ret += "\nAverage Rating: ";
+	  ret += (reviews.size() == 0) ? "No ratings" : getAverageRating();
+	  ret += "\nDescription: ";
+      ret += (description == null) ? "n/a" : description;
+      ret += "\nRented: ";
+      ret += (rented) ? "Yes" : "No";
+	  ret += "\nRent: " + rent;
+	  ret += "\nBedrooms: ";
+	  ret += (bedrooms == 0) ? "n/a" : bedrooms;
+	  ret += "\nBathrooms: ";
+	  ret += (bathrooms == 0) ? "n/a" : bedrooms;
+	  ret += "\nFilters:";
+	  for (String filter : filters) {
+	    ret += " #" + filter;
+	  }
+	  
+	  return ret;
+	}
 }
