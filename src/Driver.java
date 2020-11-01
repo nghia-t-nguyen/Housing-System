@@ -198,6 +198,8 @@ public class Driver {
         case 1:
           System.out.println("Logging out");
           return new DefaultDisplay(null);
+        case 3:
+          return new ListingDisplay(loggedIn);
         case 4:
           return new MessageDisplay(loggedIn);
         default:
@@ -341,6 +343,53 @@ public class Driver {
     }
   }
 
+  private static class SearchDisplay implements Display {
+
+	@Override
+	public Display option(int choice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void display() {
+		// TODO Auto-generated method stub
+		
+	}
+	  
+  }
+
+  private static class ListingDisplay implements Display {
+	private Account loggedIn;
+
+    public ListingDisplay(Account account) {
+      loggedIn = account;
+    }
+	@Override
+	public Display option(int choice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void display() {
+		// TODO Auto-generated method stub
+		System.out.println("Enter an address:");
+	    String address = scan.nextLine();
+	    System.out.println("Enter an name:");
+	    String name  = scan.nextLine();
+	    System.out.println("Enter a description:");
+	    String description = scan.nextLine();
+	    System.out.println("Enter a rent print:");
+	    double rent = scan.nextDouble();
+	    
+	    System.out.println(
+	            "\n\n> What would you like to add\n0: Exit program\n1: Logout\n2: Search\n3: List\n4: Messages\n5: View Profile");
+	      }
+	    
+	}
+      
+  }
+  
   public static void main(String[] args) {
     Driver myDriver = new Driver();
     myDriver.run();
