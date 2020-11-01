@@ -78,7 +78,7 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          for (Account account : server.getAllAccounts()) {
+          /*for (Account account : server.getAllAccounts()) {
             System.out.println(account.getFirstName());
             if (account instanceof StudentAccount) {
             	for (Listing listing :((StudentAccount)account).getBookmarks())
@@ -87,14 +87,14 @@ public class Driver {
           }
           for (Listing listing : server.getAllListings()) {
             System.out.println(listing.getAddress());
-          }
+          }*/
           return this;
         case 3:
-          server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
-          server.addListing(
-              new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
-          return this;
-          //return new CreateAccountDisplay(loggedIn);
+          //server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
+          //server.addListing(
+              //new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
+          //return this;
+          return new CreateAccountDisplay(loggedIn);
         default:
           System.out.println("Invalid input");
           return this;
