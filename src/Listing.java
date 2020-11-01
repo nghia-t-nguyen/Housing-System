@@ -12,12 +12,12 @@ public class Listing {
 	private ArrayList<Review> reviews = new ArrayList<>();
 	private boolean rented;
 	
-	public Listing(HostAccount host, String name, String address, double rent, boolean rented) {
+	public Listing(HostAccount host, String name, String address, double rent) {
 		host.addProperty(this);
 		this.name = name;
 		this.address = address;
 		this.rent = rent;
-		this.rented = rented;
+		this.rented = false;
 	}
 	
 	public Listing(String name, String address, double rent, boolean rented) {
@@ -27,7 +27,7 @@ public class Listing {
 		this.rented = rented;
 	}
 		
-	public void addDecription(String text) {
+	public void addDescription(String text) {
 		this.description = text;
 	}
 	

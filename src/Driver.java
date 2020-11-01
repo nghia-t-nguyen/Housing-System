@@ -78,13 +78,19 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          for (Account account : server.getAllAccounts())
+          /*for (Account account : server.getAllAccounts()) {
             System.out.println(account.getFirstName());
-          for (Listing listing : server.getAllListings())
+            if (account instanceof StudentAccount) {
+            	for (Listing listing :((StudentAccount)account).getBookmarks())
+            		System.out.println("     "+listing.getAddress());
+            }
+          }
+          for (Listing listing : server.getAllListings()) {
             System.out.println(listing.getAddress());
+          }*/
           return this;
         case 3:
-          //server.addAccount(new StudentAccount("rhylen", "Rhylen", "Nguyen", "rhylen", "rhylen"));
+          //server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
           //server.addListing(
               //new Listing("Appartment T", "123 Alphabet Ln, Columbia, 29063", 1234, false));
           //return this;
@@ -192,6 +198,8 @@ public class Driver {
         case 1:
           System.out.println("Logging out");
           return new DefaultDisplay(null);
+        case 3:
+          return new ListingDisplay((HostAccount)loggedIn);
         case 4:
           return new MessageDisplay(loggedIn);
         default:
@@ -233,6 +241,7 @@ public class Driver {
             System.out.println("Enter message:");
             String message = scan.nextLine();
             loggedIn.getMessageBox().sendMessage(recipient, message);
+            DataWriter.saveAccounts();
           }
           return this;
         default:
@@ -265,7 +274,7 @@ public class Driver {
           String firstName = scan.nextLine();
           System.out.println("Enter last name");
           String lastName = scan.nextLine();
-          //TODO verify studentID 
+          //TODO verify studentID
           System.out.println("Enter username:");
           String username = scan.nextLine();
           if (username.length() < 6) {
@@ -283,7 +292,7 @@ public class Driver {
           } else if (password1.length() > 12) {
             System.out.println("Password is too long. Must be 6-12 characters.");
             return this;
-          }          
+          }
           System.out.println("Re-enter password to verify:");
           String password2 = scan.nextLine();
           if (!password1.equals(password2)) {
@@ -298,7 +307,7 @@ public class Driver {
           System.out.println("Enter first name:");
           String firstNameH = scan.nextLine();
           System.out.println("Enter last name:");
-          String lastNameH = scan.nextLine(); 
+          String lastNameH = scan.nextLine();
           System.out.println("Enter username:");
           String usernameH = scan.nextLine();
           if (usernameH.length() < 6) {
@@ -316,7 +325,7 @@ public class Driver {
           } else if (passwordH1.length() > 12) {
             System.out.println("Password is too long. Must be 6-12 characters.");
             return this;
-          }          
+          }
           System.out.println("Re-enter password to verify:");
           String passwordH2 = scan.nextLine();
           if (!passwordH1.equals(passwordH2)) {
@@ -333,19 +342,73 @@ public class Driver {
       }
     }
   }
-  
+
   private static class SearchDisplay implements Display {
-    private Account loggedIn;
-    
-    public void display() {
-      System.out.println("");
-    }
-    
-    public Display option(int choice) {
-      return null;
-    }
+
+	@Override
+	public Display option(int choice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void display() {
+		// TODO Auto-generated method stub
+
+	}
+
   }
-  
+
+  private static class ListingDisplay implements Display {
+	private HostAccount loggedIn;
+	private Listing listing;
+
+    public ListingDisplay(HostAccount account) {
+      loggedIn = account;
+    }
+
+	public void display() {
+		System.out.println("Enter an address:");
+	    String address = scan.nextLine();
+	    System.out.println("Enter an name:");
+	    String name  = scan.nextLine();
+	    System.out.println("Enter a rent price:");
+	    double rent = scan.nextDouble();
+
+	    listing = new Listing(loggedIn, name, address, rent);
+
+	    System.out.println("Enter number of bedrooms:");
+	    listing.addBedrooms(scan.nextInt());
+	    System.out.println("Enter number of bathrooms:");
+	    listing.addBathrooms(scan.nextInt());
+	    System.out.println("Enter a description:");
+	    listing.addDescription(scan.nextLine());
+
+	    System.out.println(
+	            "\n\n> What would you like to add\n0: Exit program\n1: Logout\n2: Add filters\n3: View Listing");
+	      }
+
+
+	public Display option(int choice) {
+		switch (choice) {
+        case 1:
+          System.out.println("Logging out");
+          return new DefaultDisplay(null);
+        case 2:
+	    	System.out.println("Enter filter:");
+		    listing.addFilter(scan.nextLine());
+		    return this;
+        case 3:
+          return new MessageDisplay(loggedIn);
+        default:
+          System.out.println("Invalid input");
+          return this;
+      }
+    }
+
+}
+
+
   public static void main(String[] args) {
     Driver myDriver = new Driver();
     myDriver.run();

@@ -34,7 +34,7 @@ public class DataLoader {
 
 
 				listings.add(new Listing(name, address, rent, rented));
-				listings.get(i).addDecription(description);
+				listings.get(i).addDescription(description);
 				JSONArray filters =(JSONArray)listingJSON.get("filters");
 				for (int j = 0; j < filters.size(); ++j) {
 					listings.get(i).addFilter((String)filters.get(j));
@@ -76,19 +76,11 @@ public class DataLoader {
 				String firstName = (String)accountJSON.get("firstName");
 				String lastName = (String)accountJSON.get("lastName");
 				
+				JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
+				
 				if (type.equals("student")) {
 					String studentID = (String)accountJSON.get("studentID");
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
-
-					// Can we change these to just be account reviews?
-					JSONArray reviewsJSON = (JSONArray)accountJSON.get("renterReviews");
-					for ( int j=0; j <reviewsJSON.size(); ++j) {
-						JSONObject review = (JSONObject)reviewsJSON.get(j);
-						String text = (String)review.get("text");
-						String writer = (String)review.get("writer");
-						int rating = ((Long)review.get("rating")).intValue();
-						student.addRenterReview(new Review(writer, rating, text));
-					}
 					
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
 					
@@ -100,48 +92,46 @@ public class DataLoader {
 					JSONArray bookmarksJSON = (JSONArray)accountJSON.get("bookmarks");
 					for (int j= 0; j< bookmarksJSON.size();++j) {
 						student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
+						//System.out.println(student.getBookmarks().get(j).getAddress());
 					}
-
+				
 					JSONArray favoritesJSON = (JSONArray)accountJSON.get("favoriteProperties");
 					for (int j= 0; j< favoritesJSON.size();++j) {
 						student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
 					}
-
+					
+					for ( int j=0; j <reviewsJSON.size(); ++j) {
+						JSONObject review = (JSONObject)reviewsJSON.get(j);
+						String text = (String)review.get("text");
+						String writer = (String)review.get("writer");
+						int rating = ((Long)review.get("rating")).intValue();
+						student.addAccountReview(new Review(writer, rating, text));
+					}
 					accounts.add(student);
-				} else {
+				} 	else if (type.equals("host")){
 					HostAccount host = new HostAccount(username, hashedPassword, firstName, lastName);
+					//System.out.println(host.getFirstName());
+					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+					
+					for (int j = 0; j< messageBoxJSON.size(); ++j) {
+						host.getMessageBox().addMessage((String)messageBoxJSON.get(j));
+					}
+					for ( int j=0; j <reviewsJSON.size(); ++j) {
+						JSONObject review = (JSONObject)reviewsJSON.get(j);
+						String text = (String)review.get("text");
+						String writer = (String)review.get("writer");
+						int rating = ((Long)review.get("rating")).intValue();
+						host.addAccountReview(new Review(writer, rating, text));
+					}
+					
+					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperties");
+					for (int j= 0; j<propertyJSON.size();++j) {
+						host.addProperty(server.getListing((String)propertyJSON.get(j)));
+					}
+
 					accounts.add(host);
 					
 				} 
-			}
-			/*
-
-			for(int i=0; i < hostaccountsJSON.size(); ++i) {
-				
-				/*MessageBox messageBox = new MessageBox(host);
-				JSONArray messageBoxJSON = (JSONArray)hostaccountJSON.get("messagebox");
-				for (int j = 0; j< messageBoxJSON.size(); ++j) {
-					messageBox.addMessage((String)messageBoxJSON.get(j));
-				}
-
-				JSONArray reviewsJSON = (JSONArray)hostaccountJSON.get("hostReviews");
-				for ( int j=0; j <reviewsJSON.size(); ++j) {
-					JSONObject review = (JSONObject)reviewsJSON.get(j);
-					String text = (String)review.get("text");
-					String writer = (String)review.get("writer");
-					int rating = ((Long)review.get("rating")).intValue();
-					host.addHostReview(new Review(writer, rating, text));
-				}*/
-
-				/*JSONArray propertyJSON = (JSONArray)hostaccountJSON.get("ownedProperty");
-				for (int j= 0; j<propertyJSON.size();++j) {
-					host.addProperty(server.getListing((String)propertyJSON.get(j)));
-				}
-
-				accounts.add(host);
-			}*/
-			for (Account account : accounts) {
-				System.out.println(account.getFirstName());
 			}
 
 			return accounts;

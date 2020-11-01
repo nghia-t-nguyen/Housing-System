@@ -1,7 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +20,7 @@ public class DataWriter {
 			jsonListings.add(getListingJSON(listings.get(i)));
 		}
 		
-		try (FileWriter file = new FileWriter("src/listingtest.json")) {
+		try (FileWriter file = new FileWriter("src/listings.json")) {
 			file.write(jsonListings.toJSONString());
 			file.flush();
 		} catch (IOException e) {
@@ -42,7 +41,7 @@ public class DataWriter {
 			jsonAccounts.add(getAccountJSON(accounts.get(i)));
 		}
 		
-		try (FileWriter file = new FileWriter("src/accounttest.json")) {
+		try (FileWriter file = new FileWriter("src/accounts.json")) {
 			file.write(jsonAccounts.toJSONString());
 			file.flush();
 		} catch (IOException e) {
@@ -58,10 +57,12 @@ public class DataWriter {
 		listingDetails.put("description", listing.getDescription());
 		listingDetails.put("rent", listing.getRent());
 		listingDetails.put("bedrooms", listing.getBedrooms());
+		
 		JSONArray reviewJSON = new JSONArray();
 		for (Review review : listing.getClassReviews()) {
 			reviewJSON.add(getReviewJSON(review));
 		}
+		//System.out.println(reviewJSON+"\n");
 		
 		JSONArray filterJSON = new JSONArray();
 		for (String filter : listing.getFilters()) {
@@ -83,55 +84,52 @@ public class DataWriter {
 		accountDetails.put("lastName", account.getLastName());
 		accountDetails.put("hashedPassword", account.getPassword());
 		
-		/*JSONArray messageBoxJSON = new JSONArray();
+		JSONArray messageBoxJSON = new JSONArray();
 		for (String message : account.getMessageBox().getMessages()) {
 			messageBoxJSON.add(message);
 		}
 	
-		accountDetails.put("messagebox", messageBoxJSON);*/
+		accountDetails.put("messagebox", messageBoxJSON);
 		
 		JSONArray reviewJSON = new JSONArray();
+		//System.out.println("SHDJIHSIDHI"+ account.getAccountReviews());
+		for (Review review : account.getAccountReviews()) {
+				reviewJSON.add(getReviewJSON(review));
+			}
+		//System.out.println(reviewJSON+"\n");
+		accountDetails.put("accountReviews", reviewJSON);
 			
 		if (account instanceof StudentAccount) {
 			StudentAccount student = (StudentAccount) account;
 			accountDetails.put("type", "student");
 			accountDetails.put("studentID", student.getStudentID());
-			
-			
-			for (Review review : student.getRenterReviews()) {
-				reviewJSON.add(getReviewJSON(review));
-			}
-			
+					
 			JSONArray bookmarkJSON = new JSONArray();
 			for (Listing bookmark : student.getBookmarks()) {
-				bookmarkJSON.add(getListingJSON(bookmark));
+				bookmarkJSON.add(bookmark.getAddress());
 			}
 			
 			JSONArray favoriteJSON = new JSONArray();
 			for (Listing favorite : student.getFavorites()) {
-				favoriteJSON.add(getListingJSON(favorite));
+				favoriteJSON.add(favorite.getAddress());
 			}
 			
-			accountDetails.put("renterReviews", reviewJSON);
 			accountDetails.put("bookmarks", bookmarkJSON);
 			accountDetails.put("favorites", favoriteJSON);			
-		} else if (account instanceof HostAccount) {
+		} 
+		
+		if (account instanceof HostAccount) {
 			HostAccount host = (HostAccount) account;
 			accountDetails.put("type", "host");
-		
-			for (Review review : host.getReviews()) {
-				reviewJSON.add(getReviewJSON(review));
-			}
 			
 			JSONArray ownedJSON = new JSONArray();
 			for (Listing listing : host.getOwnedProperties()) {
-				ownedJSON.add(getListingJSON(listing));
+				ownedJSON.add(listing.getAddress());
 			}
-			
-			accountDetails.put("hostReviews", reviewJSON);
 			accountDetails.put("ownedProperties", ownedJSON);
 			
 		}
+		//System.out.println(accountDetails);
 		return accountDetails;	
 	}
 	
