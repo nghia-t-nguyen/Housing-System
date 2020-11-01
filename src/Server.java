@@ -161,16 +161,16 @@ public class Server {
   }
 
   /**
-   * Searches listings for a specific address
+   * Searches listings for a keyword that compares the address
    * 
-   * @param address - the address of the listing
-   * @return - an arraylist with the listings with the corresponding address
+   * @param keyword - the name of the listing or address to search up
+   * @return - an arraylist with the listings with the corresponding keyword
    */
-  public ArrayList<Listing> searchListings(String address) {
+  public ArrayList<Listing> searchListings(String keyword) {
     ArrayList<Listing> ret = new ArrayList<Listing>();
 
     for (Listing listing : listings) {
-      if (address.equalsIgnoreCase(listing.getAddress())) {
+      if (listing.getAddress().contains(keyword) || listing.getName().contains(keyword)) {
         ret.add(listing);
       }
     }
