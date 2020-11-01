@@ -1,4 +1,3 @@
-import java.util.TreeSet;
 import java.util.*;
 
 public class Server {
@@ -195,5 +194,32 @@ public class Server {
     }
 
     return null;
+  }
+  
+  private ArrayList<Listing> intersection(ArrayList<Listing> list1, ArrayList<Listing> list2) {
+    ArrayList<Listing> list = new ArrayList<Listing>();
+
+    for (Listing listing : list1) {
+        if(list2.contains(listing)) {
+            list.add(listing);
+        }
+    }
+    return list;
+  }
+  
+  public ArrayList<Listing> match(Listing listing) {
+    ArrayList<Listing> bedAndBathMatch = new ArrayList<Listing>();
+    for (Listing l : listings) {
+      if ((l.getBedrooms() == listing.getBedrooms()) || (l.getBathrooms() == listing.getBathrooms()))
+        bedAndBathMatch.add(l);
+    }
+    ArrayList<Listing> filterMatch = new ArrayList<Listing>();
+    for (Listing l : listings) {
+      if (l.getFilters().containsAll(listing.getFilters())) {
+        filterMatch.add(l);
+      }
+    }
+    
+    return intersection(bedAndBathMatch, filterMatch);
   }
 }

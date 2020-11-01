@@ -8,8 +8,8 @@ public class Listing {
 	private double rent;
 	private int bedrooms;
 	private int bathrooms;
-	private ArrayList<String> filters = new ArrayList<>();
-	private ArrayList<Review> reviews = new ArrayList<>();
+	private ArrayList<String> filters;
+	private ArrayList<Review> reviews;
 	private boolean rented;
 	
 	public Listing(HostAccount host, String name, String address, double rent) {
@@ -18,6 +18,8 @@ public class Listing {
 		this.address = address;
 		this.rent = rent;
 		this.rented = false;
+		this.filters = new ArrayList<String>();
+		this.reviews = new ArrayList<Review>();
 	}
 	
 	public Listing(String name, String address, double rent, boolean rented) {
@@ -25,6 +27,8 @@ public class Listing {
 		this.address = address;
 		this.rent = rent;
 		this.rented = rented;
+	    this.filters = new ArrayList<String>();
+	    this.reviews = new ArrayList<Review>();
 	}
 		
 	public void addDescription(String text) {
@@ -40,7 +44,7 @@ public class Listing {
 	}
 	
 	public void addFilter(String filter) {
-		filters.add(filter);
+		filters.add(filter.toLowerCase());
 	}
 	
 	public void addReview(Review review) {
