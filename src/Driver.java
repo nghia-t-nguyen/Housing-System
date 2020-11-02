@@ -455,9 +455,59 @@ public class Driver {
           if (searchResults.size() == 0) {
             System.out.println("No search results");
           } else {
+            int counter = 1;
             for (Listing result : searchResults)
-              System.out.println(result);
+              System.out.println("Listing #" + counter + "\n" + result);
+              counter++;
           }
+          
+          /*
+          System.out.println("Enter the search result's listing number to generate a lease (enter 0 to not generate lease):");
+          if (scan.hasNextInt()) {
+            int listNumber = scan.nextInt();
+            if (listNumber == 0) {
+              return this;
+            } else if (listNumber <= searchResults.size()) {
+              if (loggedIn == null) {
+                System.out.println("Sorry. Cannot generate lease unless logged in");
+                return this;
+              } else if (loggedIn.getClass() != StudentAccount.class) {
+                System.out.println("Sorry this feature is only accessible to student accounts");
+                return this;
+              }
+              System.out.println("Add tenants? (enter \"yes\" to add):");
+              String response = scan.nextLine();
+              ArrayList<StudentAccount> tenants = new ArrayList<StudentAccount>();
+              tenants.add((StudentAccount)loggedIn);
+              if ("yes".equalsIgnoreCase(response)) { 
+                System.out.println("How many? (enter as an integer)");
+                int numTenants = scan.nextInt();
+                int i = 1;
+                
+                while (i <= numTenants) {
+                  System.out.println("Enter username of tenant #" + i + " or enter \"exit\" to quit adding tenants");
+                  String tenantResponse = scan.nextLine();
+                  if ("exit".equalsIgnoreCase(tenantResponse))
+                    break;
+                  Account tenant = server.getAccount(tenantResponse);
+                  if (tenant == null) {
+                    System.out.println("Sorry account is not found");
+                    i--;
+                  } else if (tenant.getClass() != StudentAccount.class) {
+                    System.out.println("Account is not a student account.");
+                    i--;
+                  } else {
+                    tenants.add((StudentAccount)tenant);
+                  }
+                  i++;
+                }  
+              }
+              Lease l = new Lease(tenants, searchResults.get(listNumber-1).getHost(), searchResults.get(listNumber-1));
+              
+            }
+            
+          }*/
+          
           return this;
         default:
           System.out.println("Invalid input");
