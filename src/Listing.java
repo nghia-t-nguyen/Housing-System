@@ -51,6 +51,10 @@ public class Listing {
   public void addReview(Review review) {
     reviews.add(review);
   }
+  
+  public void addHost(HostAccount host) {
+	  this.host = host;
+  }
 
   public ArrayList<String> getReviews() {
     ArrayList<String> reviewsList = new ArrayList<>();
