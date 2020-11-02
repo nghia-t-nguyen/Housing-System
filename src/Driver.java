@@ -79,7 +79,14 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          return new SearchDisplay(loggedIn);
+          for (Account account : server.getAllAccounts()) {
+        	System.out.print(account.getFirstName());
+            System.out.println("  - "+account.getUsername());
+          } System.out.println();
+          for (Listing listing : server.getAllListings()) {
+            System.out.println(listing.getAddress());
+          }
+          return this;
         case 3:
           return new CreateAccountDisplay(loggedIn);
         default:
@@ -190,7 +197,22 @@ public class Driver {
         case 2:
           return new SearchDisplay(loggedIn);
         case 3:
-          return new ListingDisplay((HostAccount) loggedIn);
+        	System.out.println("Enter an address:");
+    	    String address = scan.nextLine();
+    	    System.out.println("Enter an name:");
+    	    String name  = scan.nextLine();
+    	    System.out.println("Enter a rent price:");
+    	    double rent = scan.nextDouble();
+
+    	    Listing listing = new Listing((HostAccount)loggedIn, name, address, rent);
+
+    	    System.out.println("Enter number of bedrooms:");
+    	    listing.addBedrooms(scan.nextInt());
+    	    System.out.println("Enter number of bathrooms:");
+    	    listing.addBathrooms(scan.nextInt());
+    	    System.out.println("Enter a description:");
+    	    listing.addDescription(scan.nextLine());
+          return new ListingDisplay((HostAccount)loggedIn, listing);
         case 4:
           return new MessageDisplay(loggedIn);
         default:
@@ -425,14 +447,14 @@ public class Driver {
               filters.add("furnished");
             }
           }
-          
+
           Listing listing = new Listing("", "", 0.0, false);
           listing.addBathrooms(bathrooms);
           listing.addBedrooms(bedrooms);
           for (String filter : filters) {
             listing.addFilter(filter);
           }
-          
+
           ArrayList<Listing> searchResults = server.match(listing);
           if (searchResults.size() == 0) {
             System.out.println("No search results");
@@ -452,41 +474,26 @@ public class Driver {
     private HostAccount loggedIn;
     private Listing listing;
 
-    public ListingDisplay(HostAccount account) {
+    public ListingDisplay(HostAccount account, Listing listing) {
       loggedIn = account;
+      this.listing = listing;
     }
 
-    public void display() {
-      System.out.println("Enter an address:");
-      String address = scan.nextLine();
-      System.out.println("Enter an name:");
-      String name = scan.nextLine();
-      System.out.println("Enter a rent price:");
-      double rent = scan.nextDouble();
-
-      listing = new Listing(loggedIn, name, address, rent);
-
-      System.out.println("Enter number of bedrooms:");
-      listing.addBedrooms(scan.nextInt());
-      System.out.println("Enter number of bathrooms:");
-      listing.addBathrooms(scan.nextInt());
-      System.out.println("Enter a description:");
-      listing.addDescription(scan.nextLine());
-
-      System.out.println(
-          "\n\n> What would you like to add\n0: Exit program\n1: Logout\n2: Add filters\n3: View Listing");
-    }
+	public void display() {
+	    System.out.println(
+	            "\n\n> What would you like to add\n0: Exit program\n1: Logout\n2: Add filters\n3: View Listing");
+	      }
 
 
-    public Display option(int choice) {
-      switch (choice) {
+	public Display option(int choice) {
+		switch (choice) {
         case 1:
           System.out.println("Logging out");
           return new DefaultDisplay(null);
         case 2:
-          System.out.println("Enter filter:");
-          listing.addFilter(scan.nextLine());
-          return this;
+	    	System.out.println("Add a filter:");
+		    listing.addFilter(scan.nextLine());
+		    return this;
         case 3:
           return new MessageDisplay(loggedIn);
         default:
