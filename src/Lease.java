@@ -44,7 +44,7 @@ public abstract class Lease {
 
     public void PaymentTerm(double beg, double end) {
         try (FileWriter file = new FileWriter("src/lease.txt")) {
-            file.write("3. Term. The Tenant will coninue to pay rent from" + beg + "to " end + ".\n");
+            file.write("3. Term. The Tenant will coninue to pay rent from" + beg + "to " + end + ".\n");
             file.flush();
         } catch (IOException e) {
 
@@ -69,7 +69,7 @@ public abstract class Lease {
         }
     }
 
-    public void Damagaes(double cost) {
+    public void Damages(double cost) {
         try (FileWriter file = new FileWriter("src/lease.txt")) {
             file.write("6. Damages. Charges will be billed to the client for damaged property, up to " + cost + ".\n");
             file.flush();
