@@ -83,11 +83,11 @@ public class DataLoader {
 
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
 					//System.out.println(student.getUsername());
-					/*JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
 
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
 						student.getMessageBox().addMessage((String)messageBoxJSON.get(j));
-					}*/
+					}
 
 					//Dont know if these 2 are working properly
 					JSONArray bookmarksJSON = (JSONArray)accountJSON.get("bookmarks");
