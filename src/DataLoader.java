@@ -76,17 +76,17 @@ public class DataLoader {
 				String firstName = (String)accountJSON.get("firstName");
 				String lastName = (String)accountJSON.get("lastName");
 
-				//JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
+				JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
 
 				if (type.equals("student")) {
 					String studentID = (String)accountJSON.get("studentID");
 
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
 					//System.out.println(student.getUsername());
-					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messagebox");
 
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
-						student.getMessageBox().addMessage((String)messageBoxJSON.get(j));
+						student.receiveMessage((String)messageBoxJSON.get(j));
 					}
 
 					//Dont know if these 2 are working properly
@@ -101,19 +101,19 @@ public class DataLoader {
 						student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
 					}
 
-					/*for ( int j=0; j <reviewsJSON.size(); ++j) {
+					for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
 						String text = (String)review.get("text");
 						String writer = (String)review.get("writer");
 						int rating = ((Long)review.get("rating")).intValue();
 						student.addAccountReview(new Review(writer, rating, text));
-					}*/
+					}
 					accounts.add(student);
 				}
 				else if (type.equals("host")){
 					HostAccount host = new HostAccount(username, hashedPassword, firstName, lastName);
 					//System.out.println(host.getUsername());
-					/*JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messagebox");
 
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
 						host.getMessageBox().addMessage((String)messageBoxJSON.get(j));
@@ -129,7 +129,7 @@ public class DataLoader {
 					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperties");
 					for (int j= 0; j<propertyJSON.size();++j) {
 						host.addProperty(server.getListing((String)propertyJSON.get(j)));
-					}*/
+					}
 					accounts.add(host);
 
 				}
