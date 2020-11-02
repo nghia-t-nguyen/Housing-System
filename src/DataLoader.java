@@ -129,6 +129,7 @@ public class DataLoader {
 					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperties");
 					for (int j= 0; j<propertyJSON.size();++j) {
 						host.addProperty(server.getListing((String)propertyJSON.get(j)));
+						server.getListing((String)propertyJSON.get(j)).addHost(host);
 					}
 					accounts.add(host);
 

@@ -44,7 +44,7 @@ public abstract class Lease {
 
     public void PaymentTerm(double beg, double end) {
         try (FileWriter file = new FileWriter("src/lease.txt")) {
-            file.write("3. Term. The Tenant will coninue to pay rent from" + beg + "to " end + ".\n");
+            file.write("3. Term. The Tenant will coninue to pay rent from" + beg + "to " + end + ".\n");
             file.flush();
         } catch (IOException e) {
 

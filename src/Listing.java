@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Listing {
+
 	private HostAccount host;
 	private String name;
 	private String address;
@@ -79,7 +80,14 @@ public class Listing {
 /**
 * addReview adds Review review to this.review
 */
-	
+
+ public void addHost(HostAccount host) {
+	  this.host = host;
+  }
+
+/**
+* addHost adds HostAccount host to this.host
+*/	
 	public ArrayList<String> getReviews() {
 		ArrayList<String> reviewsList = new ArrayList<>();
 		for(Review review : reviews ) {
@@ -219,5 +227,3 @@ public class Listing {
 /**
 * toString returns a string with a description of the listing calling upon the attributes from the rest of this class' methods
 */
-
-}
