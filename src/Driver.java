@@ -78,16 +78,13 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          /*for (Account account : server.getAllAccounts()) {
-            System.out.println(account.getFirstName());
-            if (account instanceof StudentAccount) {
-            	for (Listing listing :((StudentAccount)account).getBookmarks())
-            		System.out.println("     "+listing.getAddress());
-            }
-          }
+          for (Account account : server.getAllAccounts()) {
+        	System.out.print(account.getFirstName());  
+            System.out.println("  - "+account.getUsername());
+          } System.out.println();
           for (Listing listing : server.getAllListings()) {
             System.out.println(listing.getAddress());
-          }*/
+          }
           return this;
         case 3:
           //server.addAccount(new StudentAccount("rhylen", "1234", "Rhylen", "Nguyen", "rhylen"));
@@ -199,7 +196,22 @@ public class Driver {
           System.out.println("Logging out");
           return new DefaultDisplay(null);
         case 3:
-          return new ListingDisplay((HostAccount)loggedIn);
+        	System.out.println("Enter an address:");
+    	    String address = scan.nextLine();
+    	    System.out.println("Enter an name:");
+    	    String name  = scan.nextLine();
+    	    System.out.println("Enter a rent price:");
+    	    double rent = scan.nextDouble();
+    	    
+    	    Listing listing = new Listing((HostAccount)loggedIn, name, address, rent);
+    	    
+    	    System.out.println("Enter number of bedrooms:");
+    	    listing.addBedrooms(scan.nextInt());
+    	    System.out.println("Enter number of bathrooms:");
+    	    listing.addBathrooms(scan.nextInt());
+    	    System.out.println("Enter a description:");
+    	    listing.addDescription(scan.nextLine());
+          return new ListingDisplay((HostAccount)loggedIn, listing);
         case 4:
           return new MessageDisplay(loggedIn);
         default:
@@ -363,27 +375,12 @@ public class Driver {
 	private HostAccount loggedIn;
 	private Listing listing;
 
-    public ListingDisplay(HostAccount account) {
+    public ListingDisplay(HostAccount account, Listing listing) {
       loggedIn = account;
+      this.listing = listing;
     }
     
-	public void display() {
-		System.out.println("Enter an address:");
-	    String address = scan.nextLine();
-	    System.out.println("Enter an name:");
-	    String name  = scan.nextLine();
-	    System.out.println("Enter a rent price:");
-	    double rent = scan.nextDouble();
-	    
-	    listing = new Listing(loggedIn, name, address, rent);
-	    
-	    System.out.println("Enter number of bedrooms:");
-	    listing.addBedrooms(scan.nextInt());
-	    System.out.println("Enter number of bathrooms:");
-	    listing.addBathrooms(scan.nextInt());
-	    System.out.println("Enter a description:");
-	    listing.addDescription(scan.nextLine());
-	    
+	public void display() {		  
 	    System.out.println(
 	            "\n\n> What would you like to add\n0: Exit program\n1: Logout\n2: Add filters\n3: View Listing");
 	      }
@@ -395,7 +392,7 @@ public class Driver {
           System.out.println("Logging out");
           return new DefaultDisplay(null);
         case 2:
-	    	System.out.println("Enter filter:");
+	    	System.out.println("Add a filter:");
 		    listing.addFilter(scan.nextLine());
 		    return this;
         case 3:

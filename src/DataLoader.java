@@ -75,44 +75,46 @@ public class DataLoader {
 				int hashedPassword = ((Long)accountJSON.get("hashedPassword")).intValue();
 				String firstName = (String)accountJSON.get("firstName");
 				String lastName = (String)accountJSON.get("lastName");
-				
-				JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
-				
+
+				//JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
+
 				if (type.equals("student")) {
 					String studentID = (String)accountJSON.get("studentID");
+
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
-					
-					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
-					
+					//System.out.println(student.getUsername());
+					/*JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
 						student.getMessageBox().addMessage((String)messageBoxJSON.get(j));
-					}
-					
+					}*/
+
 					//Dont know if these 2 are working properly
 					JSONArray bookmarksJSON = (JSONArray)accountJSON.get("bookmarks");
 					for (int j= 0; j< bookmarksJSON.size();++j) {
 						student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
 						//System.out.println(student.getBookmarks().get(j).getAddress());
 					}
-				
-					JSONArray favoritesJSON = (JSONArray)accountJSON.get("favoriteProperties");
+
+					JSONArray favoritesJSON = (JSONArray)accountJSON.get("favorites");
 					for (int j= 0; j< favoritesJSON.size();++j) {
 						student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
 					}
-					
-					for ( int j=0; j <reviewsJSON.size(); ++j) {
+
+					/*for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
 						String text = (String)review.get("text");
 						String writer = (String)review.get("writer");
 						int rating = ((Long)review.get("rating")).intValue();
 						student.addAccountReview(new Review(writer, rating, text));
-					}
+					}*/
 					accounts.add(student);
-				} 	else if (type.equals("host")){
+				}
+				else if (type.equals("host")){
 					HostAccount host = new HostAccount(username, hashedPassword, firstName, lastName);
-					//System.out.println(host.getFirstName());
-					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
-					
+					//System.out.println(host.getUsername());
+					/*JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messageBox");
+
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
 						host.getMessageBox().addMessage((String)messageBoxJSON.get(j));
 					}
@@ -123,22 +125,21 @@ public class DataLoader {
 						int rating = ((Long)review.get("rating")).intValue();
 						host.addAccountReview(new Review(writer, rating, text));
 					}
-					
+
 					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperties");
 					for (int j= 0; j<propertyJSON.size();++j) {
 						host.addProperty(server.getListing((String)propertyJSON.get(j)));
-					}
-
+					}*/
 					accounts.add(host);
-					
-				} 
-			}
 
+				}
+			}
+			
 			return accounts;
 		} catch (Exception e) {
 
 		}
-		return accounts;		
+		return accounts;
 	}
 
 }
