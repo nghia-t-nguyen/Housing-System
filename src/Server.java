@@ -1,4 +1,3 @@
-import java.util.TreeSet;
 import java.util.*;
 
 public class Server {
@@ -162,16 +161,16 @@ public class Server {
   }
 
   /**
-   * Searches listings for a specific address
+   * Searches listings for a keyword that compares the address
    * 
-   * @param address - the address of the listing
-   * @return - an arraylist with the listings with the corresponding address
+   * @param keyword - the name of the listing or address to search up
+   * @return - an arraylist with the listings with the corresponding keyword
    */
-  public ArrayList<Listing> searchListings(String address) {
+  public ArrayList<Listing> searchListings(String keyword) {
     ArrayList<Listing> ret = new ArrayList<Listing>();
 
     for (Listing listing : listings) {
-      if (address.equalsIgnoreCase(listing.getAddress())) {
+      if (listing.getAddress().contains(keyword) || listing.getName().contains(keyword)) {
         ret.add(listing);
       }
     }
@@ -195,5 +194,32 @@ public class Server {
     }
 
     return null;
+  }
+  
+  private ArrayList<Listing> intersection(ArrayList<Listing> list1, ArrayList<Listing> list2) {
+    ArrayList<Listing> list = new ArrayList<Listing>();
+
+    for (Listing listing : list1) {
+        if(list2.contains(listing)) {
+            list.add(listing);
+        }
+    }
+    return list;
+  }
+  
+  public ArrayList<Listing> match(Listing listing) {
+    ArrayList<Listing> bedAndBathMatch = new ArrayList<Listing>();
+    for (Listing l : listings) {
+      if ((l.getBedrooms() == listing.getBedrooms()) || (l.getBathrooms() == listing.getBathrooms()))
+        bedAndBathMatch.add(l);
+    }
+    ArrayList<Listing> filterMatch = new ArrayList<Listing>();
+    for (Listing l : listings) {
+      if (l.getFilters().containsAll(listing.getFilters())) {
+        filterMatch.add(l);
+      }
+    }
+    
+    return intersection(bedAndBathMatch, filterMatch);
   }
 }
