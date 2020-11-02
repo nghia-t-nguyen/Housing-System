@@ -40,13 +40,17 @@ public class Listing {
 	    this.filters = new ArrayList<String>();
 	    this.reviews = new ArrayList<Review>();
 	}
-		
+/**
+* addDescription adds String text to this.description
+*/
+				
 	public void addDescription(String text) {
 		this.description = text;
 	}
 	
+
 /**
-* addDescription adds String text to this.description
+* addBedrooms adds int number to this.bedrooms
 */
 
 	public void addBedrooms(int number) {
@@ -54,40 +58,36 @@ public class Listing {
 	}
 	
 /**
-* addBedrooms adds int number to this.bedrooms
-*/
-
-	public void addBathrooms(int number) {
-		this.bathrooms = number;
-	}
-	
-/**
 * addBathrooms adds int number to this.bathrooms
 */
-
-	public void addFilter(String filter) {
-		filters.add(filter.toLowerCase());
+	public void addBathrooms(int number) {
+		this.bathrooms = number;
 	}
 
 /**
 * addFilter adds String filter to this.filter
 */
-	
+	public void addFilter(String filter) {
+		filters.add(filter.toLowerCase());
+	}
+
+
+/**
+* addReview adds Review review to this.review
+*/	
 	public void addReview(Review review) {
 		reviews.add(review);
 	}
 
-/**
-* addReview adds Review review to this.review
-*/
-
- public void addHost(HostAccount host) {
-	  this.host = host;
-  }
 
 /**
 * addHost adds HostAccount host to this.host
 */	
+ public void addHost(HostAccount host) {
+	  this.host = host;
+  }
+
+
 	public ArrayList<String> getReviews() {
 		ArrayList<String> reviewsList = new ArrayList<>();
 		for(Review review : reviews ) {

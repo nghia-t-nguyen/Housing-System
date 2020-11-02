@@ -78,15 +78,19 @@ public class Driver {
         case 1:
           return new LoginDisplay(loggedIn);
         case 2:
-          /*
-           * for (Account account : server.getAllAccounts()) {
-           * System.out.print(account.getFirstName()); System.out.println("  - " +
-           * account.getUsername()); } System.out.println(); for (Listing listing :
-           * server.getAllListings()) { System.out.println(listing.getAddress()); }
-           */
           return new SearchDisplay(loggedIn);
         case 3:
           return new CreateAccountDisplay(loggedIn);
+        case 4:
+        	
+          for (Account account : server.getAllAccounts()) {
+            System.out.print(account.getFirstName()); 
+            System.out.println("  - " + account.getUsername()); 
+          } 
+          System.out.println(); 
+          for (Listing listing : server.getAllListings()) { 
+            System.out.println(listing.getHost()); 
+          }
         default:
           System.out.println("Invalid input");
           return this;
