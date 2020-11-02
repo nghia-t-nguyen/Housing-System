@@ -224,6 +224,8 @@ public class Listing {
 	  
 	  return ret;
 	}
+	
+}
 /**
 * toString returns a string with a description of the listing calling upon the attributes from the rest of this class' methods
 */
