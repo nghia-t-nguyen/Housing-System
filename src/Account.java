@@ -27,7 +27,7 @@ public abstract class Account implements Comparable<Account> {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.hashedPassword = password.hashCode();
-		messagebox = new MessageBox();
+		messagebox = new MessageBox(this);
 		accountReviews = new ArrayList<Review>();
 	}
 
@@ -43,7 +43,7 @@ public abstract class Account implements Comparable<Account> {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.hashedPassword = hashedPassword;
-		messagebox = new MessageBox();
+		messagebox = new MessageBox(this);
 		accountReviews = new ArrayList<Review>();
 	}
 
