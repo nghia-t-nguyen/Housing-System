@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Listing {
 
-	private HostAccount host;
+	private String host;
 	private String name;
 	private String address;
 	private String description;
@@ -20,6 +20,7 @@ public class Listing {
 
 	public Listing(HostAccount host, String name, String address, double rent) {
 		host.addProperty(this);
+		this.host = host.getUsername();
 		this.name = name;
 		this.address = address;
 		this.rent = rent;
@@ -32,7 +33,8 @@ public class Listing {
 * Constructor for Listing class
 */
 
-	public Listing(String name, String address, double rent, boolean rented) {
+	public Listing(String host, String name, String address, double rent, boolean rented) {
+		this.host = host;
 		this.name = name;
 		this.address = address;
 		this.rent = rent;
@@ -79,13 +81,6 @@ public class Listing {
 		reviews.add(review);
 	}
 
-
-/**
-* addHost adds HostAccount host to this.host
-*/	
- public void addHost(HostAccount host) {
-	  this.host = host;
-  }
 
 
 	public ArrayList<String> getReviews() {
@@ -167,7 +162,7 @@ public class Listing {
 */
 
 	public HostAccount getHost() {
-		return this.host;
+		return (HostAccount) Server.getInstance().getAccount(host);
 	}
 /**
 * getHost() returns HostAccount host

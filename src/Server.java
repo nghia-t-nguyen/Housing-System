@@ -137,6 +137,7 @@ public class Server {
     public void addListing(Listing listing) {
 	  listings.add(listing);
 	  DataWriter.saveListings();
+	  DataWriter.saveAccounts();
     }
 
   /**

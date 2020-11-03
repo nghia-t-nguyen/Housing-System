@@ -89,7 +89,7 @@ public class Driver {
           } 
           System.out.println(); 
           for (Listing listing : server.getAllListings()) { 
-            System.out.println(listing.getHost()); 
+            System.out.println(listing.getHost().getUsername()); 
           }
           return this;
         default:
@@ -449,7 +449,7 @@ public class Driver {
           System.out.println("Enter number of bathrooms (as an integer):");
           int bathrooms = scan.nextInt();
           ArrayList<String> filters = addFilters();
-          Listing listing = new Listing("", "", 0.0, false);
+          Listing listing = new Listing("","", "", 0.0, false);
           listing.addBathrooms(bathrooms);
           listing.addBedrooms(bedrooms);
           for (String filter : filters) {

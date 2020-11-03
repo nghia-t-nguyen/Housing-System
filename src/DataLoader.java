@@ -22,18 +22,19 @@ public class DataLoader {
 
 			for(int i=0; i < listingsJSON.size(); ++i) {
 				JSONObject listingJSON = (JSONObject)listingsJSON.get(i);
+				String host = (String)listingJSON.get("host");
 				String name = (String)listingJSON.get("name");
 				String address = (String)listingJSON.get("address");
 				String description = (String)listingJSON.get("description");
 
-				double rent = ((Long)listingJSON.get("rent")).doubleValue();
+				double rent = (double)listingJSON.get("rent");
 				int bedrooms= ((Long)listingJSON.get("bedrooms")).intValue();
 				int bathrooms= ((Long)listingJSON.get("bathrooms")).intValue();
 				boolean rented = (boolean)listingJSON.get("rented");
 				JSONArray reviewsJSON = (JSONArray)listingJSON.get("reviews");
 
 
-				listings.add(new Listing(name, address, rent, rented));
+				listings.add(new Listing(host,name, address, rent, rented));
 				listings.get(i).addDescription(description);
 				JSONArray filters =(JSONArray)listingJSON.get("filters");
 				for (int j = 0; j < filters.size(); ++j) {
@@ -131,7 +132,6 @@ public class DataLoader {
 					for (int j= 0; j<propertyJSON.size();++j) {
 						Listing listing = server.getListing((String)propertyJSON.get(j));
 						host.addProperty(listing);
-						listing.addHost(host);
 					}
 					accounts.add(host);
 

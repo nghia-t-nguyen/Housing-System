@@ -52,6 +52,7 @@ public class DataWriter {
 	@SuppressWarnings("unchecked")
 	public static JSONObject getListingJSON(Listing listing) {
 		JSONObject listingDetails = new JSONObject();
+		listingDetails.put("host", listing.getHost().getUsername());
 		listingDetails.put("name", listing.getName());
 		listingDetails.put("address", listing.getAddress());
 		listingDetails.put("description", listing.getDescription());
