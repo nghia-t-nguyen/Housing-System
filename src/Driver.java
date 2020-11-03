@@ -174,6 +174,9 @@ public class Driver {
           return new SearchDisplay(loggedIn);
         case 3:
           return new MessageDisplay(loggedIn);
+        case 4:
+          System.out.println(loggedIn.getProfile());
+          return this;
         default:
           System.out.println("Invalid input");
           return this;
@@ -201,9 +204,12 @@ public class Driver {
         case 2:
           return new SearchDisplay(loggedIn);
         case 3:
-          return new ListingDisplay((HostAccount) loggedIn);
+          return new ListingManagerDisplay((HostAccount) loggedIn);
         case 4:
           return new MessageDisplay(loggedIn);
+        case 5:
+          System.out.println(loggedIn.getProfile());
+          return this;
         default:
           System.out.println("Invalid input");
           return this;
@@ -540,10 +546,10 @@ public class Driver {
     }
   }
 
-  private static class ListingDisplay implements Display {
+  private static class ListingManagerDisplay implements Display {
     private HostAccount loggedIn;
 
-    public ListingDisplay(HostAccount account) {
+    public ListingManagerDisplay(HostAccount account) {
       loggedIn = account;
     }
 
@@ -571,6 +577,7 @@ public class Driver {
           listing.addBedrooms(scan.nextInt());
           System.out.println("Enter number of bathrooms:");
           listing.addBathrooms(scan.nextInt());
+          scan.nextLine();
           System.out.println("Enter a description:");
           String description = scan.nextLine();
           listing.addDescription(description);
@@ -585,7 +592,7 @@ public class Driver {
             System.out.println("No listings");
           } else {
             for (int i = 1; i <= properties.size(); ++i) {
-              System.out.println("Listing #" + i + " **********************\n" + properties.get(i-1));
+              System.out.println("Listing #" + i + " **********************\n" + properties.get(i-1) + "\n");
             }
             System.out.println(
                 "Would you like to view change rented status or generate a lease for a particular listing? (answer \"yes\" to continue)");
@@ -601,12 +608,13 @@ public class Driver {
                 return this;
               } else {
                 selectedListing = properties.get(listingNumber-1);
+                System.out.println(selectedListing.getName() + " at " + selectedListing.getAddress());
                 System.out.println("Would you like to change rented status? (answer \"yes\" to change rented status)");
                 if (scan.nextLine().equalsIgnoreCase("yes")) {
                   selectedListing.changeRented();
                   DataWriter.saveListings();
                 }
-                System.out.println("Would you like to generate a lease? (answer \"yes\" to generate lease");
+                System.out.println("Would you like to generate a lease? (answer \"yes\" to generate lease)");
                 if (scan.nextLine().equalsIgnoreCase("yes")) {
                   System.out.println("Enter student account username:");
                   String username = scan.nextLine();
