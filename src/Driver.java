@@ -481,7 +481,7 @@ public class Driver {
             System.out.println("No search results.");
           } else {
             for (int i = 1; i <= matchResults.size(); ++i) {
-              System.out.println("Listing #" + i + " **********************\n" + matchResults.get(i-1));
+              System.out.println("Listing #" + i + " **********************\n" + matchResults.get(i-1) + "\n");
             }
             System.out.println(
                 "Would you like to view a generate a lease, message the host, or view/write a review for"
@@ -489,8 +489,8 @@ public class Driver {
             if (scan.nextLine().equalsIgnoreCase("yes")) {
               System.out.println("Enter the search result number (or 0 to return):");
               int resultNumber = getUserInput();
-              scan.nextLine();
-              if (resultNumber < 0 || resultNumber >= matchResults.size()) {
+              System.out.println("Result number:" + resultNumber);
+              if (resultNumber < 0 || resultNumber > matchResults.size()) {
                 System.out.println("Invalid input.");
                 return this;
               } else if (resultNumber == 0) {
@@ -511,7 +511,7 @@ public class Driver {
             System.out.println("No search results.");
           } else {
             for (int i = 1; i <= searchResults.size(); ++i) {
-              System.out.println("Listing #" + i + " **********************\n" + searchResults.get(i-1));
+              System.out.println("Listing #" + i + " **********************\n" + searchResults.get(i-1) + "\n");
             }
             System.out.println(
                 "Would you like to view a generate a lease, message the host, or view/write a review for"
@@ -519,7 +519,7 @@ public class Driver {
             if (scan.nextLine().equalsIgnoreCase("yes")) {
               System.out.println("Enter the search result number (or 0 to return):");
               int resultNumber2 = getUserInput();
-              if (resultNumber2 < 0 || resultNumber2 >= searchResults.size()) {
+              if (resultNumber2 < 0 || resultNumber2 > searchResults.size()) {
                 System.out.println("Invalid input.");
                 return this;
               } else if (resultNumber2 == 0) {
@@ -715,7 +715,7 @@ public class Driver {
     }
 
     public void display() {
-      //System.out.println("Listing: " + listing.getName() + " at " + listing.getAddress());
+      System.out.println("Listing: " + listing.getName() + " at " + listing.getAddress());
       System.out.println(">What would you like to do?\n0: Exit program\n1: Return\n2: Message the host\n3: View reviews\n4: Leave a review\n5: Generate a lease");
     }
 
