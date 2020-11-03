@@ -6,7 +6,7 @@ public class MessageBox {
 
 /**
 * Class MessageBox with private instance variables myUser and messages
-/*
+*/
 
   public MessageBox(Account myUser){
     this.myUser = myUser;

@@ -71,7 +71,7 @@ public class DataLoader {
 			for (int i=0; i< accountsJSON.size(); ++i) {
 				JSONObject accountJSON = (JSONObject)accountsJSON.get(i);
 				String firstName = (String)accountJSON.get("firstName");
-				System.out.println(firstName);
+				//System.out.println(firstName);
 				String lastName = (String)accountJSON.get("lastName");
 				JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
 				int hashedPassword = ((Long)accountJSON.get("hashedPassword")).intValue();
@@ -83,7 +83,7 @@ public class DataLoader {
 					String studentID = (String)accountJSON.get("studentID");
 
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
-					System.out.println(student.getUsername());
+					//System.out.println(student.getUsername());
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messagebox");
 
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
