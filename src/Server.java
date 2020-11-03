@@ -160,6 +160,29 @@ public class Server {
 
     return hosts;
   }
+  
+  /**
+   * Searches users by name
+   * 
+   * @param name - name of the host, either username or name
+   * @return an arraylist with the hosts with the matching name
+   */
+  public ArrayList<Account> searchUsers(String name) {
+    ArrayList<Account> matches = new ArrayList<Account>();
+
+    String lowercaseName = name.toLowerCase();
+    for (Account account : accounts) {
+    	String fullName = account.getFirstName() + account.getLastName();
+    	fullName = fullName.toLowerCase();
+        if (fullName.contains(lowercaseName)) {
+        	matches.add(account);
+        } else if (name.equals(account.getUsername())) {
+        	matches.add(account);
+        }
+    }
+    
+    return matches;
+  }
 
   /**
    * Searches listings for a keyword that compares the address
