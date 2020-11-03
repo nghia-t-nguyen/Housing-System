@@ -146,7 +146,13 @@ public abstract class Account implements Comparable<Account> {
 	 * @return - 
 	 */
 	public double getAverageRating() {
-	  return 0.0;
+      double sum = 0.0;
+      for (Review review : accountReviews) {
+        sum += review.getRating();
+      }
+      double average =  sum/accountReviews.size();
+      average = Math.round(average * 100); //rounds to two decimal places
+      return average/100.0;
 	}
 	
 	/**
@@ -156,6 +162,8 @@ public abstract class Account implements Comparable<Account> {
 	public String getProfile() {
 	  String ret = "Username: @" + this.getUsername();
 	  ret += "\nName: " + this.getFirstName() + this.getLastName();
+      ret += "\nAverage Rating: ";
+      ret += (accountReviews.size() == 0) ? "No ratings" : getAverageRating();
 	  return ret;
 	}
 }

@@ -17,7 +17,7 @@ public class Driver {
     while (true) {
       System.out.println("=================================");
       display.display();
-      choice = getUserCommand();
+      choice = getUserInput();
       if (choice == 0) {
         break;
       }
@@ -29,7 +29,7 @@ public class Driver {
 
   }
 
-  private static int getUserCommand() {
+  private static int getUserInput() {
     if (scan.hasNextInt()) {
       int ret = scan.nextInt();
       scan.nextLine();
@@ -83,7 +83,7 @@ public class Driver {
         case 3:
           return new CreateAccountDisplay(loggedIn);
         case 4:
-
+//TODO: Delete case 4
           for (Account account : server.getAllAccounts()) {
             System.out.print(account.getFirstName());
             System.out.println("  - " + account.getUsername());
@@ -164,7 +164,7 @@ public class Driver {
       System.out.println(
           "> What would you like to do\n0: Exit program\n1: Logout\n2: Search\n3: Messages\n4: View Profile");
     }
-
+//TODO: Add favorites functionality
     public Display option(int choice) {
       switch (choice) {
         case 1:
@@ -243,6 +243,7 @@ public class Driver {
             System.out.println("Enter message:");
             String message = scan.nextLine();
             loggedIn.getMessageBox().sendMessage(recipient, message);
+            System.out.println("Message sent.");
             DataWriter.saveAccounts();
           }
           return this;
@@ -381,10 +382,10 @@ public class Driver {
                   + account.getFirstName() + " " + account.getLastName());
             }
             System.out.println(
-                "Would you like to view a profile, message, or leave a review for one of these users? (answer \"yes\" to continue)");
+                "Would you like to view a profile, message, or view/write reviews for one of these users? (answer \"yes\" to continue)");
             if (scan.nextLine().equalsIgnoreCase("yes")) {
               System.out.println("Enter the search result number (or 0 to return):");
-              int resultNumber = getUserCommand();
+              int resultNumber = getUserInput();
               if (resultNumber < 0 || resultNumber >= results.size()) {
                 System.out.println("Invalid input.");
                 return this;
@@ -394,11 +395,9 @@ public class Driver {
               } else {
                 return new AccountActionDisplay(loggedIn, results.get(resultNumber - 1));
               }
-
             }
-            System.out.println("Returning to search menu.");
-
           }
+          System.out.println("Returning to search menu");
           return this;
         case 3:
           return new SearchListingDisplay(loggedIn);
@@ -406,9 +405,7 @@ public class Driver {
           System.out.println("Invalid input.");
           return this;
       }
-
     }
-
   }
 
   private static ArrayList<String> addFilters() {
@@ -457,7 +454,7 @@ public class Driver {
     }
 
     public void display() {
-      System.out.println(">Search Listings\n0: Exit program\n1: Return\n2: Continue to Search");
+      System.out.println(">Search Listings\n0: Exit program\n1: Return\n2: Find your match\n3: Search by name or address");
     }
 
     public Display option(int choice) {
@@ -478,44 +475,61 @@ public class Driver {
             listing.addFilter(filter);
           }
 
-          ArrayList<Listing> searchResults = server.match(listing);
-          if (searchResults.size() == 0) {
-            System.out.println("No search results");
+          ArrayList<Listing> matchResults = server.match(listing);
+          if (matchResults.size() == 0) {
+            System.out.println("No search results.");
           } else {
-            int counter = 1;
-            for (Listing result : searchResults)
-              System.out.println("Listing #" + counter + "\n" + result);
-            counter++;
+            for (int i = 1; i <= matchResults.size(); ++i) {
+              System.out.println("Listing #" + i + " **********************\n" + matchResults.get(i-1));
+            }
+            System.out.println(
+                "Would you like to view a generate a lease, message the host, or view/write a review for"
+                + " one of these listings? (answer \"yes\" to continue)");
+            if (scan.nextLine().equalsIgnoreCase("yes")) {
+              System.out.println("Enter the search result number (or 0 to return):");
+              int resultNumber = getUserInput();
+              if (resultNumber < 0 || resultNumber >= matchResults.size()) {
+                System.out.println("Invalid input.");
+                return this;
+              } else if (resultNumber == 0) {
+                System.out.println("Returning to search menu");
+                return this;
+              } else {
+                return new ListingActionDisplay(loggedIn, matchResults.get(resultNumber - 1));
+              }
+            }
+          }
+          System.out.println("Returning to search menu.");
+          return this;
+        case 3:
+          System.out.println("Enter the name or address:");
+          String keyword = scan.nextLine();
+          ArrayList<Listing> searchResults = server.searchListings(keyword);
+          if (searchResults.size() == 0) {
+            System.out.println("No search results.");
+          } else {
+            for (int i = 1; i <= searchResults.size(); ++i) {
+              System.out.println("Listing #" + i + " **********************\n" + searchResults.get(i-1));
+            }
+            System.out.println(
+                "Would you like to view a generate a lease, message the host, or view/write a review for"
+                + " one of these listings? (answer \"yes\" to continue)");
+            if (scan.nextLine().equalsIgnoreCase("yes")) {
+              System.out.println("Enter the search result number (or 0 to return):");
+              int resultNumber2 = getUserInput();
+              if (resultNumber2 < 0 || resultNumber2 >= searchResults.size()) {
+                System.out.println("Invalid input.");
+                return this;
+              } else if (resultNumber2 == 0) {
+                System.out.println("Returning to search menu");
+                return this;
+              } else {
+                return new ListingActionDisplay(loggedIn, searchResults.get(resultNumber2 - 1));
+              }
+            }
           }
 
-          /*
-           * System.out.
-           * println("Enter the search result's listing number to generate a lease (enter 0 to not generate lease):"
-           * ); if (scan.hasNextInt()) { int listNumber = scan.nextInt(); if (listNumber == 0) {
-           * return this; } else if (listNumber <= searchResults.size()) { if (loggedIn == null) {
-           * System.out.println("Sorry. Cannot generate lease unless logged in"); return this; }
-           * else if (loggedIn.getClass() != StudentAccount.class) { System.out.
-           * println("Sorry this feature is only accessible to student accounts"); return this; }
-           * System.out.println("Add tenants? (enter \"yes\" to add):"); String response =
-           * scan.nextLine(); ArrayList<StudentAccount> tenants = new ArrayList<StudentAccount>();
-           * tenants.add((StudentAccount)loggedIn); if ("yes".equalsIgnoreCase(response)) {
-           * System.out.println("How many? (enter as an integer)"); int numTenants = scan.nextInt();
-           * int i = 1;
-           * 
-           * while (i <= numTenants) { System.out.println("Enter username of tenant #" + i +
-           * " or enter \"exit\" to quit adding tenants"); String tenantResponse = scan.nextLine();
-           * if ("exit".equalsIgnoreCase(tenantResponse)) break; Account tenant =
-           * server.getAccount(tenantResponse); if (tenant == null) {
-           * System.out.println("Sorry account is not found"); i--; } else if (tenant.getClass() !=
-           * StudentAccount.class) { System.out.println("Account is not a student account."); i--; }
-           * else { tenants.add((StudentAccount)tenant); } i++; } } Lease l = new Lease(tenants,
-           * searchResults.get(listNumber-1).getHost(), searchResults.get(listNumber-1));
-           * 
-           * }
-           * 
-           * }
-           */
-
+          System.out.println("Returning to search menu.");
           return this;
         default:
           System.out.println("Invalid input");
@@ -534,6 +548,7 @@ public class Driver {
     public void display() {
       System.out.println(
           ">Listing Manager\n0: Exit program\n1: Return\n2: Create new listing\n3: View Listings");
+      //TODO generate lease
     }
 
     public Display option(int choice) {
@@ -567,9 +582,45 @@ public class Driver {
           if (properties.size() == 0) {
             System.out.println("No listings");
           } else {
-            for (Listing l : properties) {
-              System.out.println(l);
-              System.out.println("___________________________");
+            for (int i = 1; i <= properties.size(); ++i) {
+              System.out.println("Listing #" + i + " **********************\n" + properties.get(i-1));
+            }
+            System.out.println(
+                "Would you like to view change rented status or generate a lease for a particular listing? (answer \"yes\" to continue)");
+            if (scan.nextLine().equalsIgnoreCase("yes")) {
+              System.out.println("Enter the listing number (or 0 to return):");
+              Listing selectedListing = null;
+              int listingNumber = getUserInput();
+              if (listingNumber < 0 || listingNumber >= properties.size()) {
+                System.out.println("Invalid input.");
+                return this;
+              } else if (listingNumber == 0) {
+                System.out.println("Returning to Listing Manager");
+                return this;
+              } else {
+                selectedListing = properties.get(listingNumber-1);
+                System.out.println("Would you like to change rented status? (answer \"yes\" to change rented status)");
+                if (scan.nextLine().equalsIgnoreCase("yes")) {
+                  selectedListing.changeRented();
+                  DataWriter.saveListings();
+                }
+                System.out.println("Would you like to generate a lease? (answer \"yes\" to generate lease");
+                if (scan.nextLine().equalsIgnoreCase("yes")) {
+                  System.out.println("Enter student account username:");
+                  String username = scan.nextLine();
+                  Account account = server.getAccount(username);
+                  if (account == null) {
+                    System.out.println("User does not exist");
+                    return this;
+                  } else if (account.getClass() == HostAccount.class) {
+                    System.out.println("User is not a student account.");
+                    return this;
+                  } else {
+                    Lease lease = generateLease((StudentAccount)account, loggedIn, selectedListing);
+                    lease.printToFile("Lease.txt");
+                  }
+                }
+              }
             }
           }
           return this;
@@ -592,7 +643,7 @@ public class Driver {
     public void display() {
       System.out.println("Account: @" + other.getUsername());
       System.out.println(
-          ">What would you like to do?\n0: Exit program\n1: Return\n2: View Profile\n3: Message\n4: View Review\n5: Leave Review");
+          ">What would you like to do?\n0: Exit program\n1: Return\n2: View Profile\n3: Message\n4: View Reviews\n5: Leave Review");
     }
 
     public Display option(int choice) {
@@ -600,25 +651,160 @@ public class Driver {
         case 1:
           return new SearchDisplay(loggedIn);
         case 2:
-
+          System.out.println(other.getProfile());
+          return this;
         case 3:
           if (loggedIn == null) {
             System.out.println("Log in to message other users.");
-            return new SearchDisplay(loggedIn);
+            return this;
           }
           System.out.println("Enter message:");
           String message = scan.nextLine();
           loggedIn.getMessageBox().sendMessage(other, message);
           DataWriter.saveAccounts();
-          System.out.println("Message sent");
+          System.out.println("Message sent.");
           return this;
+        case 4:
+          if (other.getAccountReviews().size() == 0) {
+            System.out.println("No reviews.");
+          } else {
+            for (Review review : other.getAccountReviews()) {
+              System.out.println(review + "\n");
+            }
+          }
+          return this;
+        case 5:
+          if (loggedIn == null) {
+            System.out.println("Log in to leave reviews.");
+            return this;
+          } else if (loggedIn.getClass() == other.getClass()) {
+            String accountType = "";
+            if (loggedIn.getClass() == HostAccount.class)
+              accountType = "host";
+            else
+              accountType = "student";
+            System.out.println("A " + accountType + " cannot leave a review for a " + accountType + ".");
+            return this;
+          }
+          System.out.println("Enter rating (1-5)");
+          int rating = getUserInput();
+          if (rating < 1 || rating > 5) {
+            System.out.println("Invalid input.");
+            return this;
+          }
+          System.out.println("Enter text:");
+          String text = scan.nextLine();
+          other.addAccountReview(new Review(loggedIn.getUsername(), rating, text));
+          DataWriter.saveAccounts();
         default:
-          System.out.println("Invalid input");
+          System.out.println("Invalid input.");
           return this;
       }
     }
   }
 
+  private static class ListingActionDisplay implements Display {
+    private Account loggedIn;
+    private Listing listing;
+    
+    public ListingActionDisplay(Account loggedIn, Listing listing) {
+      this.loggedIn = loggedIn;
+      this.listing = listing;
+    }
+    
+    public void display() {
+      //System.out.println("Listing: " + listing.getName() + " at " + listing.getAddress());
+      System.out.println(">What would you like to do?\n0: Exit program\n1: Return\n2: Message the host\n3: View reviews\n4: Leave a review\n5: Generate a lease");
+    }
+    
+    public Display option(int choice) {
+      switch(choice) {
+        case 1:
+          return new SearchListingDisplay(loggedIn);
+        case 2:
+          if (loggedIn == null) {
+            System.out.println("Log in to message other users.");
+            return this;
+          }
+          System.out.println("Enter message:");
+          String message = scan.nextLine();
+          loggedIn.getMessageBox().sendMessage(listing.getHost(), message);
+          DataWriter.saveAccounts();
+          System.out.println("Message sent.");
+          return this;
+        case 3:
+          if (listing.getReviews().size() == 0) {
+            System.out.println("No reviews.");
+          } else {
+            for (Review review : listing.getReviews()) {
+              System.out.println(review + "\n");
+            }
+          }
+          return this;
+        case 4:
+          if (loggedIn == null) {
+            System.out.println("Log in to leave reviews.");
+            return this;
+          }
+          System.out.println("Enter rating (1-5)");
+          int rating = getUserInput();
+          if (rating < 1 || rating > 5) {
+            System.out.println("Invalid input.");
+            return this;
+          }
+          System.out.println("Enter text:");
+          String text = scan.nextLine();
+          listing.addReview(new Review(loggedIn.getUsername(), rating, text));
+          DataWriter.saveAccounts();
+          DataWriter.saveListings();
+          return this;
+        case 5:
+          if (loggedIn == null) {
+            System.out.println("Cannot generate a lease if not logged in as a student");
+            return this;
+          } else if (loggedIn.getClass() == HostAccount.class) {
+            System.out.println("Hosts cannot generate a lease through this function.");
+            return this;
+          }
+          Lease lease = generateLease((StudentAccount)loggedIn, listing.getHost(), listing);
+          lease.printToFile("Lease.txt");
+        default:
+          System.out.println("Invalid input.");
+          return this;
+      }
+    }
+  }
+  
+  private static Lease generateLease(StudentAccount student, HostAccount landLord, Listing listing) {
+    System.out.println("Would you like to add other tenants? (\"yes\" to add)");
+    ArrayList<StudentAccount> tenants = new ArrayList<StudentAccount>();
+    tenants.add(student);
+    if (scan.nextLine().equalsIgnoreCase("yes")) {
+      System.out.println("How many? (enter as an integer)");
+      int numTenants = getUserInput();
+      int i = 1;
+      while (i <= numTenants) {
+        System.out.println("Enter the username of tenant #" + i + " or enter \"exit\" to quit adding tenants");
+        String response = scan.nextLine();
+        if (response.equalsIgnoreCase("exit")) {
+          break;
+        }
+        Account tenant = server.getAccount(response);
+        if (tenant == null) {
+          System.out.println("Sorry, that account is not found");
+          i--;
+        } else if (tenant.getClass() != StudentAccount.class) {
+          System.out.println("Account is not a student account");
+          i--;
+        } else {
+          tenants.add((StudentAccount)tenant);
+        }
+        i++;
+      }
+    }
+    return new Lease(tenants, landLord, listing);
+  }
+  
   public static void main(String[] args) {
     Driver myDriver = new Driver();
     myDriver.run();

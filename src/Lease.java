@@ -108,12 +108,15 @@ public class Lease {
      * toString returns Lease of type String
      */
     
-    public void printToFile(String fileName)
-            throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("Lease.txt"));
+    public void printToFile(String fileName) {
+      try {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write(Lease);
 
         writer.close();
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
     }
 
     /**

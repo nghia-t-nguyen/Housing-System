@@ -84,17 +84,13 @@ public class Listing {
 
 
 
-	public ArrayList<String> getReviews() {
-		ArrayList<String> reviewsList = new ArrayList<>();
-		for(Review review : reviews ) {
-			reviewsList.add(review.toString());
-		}
-		return reviewsList;
+	public ArrayList<Review> getReviews() {
+		return reviews;
 	}
+/*
 
-/**
 * getReviews adds reviews to reviewList and returns reviewList in ArrayList type String
-*/
+
 
 	public ArrayList<Review> getClassReviews() {
 		ArrayList<Review> reviewsList = new ArrayList<>();
@@ -103,7 +99,7 @@ public class Listing {
 		}
 		return reviewsList;
 	}
-	
+*/	
 /**
 * getClassReviews adds reviews to reviewList and returns reviewList in ArrayList type String
 */

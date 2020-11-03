@@ -62,7 +62,16 @@ public class HostAccount extends Account {
 	}
 	
 	public String getProfile() {
-	  String ret = super.getProfile();
+	  String ret = "****Host*****\n";
+	  ret += super.getProfile();
+	  ret += "\nHosting:";
+	  if (ownedProperties.size() == 0) {
+	    ret += "Currently not hosting any properties.";
+	  } else {
+	      for (Listing listing : ownedProperties) {
+	        ret += "\n-" + listing.getName() + " : " + listing.getAddress();
+	      } 
+	  }
 	  return ret;
 	}
 }

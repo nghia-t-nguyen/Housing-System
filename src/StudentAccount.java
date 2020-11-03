@@ -89,6 +89,12 @@ StudentAccount(String username, String password, String firstName, String lastNa
   public ArrayList<Listing> getFavorites() {
     return favoriteProperties;
   }
+  
+  public String getProfile() {
+    String ret = "****Student****\n";
+    ret += super.getProfile();
+    return ret;
+  }
 }
 
 /**
