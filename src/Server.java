@@ -99,17 +99,18 @@ public class Server {
   }
 
   /**
-   * Gets a listing based on the address
+   * Gets a listing based on the address and name
+   * Have to create a Listing with the same address and name to use
    * 
    * @param address - the address of a listing
    * @return - a listing with the matching address
    */
-  public Listing getListing(String address) {
+  public Listing getListing(String name, String address) {
     Iterator<Listing> iterator = listings.iterator();
 
     while (iterator.hasNext()) {
       Listing listing = iterator.next();
-      if (listing.getAddress().equals(address)) {
+      if (listing.getAddress().equals(address) && listing.getName().equals(name)) {
         return listing;
       }
     }
