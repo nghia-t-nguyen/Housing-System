@@ -386,7 +386,7 @@ public class Driver {
             if (scan.nextLine().equalsIgnoreCase("yes")) {
               System.out.println("Enter the search result number (or 0 to return):");
               int resultNumber = scan.nextInt();
-              scan.next();
+              scan.nextLine();
               if (resultNumber <= 0 || resultNumber > results.size()) {
                 System.out.println("Invalid input.");
                 return this;
@@ -489,6 +489,7 @@ public class Driver {
             if (scan.nextLine().equalsIgnoreCase("yes")) {
               System.out.println("Enter the search result number (or 0 to return):");
               int resultNumber = getUserInput();
+              scan.nextLine();
               if (resultNumber < 0 || resultNumber >= matchResults.size()) {
                 System.out.println("Invalid input.");
                 return this;
