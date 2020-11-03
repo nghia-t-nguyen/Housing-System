@@ -448,6 +448,7 @@ public class Driver {
           int bedrooms = scan.nextInt();
           System.out.println("Enter number of bathrooms (as an integer):");
           int bathrooms = scan.nextInt();
+          scan.nextLine();
           ArrayList<String> filters = addFilters();
           Listing listing = new Listing("","", "", 0.0, false);
           listing.addBathrooms(bathrooms);
