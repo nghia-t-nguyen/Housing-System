@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class Listing {
 
@@ -120,7 +121,9 @@ public class Listing {
 	  for (Review review : reviews) {
 	    sum += review.getRating();
 	  }
-	  return sum/reviews.size();
+	  double average =  sum/reviews.size();
+	  average = Math.round(average * 100); //rounds to two decimal places
+	  return average/100.0;
 	}
 /**
 * getAverageRating obtains the average rating, returning sum/reviews.size()

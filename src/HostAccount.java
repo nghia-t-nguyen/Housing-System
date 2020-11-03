@@ -60,4 +60,9 @@ public class HostAccount extends Account {
 	public void addProperty(Listing listing) {
 		ownedProperties.add(listing);
 	}
+	
+	public String getProfile() {
+	  String ret = super.getProfile();
+	  return ret;
+	}
 }

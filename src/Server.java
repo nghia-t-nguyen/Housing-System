@@ -139,13 +139,13 @@ public class Server {
 	  DataWriter.saveListings();
 	  DataWriter.saveAccounts();
     }
-
-  /**
+/*
+  
    * Searches the host by name
    * 
    * @param name - name of the host
    * @return an arraylist with the hosts with the matching name
-   */
+
   public ArrayList<Account> searchHosts(String name) {
     ArrayList<Account> hosts = new ArrayList<Account>();
 
@@ -159,7 +159,7 @@ public class Server {
     }
 
     return hosts;
-  }
+  } */
   
   /**
    * Searches users by name

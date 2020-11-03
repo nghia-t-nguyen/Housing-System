@@ -136,8 +136,26 @@ public abstract class Account implements Comparable<Account> {
 	/**
 	 * The getLastName method returns the lastName String variable. 
 	 * Created by Team QUEBEC
-	 */
+	 */ 
 	public String getLastName() {
 		return lastName;
+	}
+	
+	/**
+	 * Gets the average rating from all of the reviews for the Account 
+	 * @return - 
+	 */
+	public double getAverageRating() {
+	  return 0.0;
+	}
+	
+	/**
+	 * Gets the account's profile
+	 * @return - a String representation of the User's profile
+	 */
+	public String getProfile() {
+	  String ret = "Username: @" + this.getUsername();
+	  ret += "\nName: " + this.getFirstName() + this.getLastName();
+	  return ret;
 	}
 }
