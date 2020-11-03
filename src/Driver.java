@@ -593,7 +593,7 @@ public class Driver {
               System.out.println("Enter the listing number (or 0 to return):");
               Listing selectedListing = null;
               int listingNumber = getUserInput();
-              if (listingNumber < 0 || listingNumber >= properties.size()) {
+              if (listingNumber < 0 || listingNumber > properties.size()) {
                 System.out.println("Invalid input.");
                 return this;
               } else if (listingNumber == 0) {
