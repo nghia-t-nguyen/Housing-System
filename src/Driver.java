@@ -83,7 +83,7 @@ public class Driver {
         case 3:
           return new CreateAccountDisplay(loggedIn);
         case 4:
-//TODO: Delete case 4
+          //TODO: Delete case 4
           for (Account account : server.getAllAccounts()) {
             System.out.print(account.getFirstName());
             System.out.println("  - " + account.getUsername());
@@ -164,7 +164,7 @@ public class Driver {
       System.out.println(
           "> What would you like to do\n0: Exit program\n1: Logout\n2: Search\n3: Messages\n4: View Profile");
     }
-//TODO: Add favorites functionality
+    //TODO: Add favorites functionality
     public Display option(int choice) {
       switch (choice) {
         case 1:
@@ -385,8 +385,9 @@ public class Driver {
                 "Would you like to view a profile, message, or view/write reviews for one of these users? (answer \"yes\" to continue)");
             if (scan.nextLine().equalsIgnoreCase("yes")) {
               System.out.println("Enter the search result number (or 0 to return):");
-              int resultNumber = getUserInput();
-              if (resultNumber < 0 || resultNumber >= results.size()) {
+              int resultNumber = scan.nextInt();
+              scan.next();
+              if (resultNumber <= 0 || resultNumber > results.size()) {
                 System.out.println("Invalid input.");
                 return this;
               } else if (resultNumber == 0) {
@@ -706,17 +707,17 @@ public class Driver {
   private static class ListingActionDisplay implements Display {
     private Account loggedIn;
     private Listing listing;
-    
+
     public ListingActionDisplay(Account loggedIn, Listing listing) {
       this.loggedIn = loggedIn;
       this.listing = listing;
     }
-    
+
     public void display() {
       //System.out.println("Listing: " + listing.getName() + " at " + listing.getAddress());
       System.out.println(">What would you like to do?\n0: Exit program\n1: Return\n2: Message the host\n3: View reviews\n4: Leave a review\n5: Generate a lease");
     }
-    
+
     public Display option(int choice) {
       switch(choice) {
         case 1:
@@ -774,7 +775,7 @@ public class Driver {
       }
     }
   }
-  
+
   private static Lease generateLease(StudentAccount student, HostAccount landLord, Listing listing) {
     System.out.println("Would you like to add other tenants? (\"yes\" to add)");
     ArrayList<StudentAccount> tenants = new ArrayList<StudentAccount>();
@@ -804,7 +805,7 @@ public class Driver {
     }
     return new Lease(tenants, landLord, listing);
   }
-  
+
   public static void main(String[] args) {
     Driver myDriver = new Driver();
     myDriver.run();

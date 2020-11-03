@@ -92,15 +92,21 @@ public class DataLoader {
 					}
 
 					//Dont know if these 2 are working properly
-					JSONArray bookmarksJSON = (JSONArray)accountJSON.get("bookmarks");
-					for (int j= 0; j< bookmarksJSON.size();++j) {
-						student.addBookmark(server.getListing((String)bookmarksJSON.get(j)));
+					JSONArray bookmarksArray = (JSONArray)accountJSON.get("bookmarks");
+					for (int j= 0; j< bookmarksArray.size();++j) {
+						JSONObject bookmarkJSON = (JSONObject)bookmarksArray.get(j);
+						String name = (String)bookmarkJSON.get("name");
+						String address = (String)bookmarkJSON.get("address");
+						student.addBookmark(server.getListing(name, address));
 						//System.out.println(student.getBookmarks().get(j).getAddress());
 					}
 
-					JSONArray favoritesJSON = (JSONArray)accountJSON.get("favorites");
-					for (int j= 0; j< favoritesJSON.size();++j) {
-						student.addFavorite(server.getListing((String)favoritesJSON.get(j)));
+					JSONArray favoritesArray = (JSONArray)accountJSON.get("favorites");
+					for (int j= 0; j< favoritesArray.size();++j) {
+						JSONObject favoriteJSON = (JSONObject)favoritesArray.get(j);
+						String name = (String)favoriteJSON.get("name");
+						String address = (String)favoriteJSON.get("address");
+						student.addFavorite(server.getListing(name, address));
 					}
 
 					for ( int j=0; j <reviewsJSON.size(); ++j) {
@@ -128,10 +134,12 @@ public class DataLoader {
 						host.addAccountReview(new Review(writer, rating, text));
 					}
 
-					JSONArray propertyJSON = (JSONArray)accountJSON.get("ownedProperties");
-					for (int j= 0; j<propertyJSON.size();++j) {
-						Listing listing = server.getListing((String)propertyJSON.get(j));
-						host.addProperty(listing);
+					JSONArray propertyArray = (JSONArray)accountJSON.get("ownedProperties");
+					for (int j= 0; j<propertyArray.size();++j) {
+						JSONObject propertyJSON = (JSONObject)propertyArray.get(j);
+						String name = (String)propertyJSON.get("name");
+						String address = (String)propertyJSON.get("address");
+						host.addProperty(server.getListing(name, address));
 					}
 					accounts.add(host);
 

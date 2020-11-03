@@ -14,9 +14,7 @@
     "ownedProperties": [
       "1270 Polo Rd, Columbia, SC 29223"
     ],
-    "messagebox": [
-      "From: ohareemily\n\nhi"
-    ],
+    "messagebox": [],
     "username": "bakeramy"
   },
   {
@@ -28,9 +26,7 @@
     "ownedProperties": [
       "1520 Main St UNIT 2G, Columbia, SC 29201"
     ],
-    "messagebox": [
-      "From: Emily OHare\n\nSystem Message:  Emily OHare sent a visit request."
-    ],
+    "messagebox": [],
     "username": "mcdanielsgarett"
   },
   {
@@ -68,6 +64,18 @@
     "type": "student",
     "messagebox": [],
     "username": "rhylen"
+  },
+  {
+    "firstName": "Ralph",
+    "lastName": "Lauren",
+    "accountReviews": [],
+    "hashedPassword": 2018166324,
+    "type": "host",
+    "ownedProperties": [
+      "777 Garners Ferry RD"
+    ],
+    "messagebox": [],
+    "username": "rlauren"
   },
   {
     "firstName": "Andrew",

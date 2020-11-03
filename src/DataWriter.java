@@ -60,7 +60,7 @@ public class DataWriter {
 		listingDetails.put("bedrooms", listing.getBedrooms());
 		
 		JSONArray reviewJSON = new JSONArray();
-		for (Review review : listing.getClassReviews()) {
+		for (Review review : listing.getReviews()) {
 			reviewJSON.add(getReviewJSON(review));
 		}
 		//System.out.println(reviewJSON+"\n");
@@ -107,12 +107,12 @@ public class DataWriter {
 					
 			JSONArray bookmarkJSON = new JSONArray();
 			for (Listing bookmark : student.getBookmarks()) {
-				bookmarkJSON.add(bookmark.getAddress());
+				bookmarkJSON.add(getSimpleListingJSON(bookmark));
 			}
 			
 			JSONArray favoriteJSON = new JSONArray();
 			for (Listing favorite : student.getFavorites()) {
-				favoriteJSON.add(favorite.getAddress());
+				favoriteJSON.add(getSimpleListingJSON(favorite));
 			}
 			
 			accountDetails.put("bookmarks", bookmarkJSON);
@@ -125,7 +125,7 @@ public class DataWriter {
 			
 			JSONArray ownedJSON = new JSONArray();
 			for (Listing listing : host.getOwnedProperties()) {
-				ownedJSON.add(listing.getAddress());
+				ownedJSON.add(getSimpleListingJSON(listing));
 			}
 			accountDetails.put("ownedProperties", ownedJSON);
 			
@@ -141,6 +141,14 @@ public class DataWriter {
 		reviewJSON.put("writer", review.getWriter());
 		reviewJSON.put("rating", review.getRating());
 		return reviewJSON;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject getSimpleListingJSON(Listing listing) {
+		JSONObject simpleListingJSON = new JSONObject();
+		simpleListingJSON.put("name", listing.getName());
+		simpleListingJSON.put("address", listing.getAddress());
+		return simpleListingJSON;
 	}
 	
 }
