@@ -87,10 +87,7 @@ public class Driver {
             System.out.print(account.getFirstName()); 
             System.out.println("  - " + account.getUsername()); 
           } 
-          System.out.println(); 
-          for (Listing listing : server.getAllListings()) { 
-            System.out.println(listing.getHost()); 
-          }
+          return this;
         default:
           System.out.println("Invalid input");
           return this;

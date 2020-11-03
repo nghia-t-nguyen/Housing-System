@@ -70,23 +70,24 @@ public class DataLoader {
 
 			for (int i=0; i< accountsJSON.size(); ++i) {
 				JSONObject accountJSON = (JSONObject)accountsJSON.get(i);
+				String firstName = (String)accountJSON.get("firstName");
+				System.out.println(firstName);
+				String lastName = (String)accountJSON.get("lastName");
+				JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
+				int hashedPassword = ((Long)accountJSON.get("hashedPassword")).intValue();
 				String type = (String)accountJSON.get("type");
 				String username = (String)accountJSON.get("username");
-				int hashedPassword = ((Long)accountJSON.get("hashedPassword")).intValue();
-				String firstName = (String)accountJSON.get("firstName");
-				String lastName = (String)accountJSON.get("lastName");
-
-				JSONArray reviewsJSON = (JSONArray)accountJSON.get("accountReviews");
+				
 
 				if (type.equals("student")) {
 					String studentID = (String)accountJSON.get("studentID");
 
 					StudentAccount student = new StudentAccount(username, hashedPassword, firstName, lastName, studentID);
-					//System.out.println(student.getUsername());
+					System.out.println(student.getUsername());
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messagebox");
 
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
-						student.receiveMessage((String)messageBoxJSON.get(j));
+						student.getMessageBox().addMessage((String)messageBoxJSON.get(j));
 					}
 
 					//Dont know if these 2 are working properly
@@ -116,7 +117,7 @@ public class DataLoader {
 					JSONArray messageBoxJSON = (JSONArray)accountJSON.get("messagebox");
 
 					for (int j = 0; j< messageBoxJSON.size(); ++j) {
-						host.getMessageBox().addMessage((String)messageBoxJSON.get(j));
+						//host.getMessageBox().addMessage((String)messageBoxJSON.get(j));
 					}
 					for ( int j=0; j <reviewsJSON.size(); ++j) {
 						JSONObject review = (JSONObject)reviewsJSON.get(j);
