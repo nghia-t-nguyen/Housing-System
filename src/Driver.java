@@ -495,7 +495,7 @@ public class Driver {
             if (scan.nextLine().equalsIgnoreCase("yes")) {
               System.out.println("Enter the search result number (or 0 to return):");
               int resultNumber = getUserInput();
-              System.out.println("Result number:" + resultNumber);
+              //System.out.println("Result number:" + resultNumber);
               if (resultNumber < 0 || resultNumber > matchResults.size()) {
                 System.out.println("Invalid input.");
                 return this;
@@ -778,6 +778,7 @@ public class Driver {
           }
           Lease lease = generateLease((StudentAccount)loggedIn, listing.getHost(), listing);
           lease.printToFile("Lease.txt");
+          return this;
         default:
           System.out.println("Invalid input.");
           return this;
@@ -811,6 +812,8 @@ public class Driver {
         }
         i++;
       }
+    } else {
+    	System.out.println("Else");
     }
     return new Lease(tenants, landLord, listing);
   }
