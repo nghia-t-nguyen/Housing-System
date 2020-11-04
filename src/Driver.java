@@ -119,7 +119,7 @@ public class Driver {
         case 2:
           System.out.println("Username:");
           String username = scan.nextLine();
-          System.out.println("Password");
+          System.out.println("Password:");
           String password = scan.nextLine();
           loggedIn = tryLogin(username, password);
           if (loggedIn == null) {
@@ -815,7 +815,16 @@ public class Driver {
     } else {
     	System.out.println("Else");
     }
-    return new Lease(tenants, landLord, listing);
+    Lease ret = new Lease(tenants, landLord, listing);
+    ret.addDuration();
+    ret.addTenantAct();
+    ret.addProperty();
+    ret.addPaymentTerm();
+    ret.addPayment();
+    ret.addPaymentAddress();
+    ret.addDamages(300);
+    ret.addSignatures();
+    return ret;
   }
 
   public static void main(String[] args) {

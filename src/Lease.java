@@ -1,10 +1,15 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Lease {
-    
+    ArrayList<StudentAccount> tenants;
+    HostAccount landlord;
+    Listing listing;
     private String Lease;
 
     /**
@@ -13,13 +18,15 @@ public class Lease {
      */
     
     public Lease(ArrayList<StudentAccount> tenants, HostAccount landlord, Listing listing){
-
+    	this.tenants = tenants;
+    	this.landlord = landlord;
+    	this.listing = listing;
         Lease = "Tenants: ";
         for(StudentAccount temp : tenants ) {
             Lease += temp.getFirstName() + " " + temp.getLastName() + "\n";
         }
-        Lease += "\n Landlord: " + landlord.getFirstName() + " " + landlord.getLastName() + "\n Listing: " +
-                listing.toString();
+        Lease += "Landlord: " + landlord.getFirstName() + " " + landlord.getLastName() + "\nListing: " +
+                listing.getName() + " at the address of " + listing.getAddress() +".\n";
     }
 
     /**
@@ -28,8 +35,22 @@ public class Lease {
      * @param tenants
      * @param host
      */
-    public void addDuration(String start, String tenants, String host){
-            Lease+="This lease agreement is made and entered on "+start+" by and between" + host + "and "+tenants+"\n";
+    public void addDuration(){
+    	String tenantList = "";
+    	tenantList += tenants.get(0).getFirstName() + " " + tenants.get(0).getLastName();
+    	for (int i = 1; i < tenants.size(); ++i) {
+    		if (i == tenants.size()-1) {
+    			tenantList += " and " + tenants.get(i).getFirstName() + " " + tenants.get(i).getLastName();
+    		} else {
+    			tenantList += ", "+ tenants.get(i).getFirstName() + " " + tenants.get(i).getLastName();
+    		}
+    	}
+    	
+    	DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+    	Calendar cal = Calendar.getInstance();
+    	String date = dateFormatter.format(cal.getTime());
+    	Lease+="This lease agreement is made and entered on "+date+" by and between " +
+    	landlord.getFirstName() + " " + landlord.getLastName() + " and "+ tenantList +".\n";
     }
 
     /**
@@ -46,44 +67,58 @@ public class Lease {
      * Add tenant adds a line regarding the LandLord tenant act. 
      */
     
-    public void Property(int bedrooms, int bathrooms, String address, int zip)
+    public void addProperty()
     {
-
-            Lease+="2. Property. Landlord, in consideration of the lease payments provided in this agreement, leases to Tenant a house with "+bedrooms+" bedrooms and "+bathrooms+ "bathrooms, located at "+address+", South Carolina "+zip+". No other portion of the building wherein the Property is located is included unless expressly provided for in this agreement.\n";
-
+            Lease+="2. Property. Landlord, in consideration of the lease payments provided in this"
+            		+ " agreement, leases to Tenant a house with "+ listing.getBedrooms()+
+            		" bedrooms and "+listing.getBathrooms()+ "bathrooms, located at "+
+            		listing.getAddress()+". No other portion of the building wherein the"
+            				+ " Property is located is included unless expressly provided for in this agreement.\n";
     }
 
     /**
      * Property displays a line regarding property in the listing, using int bedrooms, int bathrooms, String address, and int zip.
      */
     
-    public void PaymentTerm(double beg, double end){
-        Lease+="3. Term. The Tenant will coninue to pay rent from"+beg+ "to "+end+".\n";
+    public void addPaymentTerm(String beg, String end){
+        Lease+="3. Term. The Tenant will coninue to pay rent from "+beg+ " to "+end+".\n";
+    }
+    
+ 
+    public void addPaymentTerm() {
+        Lease+="3. Term. The Tenant will coninue to pay rent from 08/01/2021 to 06/01/2022.\n";
     }
 
     /**
      * PaymentTerm displays a line regarding when the tenant should pay using double beg and double end
      */
     
-    public void Payment(double payment)
+    public void addPayment()
     {
-        Lease+="4. Rent. The Tenant will pay "+payment+" each month on the first of the month.\n";
+        Lease+="4. Rent. The Tenant will pay "+listing.getRent()+" each month on the first of the month.\n";
     }
 
     /**
      * Payment displays the amount to be payed each month using double payment
      */
     
-    public void PaymentAddress(String address)
+    public void addPaymentAddress(String address)
     {
-        Lease += "5. Payment should be sent to" + address + ".\n";
+        Lease += "5. Payment should be sent to " + address + ".\n";
+    }
+    
+    /**
+     * adds a payment address if the payment 
+     */
+    public void addPaymentAddress() {
+    	Lease += "5. Payment should be sent to " + listing.getAddress() + ".\n";
     }
 
     /**
      * PaymentAddress displays a line regarding where payments should be sent using String address
      */
     
-    public void Damages(double cost){
+    public void addDamages(double cost){
         Lease+="6. Damages. Charges will be billed to the client for damaged property, up to "+cost+".\n";
     }
 
@@ -91,9 +126,12 @@ public class Lease {
      * Damages displays a line regarding bills for damages using double cost
      */
     
-    public void Signatures(String tenant, String host)
+    public void addSignatures()
     {
-        Lease+=""+tenant+"\n------------------"+"\n"+host+"\n------------------";
+    	for (StudentAccount tenant : tenants) {
+    		Lease += tenant.getFirstName() + " " + tenant.getLastName() +"\n------------------\n";
+    	}
+        Lease += landlord.getFirstName() + " " + landlord.getLastName( )+"\n------------------";
     }
 
     /**
