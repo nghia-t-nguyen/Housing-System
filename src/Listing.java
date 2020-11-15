@@ -13,7 +13,7 @@ public class Listing {
 	private ArrayList<String> filters;
 	private ArrayList<Review> reviews;
 	private boolean rented;
-	
+
 /**
 * Class Listing with instance variables host, name, address, description, rent, bedrooms, bathrooms, filters, reviews, and rented.
 * Imoprts ArrayList to make use of its methods
@@ -29,7 +29,7 @@ public class Listing {
 		this.filters = new ArrayList<String>();
 		this.reviews = new ArrayList<Review>();
 	}
-	
+
 /**
 * Constructor for Listing class
 */
@@ -46,11 +46,11 @@ public class Listing {
 /**
 * addDescription adds String text to this.description
 */
-				
+
 	public void addDescription(String text) {
 		this.description = text;
 	}
-	
+
 
 /**
 * addBedrooms adds int number to this.bedrooms
@@ -59,7 +59,7 @@ public class Listing {
 	public void addBedrooms(int number) {
 		this.bedrooms = number;
 	}
-	
+
 /**
 * addBathrooms adds int number to this.bathrooms
 */
@@ -77,7 +77,7 @@ public class Listing {
 
 /**
 * addReview adds Review review to this.review
-*/	
+*/
 	public void addReview(Review review) {
 		reviews.add(review);
 	}
@@ -99,7 +99,7 @@ public class Listing {
 		}
 		return reviewsList;
 	}
-*/	
+*/
 /**
 * getClassReviews adds reviews to reviewList and returns reviewList in ArrayList type String
 */
@@ -111,7 +111,7 @@ public class Listing {
 /**
 * addReview adds Review review to this.review
 */
-	
+
 	public double getAverageRating() {
 	  double sum = 0.0;
 	  for (Review review : reviews) {
@@ -123,11 +123,11 @@ public class Listing {
 	}
 /**
 * getAverageRating obtains the average rating, returning sum/reviews.size()
-*/	
+*/
 	public double getRent() {
 		return this.rent;
 	}
-	
+
 /**
 * getRent returns double rent
 */
@@ -135,7 +135,7 @@ public class Listing {
 	public int getBedrooms() {
 		return this.bedrooms;
 	}
-	
+
 /**
 * getBedrooms returns int bedrooms
 */
@@ -155,7 +155,7 @@ public class Listing {
 			rented = true;
 		}
 	}
-	
+
 /**
 * changeRented changes the rented status to true or false
 */
@@ -215,10 +215,10 @@ public class Listing {
 	  for (String filter : filters) {
 	    ret += " #" + filter;
 	  }
-	  
+
 	  return ret;
 	}
-	
+
 }
 /**
 * toString returns a string with a description of the listing calling upon the attributes from the rest of this class' methods

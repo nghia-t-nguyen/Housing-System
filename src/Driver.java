@@ -706,6 +706,7 @@ public class Driver {
           String text = scan.nextLine();
           other.addAccountReview(new Review(loggedIn.getUsername(), rating, text));
           DataWriter.saveAccounts();
+          return this;
         default:
           System.out.println("Invalid input.");
           return this;
@@ -812,8 +813,6 @@ public class Driver {
         }
         i++;
       }
-    } else {
-    	System.out.println("Else");
     }
     Lease ret = new Lease(tenants, landLord, listing);
     ret.addDuration();

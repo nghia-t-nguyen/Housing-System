@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * The Account class is used for Account object creation and implements
  * Comparable<Account>. It declares a Review object ArrayList, a messageBox
- * ArrayList, and various String and int private variables. 
+ * ArrayList, and various String and int private variables.
  * Created by Team QUEBEC
  */
 public abstract class Account implements Comparable<Account> {
@@ -19,7 +19,7 @@ public abstract class Account implements Comparable<Account> {
 	 * The first constructor for the Account class takes in several Strings and
 	 * assigns them to various private variables within the class. It then uses
 	 * .hashCode on the password String to created hashedPassword. It also declares
-	 * a new MessageBox and declares the accountReviews ArrayList. 
+	 * a new MessageBox and declares the accountReviews ArrayList.
 	 * Created by Team QUEBEC
 	 */
 	public Account(String username, String password, String firstName, String lastName) {
@@ -35,7 +35,7 @@ public abstract class Account implements Comparable<Account> {
 	 * The first constructor for the Account class takes in several Strings and an
 	 * int and assigns them to various private variables within the class. It then
 	 * takes hashedPassword and assigns it with an int. declares a new MessageBox
-	 * and declares the accountReviews ArrayList. 
+	 * and declares the accountReviews ArrayList.
 	 * Created by Team QUEBEC
 	 */
 	public Account(String username, int hashedPassword, String firstName, String lastName) {
@@ -50,7 +50,7 @@ public abstract class Account implements Comparable<Account> {
 	/**
 	 * The equals method takes in an Account object checks if it's username variable
 	 * is the same as another username variable. It then returns true and if they
-	 * aren't the same, it returns false. 
+	 * aren't the same, it returns false.
 	 * Created by Team QUEBEC
 	 */
 	public boolean equals(Account other) {
@@ -62,7 +62,7 @@ public abstract class Account implements Comparable<Account> {
 
 	/**
 	 * The compareTo method takes in an account object and compares it's username
-	 * variable with that of another username variable. 
+	 * variable with that of another username variable.
 	 * Created by Team QUEBEC
 	 */
 	public int compareTo(Account other) {
@@ -71,7 +71,7 @@ public abstract class Account implements Comparable<Account> {
 
 	/**
 	 * The recieveMessage takes in a String and uses addMessage on messageBox while
-	 * passing the String. 
+	 * passing the String.
 	 * Created by Team QUEBEC
 	 */
 	public void receiveMessage(String text) {
@@ -79,7 +79,7 @@ public abstract class Account implements Comparable<Account> {
 	}
 
 	/**
-	 * The getMessageBox method returns the messageBox object. 
+	 * The getMessageBox method returns the messageBox object.
 	 * Created by Team QUEBEC
 	 */
 	public MessageBox getMessageBox() {
@@ -89,7 +89,7 @@ public abstract class Account implements Comparable<Account> {
 	/**
 	 * The getAccountReviews creates a new ArrayList and uses a loop to go through
 	 * accountReviews and add it's contents to the new ArrayList. It then returns
-	 * the new ArrayList. 
+	 * the new ArrayList.
 	 * Created by Team QUEBEC
 	 */
 	public ArrayList<Review> getAccountReviews() {
@@ -102,7 +102,7 @@ public abstract class Account implements Comparable<Account> {
 
 	/**
 	 * The addAccountReview method takes in a Review object and adds it to the
-	 * accountReviews ArrayList. 
+	 * accountReviews ArrayList.
 	 * Created by Team QUEBEC
 	 */
 	public void addAccountReview(Review review) {
@@ -110,7 +110,7 @@ public abstract class Account implements Comparable<Account> {
 	}
 
 	/**
-	 * The getUsername method returns the username String variable. 
+	 * The getUsername method returns the username String variable.
 	 * Created by Team QUEBEC
 	 */
 	public String getUsername() {
@@ -118,7 +118,7 @@ public abstract class Account implements Comparable<Account> {
 	}
 
 	/**
-	 * The getPassword method returns the hashedPassword int variable. 
+	 * The getPassword method returns the hashedPassword int variable.
 	 * Created by Team QUEBEC
 	 */
 	public int getPassword() {
@@ -126,7 +126,7 @@ public abstract class Account implements Comparable<Account> {
 	}
 
 	/**
-	 * The getFirstName method returns the firstName String variable. 
+	 * The getFirstName method returns the firstName String variable.
 	 * Created by Team QUEBEC
 	 */
 	public String getFirstName() {
@@ -134,16 +134,16 @@ public abstract class Account implements Comparable<Account> {
 	}
 
 	/**
-	 * The getLastName method returns the lastName String variable. 
+	 * The getLastName method returns the lastName String variable.
 	 * Created by Team QUEBEC
-	 */ 
+	 */
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	/**
-	 * Gets the average rating from all of the reviews for the Account 
-	 * @return - 
+	 * Gets the average rating from all of the reviews for the Account
+	 * @return -
 	 */
 	public double getAverageRating() {
       double sum = 0.0;
@@ -154,7 +154,7 @@ public abstract class Account implements Comparable<Account> {
       average = Math.round(average * 100); //rounds to two decimal places
       return average/100.0;
 	}
-	
+
 	/**
 	 * Gets the account's profile
 	 * @return - a String representation of the User's profile
