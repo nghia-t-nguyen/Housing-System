@@ -171,12 +171,14 @@ public class Server {
     return ret;
   }
 
+  
   /**
    * Returns the listings with specific filters
    *
    * @param type - the type of filter the user is searching
    * @return - an arraylist with all of the listings matching the filter
    */
+  /*
   public ArrayList<Listing> sortListings(String type) {
     ArrayList<Listing> ret = new ArrayList<Listing>();
 
@@ -188,6 +190,7 @@ public class Server {
 
     return null;
   }
+  */
 
   private ArrayList<Listing> intersection(ArrayList<Listing> list1, ArrayList<Listing> list2) {
     ArrayList<Listing> list = new ArrayList<Listing>();

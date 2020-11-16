@@ -177,4 +177,163 @@ public class ServerTest {
         assertEquals(expected.get(i).getAddress(), results.get(i).getAddress());
       }
 	}
+	
+	@Test
+	public void testSearchListingsNoResults() {
+      HostAccount nghia = new HostAccount("nghian", "123456", "Nghia", "Nguyen");
+      server.addAccount(nghia);
+      
+      Listing listing1 = new Listing(nghia, "Olympia Mills", "600 Heyward St", 1000);
+      Listing listing2 = new Listing(nghia, "Honors Residence", "1215 Blossom St", 1000);
+      Listing listing3 = new Listing(nghia, "650 Lincoln", "650 Lincoln St", 1000);
+      Listing listing4 = new Listing(nghia, "Granby Mills", "1010 Jimmy Carter Boulevard", 1000);
+      
+      server.addListing(listing1);
+      server.addListing(listing2);
+      server.addListing(listing3);
+      server.addListing(listing4);
+      
+      ArrayList<Listing> results = server.searchListings("z");
+      
+      assertSame(0, results.size());
+	}
+	
+	@Test
+	public void testMatchValid() {
+      HostAccount nghia = new HostAccount("nghian", "123456", "Nghia", "Nguyen");
+      server.addAccount(nghia);
+      
+      Listing listing1 = new Listing(nghia, "Olympia Mills", "600 Heyward St", 1000);
+      Listing listing2 = new Listing(nghia, "Honors Residence", "1215 Blossom St", 1000);
+      Listing listing3 = new Listing(nghia, "650 Lincoln", "650 Lincoln St", 1000);
+      server.addListing(listing1);
+      server.addListing(listing2);
+      server.addListing(listing3);
+      
+      listing1.addBathrooms(2);
+      listing2.addBathrooms(2);
+      listing3.addBathrooms(3);
+      listing1.addBedrooms(3);
+      listing2.addBedrooms(3);
+      listing3.addBedrooms(1);
+      listing1.addFilter("pet friendly");
+      listing1.addFilter("washer");
+      listing2.addFilter("pet friendly");
+      
+      ArrayList<Listing> expected = new ArrayList<Listing>();
+      expected.add(listing1);
+      expected.add(listing2);
+      
+      Listing searchInput = new Listing("", "", "", 0.0, false);
+      searchInput.addBathrooms(2);
+      searchInput.addBedrooms(3);
+      searchInput.addFilter("pet friendly");
+      ArrayList<Listing> results = server.match(searchInput);
+      
+      assertSame(expected.size(), results.size());
+      for (int i = 0; i < results.size(); i++) {
+        assertEquals(expected.get(i).getName(), results.get(i).getName());
+        assertEquals(expected.get(i).getAddress(), results.get(i).getAddress());
+      }
+	}
+	
+	@Test
+	public void testMatchFilters() {
+      HostAccount nghia = new HostAccount("nghian", "123456", "Nghia", "Nguyen");
+      server.addAccount(nghia);
+      
+      Listing listing1 = new Listing(nghia, "Olympia Mills", "600 Heyward St", 1000);
+      Listing listing2 = new Listing(nghia, "Honors Residence", "1215 Blossom St", 1000);
+      Listing listing3 = new Listing(nghia, "650 Lincoln", "650 Lincoln St", 1000);
+      server.addListing(listing1);
+      server.addListing(listing2);
+      server.addListing(listing3);
+      
+      listing1.addBathrooms(2);
+      listing2.addBathrooms(2);
+      listing3.addBathrooms(3);
+      listing1.addBedrooms(3);
+      listing2.addBedrooms(3);
+      listing3.addBedrooms(1);
+      listing1.addFilter("pet friendly");
+      listing1.addFilter("washer");
+      listing2.addFilter("pet friendly");
+      
+      ArrayList<Listing> expected = new ArrayList<Listing>();
+      expected.add(listing1);
+      
+      Listing searchInput = new Listing("", "", "", 0.0, false);
+      searchInput.addBathrooms(2);
+      searchInput.addBedrooms(3);
+      searchInput.addFilter("washer");
+      ArrayList<Listing> results = server.match(searchInput);
+      
+      assertSame(expected.size(), results.size());
+      for (int i = 0; i < results.size(); i++) {
+        assertEquals(expected.get(i).getName(), results.get(i).getName());
+        assertEquals(expected.get(i).getAddress(), results.get(i).getAddress());
+      }
+      
+      expected = new ArrayList<Listing>();
+      expected.add(listing1);
+      expected.add(listing2);
+      
+      searchInput = new Listing("", "", "", 0.0, false);
+      searchInput.addBathrooms(2);
+      searchInput.addBedrooms(3);
+      searchInput.addFilter("pet friendly");
+      results = server.match(searchInput);
+      
+      assertSame(expected.size(), results.size());
+      for (int i = 0; i < results.size(); i++) {
+        assertEquals(expected.get(i).getName(), results.get(i).getName());
+        assertEquals(expected.get(i).getAddress(), results.get(i).getAddress());
+      }
+	}
+	
+	@Test
+	public void testMatchNoResults() {
+      HostAccount nghia = new HostAccount("nghian", "123456", "Nghia", "Nguyen");
+      server.addAccount(nghia);
+      
+      Listing listing1 = new Listing(nghia, "Olympia Mills", "600 Heyward St", 1000);
+      Listing listing2 = new Listing(nghia, "Honors Residence", "1215 Blossom St", 1000);
+      Listing listing3 = new Listing(nghia, "650 Lincoln", "650 Lincoln St", 1000);
+      server.addListing(listing1);
+      server.addListing(listing2);
+      server.addListing(listing3);
+      
+      listing1.addBathrooms(2);
+      listing2.addBathrooms(2);
+      listing3.addBathrooms(3);
+      listing1.addBedrooms(3);
+      listing2.addBedrooms(3);
+      listing3.addBedrooms(1);
+      listing1.addFilter("pet friendly");
+      listing1.addFilter("washer");
+      listing2.addFilter("pet friendly");
+      
+      ArrayList<Listing> expected = new ArrayList<Listing>();
+      expected.add(listing1);
+      expected.add(listing2);
+      
+      Listing searchInput = new Listing("", "", "", 0.0, false);
+      searchInput.addBathrooms(1);
+      searchInput.addBedrooms(1);
+      ArrayList<Listing> results = server.match(searchInput); // Testing valid bedrooms, invalid bathrooms
+      assertSame(0, results.size());
+      
+      searchInput = new Listing("", "", "", 0.0, false);
+      searchInput.addBathrooms(2);
+      searchInput.addBedrooms(6);
+      results = server.match(searchInput); // Testing valid bathrooms, invalid bathrooms
+      assertSame(0, results.size());
+      
+      searchInput = new Listing("", "", "", 0.0, false);
+      searchInput.addBathrooms(2);
+      searchInput.addBedrooms(3);
+      searchInput.addFilter("parking");
+      results = server.match(searchInput); // Testing valid bathrooms, valid bedrooms, invalid filters
+      assertSame(0, results.size());
+	}
 }
