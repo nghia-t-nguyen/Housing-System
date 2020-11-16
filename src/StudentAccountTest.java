@@ -1,5 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterEach;
@@ -7,49 +7,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class StudentAccountTest {
-    private Server server = new Server();
-
-    @BeforeEach
-    public void setup()
-    {
-        StudentAccount.getInstance().getStudentAccount.clear();
-        DataWriter.saveAccounts();
-    }
-
-    @AfterEach
-    public void teardown()
-    {
-        StudentAccount.getInstance().getStudentAccount.clear();
-        DataWriter.saveAccounts();
-    }
-
     @Test
-    public void testCreateValidStudentAccount()
-    {
-        server.addAccount("joesmo2", "12345", "john", "trump");
-        server.login("joesmo2", "12345");
-        assertEquals("joesmo2", server.);
+    public void testWriteListingReview() {
+    	Listing listing = new Listing("", "Olympia Mills", "600 Heyward St", 1000, false);
+    	StudentAccount student = new StudentAccount("rhylenn", "123456", "Rhylen", "Nguyen", "123456");
+    	student.writeListingReview(listing, 5, "Good.");
+    	
+    	assertSame(listing.getReviews().get(0).getRating(), 5);
+    	assertEquals(listing.getReviews().get(0).getWriter(), "Rhylen Nguyen");
+    	assertEquals(listing.getReviews().get(0).getComment(), "Good.");
     }
-
+    
     @Test
-    public void testCreateNullStudentAccount()
-    {
-        server.addAccount("", "0", "", "");
-        server.login("", "");
-        assertEquals("joesmo2", server.);
-    }
-
-    @Test
-    public void testEmptyReview()
-    {
-        boolean isCreated = server.StudentAccount.addReview("", 0, "");
-        assertFalse(isCreated);
-    }
-    @Test
-    public void testCreateLogin()
-    {
-        boolean isCreated = server.login("", "");
-        assert False(isCreated);
+    public void testWriteHostReview() {
+    	HostAccount host = new HostAccount("DylanO", "123456", "Dylan", "Ortuno");
+    	StudentAccount student = new StudentAccount("NghiaN", "123456", "Nghia", "Nguyen", "123456");
+    	
+    	student.writeHostReview(host, 3, "Okay.");
+    	
+    	assertSame(1, host.getAccountReviews().size());
+    	assertEquals(host.getAccountReviews().get(0).getWriter(), "Nghia Nguyen");
+    	assertSame(host.getAccountReviews().get(0).getRating(), 3);
+    	assertEquals(host.getAccountReviews().get(0).getComment(), "Okay.");
+    	
     }
 
 }
