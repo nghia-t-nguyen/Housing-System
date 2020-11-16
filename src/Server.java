@@ -51,24 +51,11 @@ public class Server {
   /**
    * Gets all of the accounts from the server
    *
-   * @return - an arraylist with all of the accounts
+   * @return - a TreesSet with all of the accounts
    */
-  /*public ArrayList<Account> getAllAccounts() {
-    ArrayList<Account> ret = new ArrayList<Account>();
-
-    Iterator<Account> iterator = accounts.iterator();
-    while (iterator.hasNext()) {
-      ret.add(iterator.next());
-    }
-
-    return ret;
-
-  }*/
-
   public TreeSet<Account> getAllAccounts() {
-	    return accounts;
-
-	  }
+    return accounts;
+  }
 
   /**
    * Gets an instance of an account with the corresponding username
@@ -140,27 +127,7 @@ public class Server {
 	  DataWriter.saveListings();
 	  DataWriter.saveAccounts();
   }
-/*
 
-   * Searches the host by name
-   *
-   * @param name - name of the host
-   * @return an arraylist with the hosts with the matching name
-
-  public ArrayList<Account> searchHosts(String name) {
-    ArrayList<Account> hosts = new ArrayList<Account>();
-
-    for (Account account : accounts) {
-      if (account.getClass() == HostAccount.class) {
-        if (name.equalsIgnoreCase(account.getFirstName())
-            || name.equalsIgnoreCase(account.getLastName())) {
-          hosts.add(account);
-        }
-      }
-    }
-
-    return hosts;
-  } */
 
   /**
    * Searches users by name
@@ -177,7 +144,7 @@ public class Server {
     	fullName = fullName.toLowerCase();
         if (fullName.contains(lowercaseName)) {
         	matches.add(account);
-        } else if (name.equals(account.getUsername())) {
+        } else if (account.getUsername().contains(name)) {
         	matches.add(account);
         }
     }
@@ -186,16 +153,17 @@ public class Server {
   }
 
   /**
-   * Searches listings for a keyword that compares the address
+   * Searches listings for a keyword that compares the address or name
    *
    * @param keyword - the name of the listing or address to search up
    * @return - an arraylist with the listings with the corresponding keyword
    */
   public ArrayList<Listing> searchListings(String keyword) {
     ArrayList<Listing> ret = new ArrayList<Listing>();
+    keyword = keyword.toUpperCase();
 
     for (Listing listing : listings) {
-      if (listing.getAddress().contains(keyword) || listing.getName().contains(keyword)) {
+      if (listing.getAddress().toUpperCase().contains(keyword) || listing.getName().toUpperCase().contains(keyword)) {
         ret.add(listing);
       }
     }
