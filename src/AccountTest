@@ -1,0 +1,40 @@
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.AfterEach;
+import org.junit.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+
+
+public class AccountTest {
+	protected static MessageBox messagebox;
+	protected static ArrayList<Review> accountReviews;
+	protected static Account newAccount;
+	
+	@BeforeEach
+	public static void setup() {
+		newAccount = new Account(null, null, null, null);
+		messagebox = new MessageBox(null);
+		accountReviews = new ArrayList<Review>();
+	}
+	
+	@AfterEach
+	public static void tearDown() {
+		accountReviews.clear();
+	}
+	
+	public boolean testEquals(Account other) {
+		if (username.equals(other.getUsername())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void testCompareTo() {
+		newAccount.equals(null);
+	}
+	
+	public void receiveMessage() {
+		messagebox.addMessage(null);
+	}
+
+}
