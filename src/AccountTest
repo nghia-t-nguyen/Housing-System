@@ -30,7 +30,7 @@ public class AccountTest {
 	}
 	
 	public void testCompareTo() {
-		newAccount.equals(null);
+		newAccount.equals(null); 
 	}
 	
 	public void receiveMessage() {
