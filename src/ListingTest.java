@@ -7,65 +7,61 @@ import org.junit.jupiter.api.Test;
 public class ListingTest {
     private Listing listing;
     private HostAccount host;
+    private String[] filters;
 
     @BeforeEach
     public void setup(){
-        Listing.getInstance().getListing().clear();
-        DataWriter.saveListings();
+    	host = new HostAccount("cBang", "12345", "Chris", "Bang");
+        listing = new Listing(host, "Academic Towers", "123 School LN", 1200);
+        
+        filters = new String[5];
+        filters[0] = "cats";
+        filters[1] = "dogs";
+        filters[2] = "washer";
+        filters[3] = "dryer";
+        filters[4] = "parking";
     }
 
     @AfterEach
     public void tearDown(){
-        Listing.getInstance().getListing().clear();
-        DataWriter.saveListings();
+       listing = null;
     }
 
     @Test
-   public void testNullDescription()
-    {
-        String isCreated = listing.getDescription();
-        isCreated = "";
+   public void testAddDescription() {
+    	Listing newListing = listing;
+    	listing.addDescription("Hello");
+    	assertEquals("Hello",listing.getDescription());
     }
-
+    
     @Test
-    public void testNullBathrooms()
-    {
-        int isCreated = listing.getBathrooms();
-        isCreated = 0;
+    public void testGetAverageRating() {
+     	listing.addReview(new Review(null, 5, ""));
+     	listing.addReview(new Review(null, 2, ""));
+     	listing.addReview(new Review(null, 3, ""));
+     	listing.addReview(new Review(null, 2, ""));
+     	listing.addReview(new Review(null, 3, ""));
+     	
+     	double expected = 3;
+     	
+     	assertEquals(expected, listing.getAverageRating());
+     }
+    
+    @Test
+    public void testChangeRented() {
+    	listing.changeRented();
+    	assertEquals(true,listing.isRented());
+    	listing.changeRented();
+    	assertEquals(false,listing.isRented());
     }
-
+    
     @Test
-    public void testNullBedrooms()
-    {
-        int isCreated = listing.getBedrooms();
-        isCreated = 0;
-    }
-
-    @Test
-    public void testNullBathrooms()
-    {
-        int isCreated = listing.getBathrooms();
-        isCreated = 0;
-    }
-
-    @Test
-    public void testNullRent()
-    {
-        double isCreated = listing.getRent();
-        isCreated = 0.0;
-    }
-
-    @Test
-    public void testNullName()
-    {
-        String isCreated = listing.getName();
-        isCreated = "";
-    }
-
-    @Test
-    public void testNullClassReviews()
-    {
-        ArrayList<Review> isCreated = listing.getClassReviews();
+    public void testToString() {
+    	for(String s : filters) {
+    		listing.addFilter(s);
+    	}
+    	String expected = "Academic Towers\nAddress: 123 School LN\nHost: cBang\nAverage Rating: No ratings\nDescription: n/a\nRented: No\nRent: 1200.0\nBedrooms: n/a\nBathrooms: n/a\nFilters: #cats #dogs #washer #dryer #parking";
+    	assertEquals(expected, listing.toString());
     }
 }
-
+    
