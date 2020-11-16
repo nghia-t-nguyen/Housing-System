@@ -73,5 +73,4 @@ class MessageBoxTest {
 		
 		assertEquals(sent,messageBox.getMessages().get(0));
 	}
-
 }

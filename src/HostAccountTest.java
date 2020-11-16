@@ -2,33 +2,41 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.junit.AfterEach;
-import org.junit.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HostAccountTest {
-	private static ArrayList<Listing> listing = new ArrayList<Listing>;
+	private ArrayList<Listing> listing;
+	private HostAccount hostAccount;
 		
-		@BeforeEach
-		public static void setup() {
-			HostAccount hostAccount = new HostAccount(null, 0, null, null);
-			ArrayList<Listing> listing = new ArrayList<Listing>;
+	@BeforeEach
+		public void setup() {
+			 hostAccount = new HostAccount("mLee", "123456".hashCode(), "Minho" , "Lee");
+			 listing = new ArrayList<Listing>();
 		}
 		
 		@AfterEach
-		public static void tearDown() {
+		public void tearDown() {
+			hostAccount = null;
 			listing.clear();
 		}
 
 		@Test
 		public void testWriteRenterReview() {
-			StudentAccount subject = new StudentAccount(null, 0, null, null, null);
-			subject.addAccountReview(new Review((null, 0, null)));
-		}
+			StudentAccount subject = new StudentAccount("jYang", 0, "Jeongin", "Yang", "0801");
+			Review review = new Review("Minho Lee", 0, "Hello");
+			hostAccount.writeRenterReview(subject, 0, "Hello"); 
 		
+			assertEquals(review, subject.getAccountReviews().get(0));
+		}
+	
 		@Test
-		public void testAddProperty() {
-			listing.add(null);
+		public void testGetProfile() {
+			hostAccount.addProperty(new Listing(hostAccount,"Academic Towers", "123 School LN", 1200));
+			String expected = "****Host****\nUsername: @mLee\nName: Minho Lee\nAverage Rating: No ratings\n-Academic Towers : 123 School LN";
+			assertEquals(expected, hostAccount.getProfile());
 		}
 		
 }
+
