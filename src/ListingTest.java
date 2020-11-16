@@ -1,15 +1,12 @@
-
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ListingTest {
-    private Listing listing = new Listing();
-    private HostAccount host = HostAccount.getInstance();
+    private Listing listing;
+    private HostAccount host;
 
     @BeforeEach
     public void setup(){
@@ -71,3 +68,4 @@ public class ListingTest {
         ArrayList<Review> isCreated = listing.getClassReviews();
     }
 }
+
