@@ -27,8 +27,12 @@ public class DataLoader {
 				String address = (String)listingJSON.get("address");
 				String description = (String)listingJSON.get("description");
 
-				//double rent = (double)listingJSON.get("rent");
-				double rent = ((Long)listingJSON.get("rent")).doubleValue();
+				double rent = 0.0;
+				if (listingJSON.get("rent") instanceof Long) {
+				  rent = ((Long) listingJSON.get("rent")).doubleValue();
+				} else {
+				  rent = ((double) listingJSON.get("rent"));
+				}
 				int bedrooms= ((Long)listingJSON.get("bedrooms")).intValue();
 				int bathrooms= ((Long)listingJSON.get("bathrooms")).intValue();
 				boolean rented = (boolean)listingJSON.get("rented");
