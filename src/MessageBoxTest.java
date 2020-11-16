@@ -65,5 +65,13 @@ class MessageBoxTest {
 		assertEquals(("To: sHwang\n\n" + sent), amyBox.getMessages().get(0));
 		
 	}
+	
+	@Test
+	public void testEmptyMessage() {
+		String sent = "";
+		messageBox.addMessage(sent);
+		
+		assertEquals(sent,messageBox.getMessages().get(0));
+	}
 
 }
