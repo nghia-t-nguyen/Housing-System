@@ -22,15 +22,8 @@ public class AccountTest {
 		accountReviews.clear();
 	}
 	
-	public boolean testEquals(Account other) {
-		if (username.equals(other.getUsername())) {
-			return true;
-		}
-		return false;
-	}
-	
 	public void testCompareTo() {
-		newAccount.equals(null); 
+		newAccount.equals(null);
 	}
 	
 	public void receiveMessage() {
